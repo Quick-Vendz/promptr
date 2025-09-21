@@ -1,86 +1,1335 @@
 # Quality Prefix
-masterpiece, best quality, ultra detailed
-high resolution, 8k, extremely detailed
-official art, beautiful and aesthetic
-absurdres, incredibly absurdres
+highres|highres, high_res,high_resolution,hires
+absurdres|absurdres, insaneres,very_high_resolution
+dress
+official_art
+white_dress
+black_dress
+official_alternate_costume|official_alternate_costume, alternate_costume_(official),official_alternate_outfit
+maid_headdress|maid_headdress, maid_cachusha,maid_headband
+dress_shirt
+lowres
+sleeveless_dress
+blue_dress
+expressionless|expressionless, emotionless,neutral_expression,unexpressive
+short_dress|short_dress, mini_dress,minidress
+red_dress
+frilled_dress|frilled_dress, frilly_dress,ruffled_dress
+undressing|undressing, strip,stripping,undress
+crescent|crescent, crescent_moon_symbol
+breast_press
+foreshortening
 
-# Character Features
-1girl|1girl, solo, female focus
-1boy|1boy, solo, male focus
-multiple girls|multiple girls, group
-multiple boys|multiple boys, group
-long hair|long hair, flowing hair
-short hair|short hair, bob cut
-blonde hair|blonde hair, golden hair
-brown hair|brown hair, chestnut hair
-black hair|black hair, dark hair
-red hair|red hair, auburn hair
-blue eyes|blue eyes, sapphire eyes
-green eyes|green eyes, emerald eyes
-brown eyes|brown eyes, amber eyes
+# Character Count
+1girl|1girl, 1girls, sole_female
+solo|solo, female_solo, solo_female
+multiple_girls
+1boy|1boy, 1boys, sole_male
+2girls|2girls, 2_girls, 2girl
+multiple_boys
+solo_focus
+2boys|2boys, 2boy
+multiple_views
+multiple_tails|multiple_tails, animal_tails, multi_tail, multi_tails
+multiple_persona|multiple_persona, quadruple_persona, quintuple_persona, triple_persona
+multiple_others
+multiple_4koma
+multiple_wings|multiple_wings, extra_wings
+multiple_crossover
+multiple_hair_bows
+multiple_rings
+multiple_bows
+multiple_horns
+multiple_belts
+multiple_earrings
+multiple_condoms
+multiple_sources
+multiple_monochrome
+multiple_braids
+multiple_straps
+multiple_riders
+multiple_swords
+multiple_piercings
+group_picture|group_picture, group_shot
+multiple_legs
+group_name|group_name, band_name
+multiple_heads
+group_hug
+multiple_moles
+multiple_drawing_challenge
+multiple_torii
+multiple_weapons
+multiple_monitors
+multiple_insertions
+multiple_hands
+multiple_hat_bows
+ophelia_phamrsolone
+wishiwashi_(solo)
+solopipb
+multiple_scars
+solokov_(okb-999)
+pt_imp_group
+group_profile
+solosis
+the_lego_group
+multiple_moons
+princess_leia_organa_solo|princess_leia_organa_solo, leia_organa, princess_leia
+multiple_cats
+multiple_fusions
+solomon_(fate)|solomon_(fate), solomon_(fate/grand_order)
+multiple_necklaces
+sola_(solo0730)
+multiple_halos
+south_dakota_(solo_concert)_(azur_lane)
+solokitsune
+princess_leia_organa_solo_(cosplay)
+tawawa_group
+multiple_hats
+han_solo
+multiple_panties
+multiple_wielding
+multiple_style_parody|multiple_style_parody, style_collage
+eva_solo
+twice_(group)
+multiple_bracelets
+solomon_(megido72)
+mashiro_(solopipb)
+group_battle
+sucking_on_multiple_breasts
+bad_multiple_views
+thompson_(solowingfh)
+pygmalion._(group)
+fams_(group)
+yuudachi_(the_bride_of_solomon)_(azur_lane)
+let_me_solo_her
+isis_(terrorist_group)
+multiple_shikishi
+claris_(group)
+solo_vivace_(hitokuirou)
+woruta_(soloistlist)
+quanxi's_group_(chainsaw_man)
+
+# Hair
+long_hair|long_hair, longhair
+short_hair|short_hair, short-hair, shorthair
+bangs
+blonde_hair|blonde_hair, blond, blond_hair, blonde
+brown_hair|brown_hair, brown-hair, brownhair, brunette
+black_hair|black_hair, black-hair, blackhair, dark_hair
+hair_ornament|hair_ornament, hair_accessories, hair_accessory, hair_decs
+hair_between_eyes|hair_between_eyes, bangs_between_eyes
+twintails|twintails, twin_tails, twintaiks, twintail
+very_long_hair|very_long_hair, hair_past_waist
+blue_hair|blue_hair, bluehair
+hair_ribbon|hair_ribbon, hair_ribbons, ribbon_in_hair, ribbons_in_hair
+ponytail|ponytail, long_ponytail, pony_tail
+purple_hair|purple_hair, lavender_hair, purple-hair, purplehair
+pink_hair|pink_hair, magenta_hair, pinkhair
+braid|braid, braided_hair, braids, hair_braid
+hair_bow|hair_bow, hair_bows, hairbow
+white_hair|white_hair, whitehair
+red_hair|red_hair, red_head, redhair, redhead
+hairband|hairband, hair_band
+multicolored_hair|multicolored_hair, multicolor_hair
+grey_hair|grey_hair, gray_hair
+green_hair|green_hair, greenhair
+hairclip|hairclip, barrette, hair_clip, hair_clips
+hair_flower|hair_flower, flower_hair_ornament, flower_in_hair, hair_flowers
+silver_hair
+blunt_bangs
+medium_hair|medium_hair, shoulder-length_hair
+hair_bun
+orange_hair
+hair_over_one_eye|hair_over_one_eye, hair_over_eye
+twin_braids|twin_braids, twin_braid, twinbraid, twinbraids
+shiny_hair
+side_ponytail|side_ponytail, side_tail, sidetail
+two-tone_hair|two-tone_hair, two-tone-hair, two_tone_hair
+streaked_hair|streaked_hair, highlights
+parted_bangs
+single_braid
+aqua_hair|aqua_hair, cyan_hair, teal_hair, turquoise_hair
+gradient_hair
+alternate_hairstyle|alternate_hairstyle, alternate_hair_style, alternative_hair_style, alternative_hairstyle
+floating_hair|floating_hair, hair_blowing, space_hair
+swept_bangs
+facial_hair
+low_twintails
+chair|chair, chairs
+wavy_hair
+female_pubic_hair|female_pubic_hair, pubic_hair_(female)
+hair_tubes|hair_tubes, hair_tube
+drill_hair|drill_hair, doriru, drillhair
+hair_intakes|hair_intakes, hair_vents
+single_hair_bun|single_hair_bun, bun, hair_bun, hairbun
+light_brown_hair|light_brown_hair, lightbrown_hair
+eyes_visible_through_hair|eyes_visible_through_hair, eye_through_hair
+antenna_hair|antenna_hair, antennae_hair, double_ahoge
+high_ponytail
+black_hairband
+x_hair_ornament
+hair_bobbles|hair_bobbles, ball_braids, hair_bobble
+short_twintails|short_twintails, pigtails
+spiked_hair|spiked_hair, spikey_hair, spiky_hair
+messy_hair|messy_hair, bed_head, morning_hair
+male_pubic_hair|male_pubic_hair, pubic_hair_(male)
+straight_hair
+hair_over_shoulder
+hair_flaps
+light_purple_hair
+side_braid
+short_hair_with_long_locks
+french_braid
+hair_scrunchie
+low_ponytail
+low-tied_long_hair|low-tied_long_hair, long_hair_tied_low
+hair_rings|hair_rings, hair_loop, hair_loops, hair_ring
+short_ponytail
+curly_hair|curly_hair, curls
+hand_in_own_hair|hand_in_own_hair, hand_in_hair, hand_on_hair
+asymmetrical_hair
+tied_hair|tied_hair, hair_tied
+folded_ponytail
+hair_down|hair_down, hairdown
+braided_ponytail
+eyebrows_hidden_by_hair|eyebrows_hidden_by_hair, eyebrows_behind_hair
+hairpin|hairpin, hair_pin, hairpins
+white_hairband
+star_hair_ornament
+hair_bell|hair_bell, bell_hair_ornament, hair_bells, hairbell
+crossed_bangs
+colored_inner_hair
+hair_tie|hair_tie, hair_ties, hairtie
+frog_hair_ornament
+asymmetrical_bangs|asymmetrical_bangs, asymmetric_bangs
+adjusting_hair
+alternate_hair_length|alternate_hair_length, alternative_hair_length
+heart_hair_ornament
+red_hairband
+butterfly_hair_ornament
+flipped_hair|flipped_hair, soto-hane
+hair_stick|hair_stick, hair_sticks
+food-themed_hair_ornament|food-themed_hair_ornament, food_hair_ornament, food_themed_hair_ornament
+
+# Eyes
+blue_eyes|blue_eyes, blueeyes, light_blue_eyes
+red_eyes|red_eyes, red_eye, redeyes
+brown_eyes|brown_eyes, browneyes, light_brown_eyes
+green_eyes|green_eyes, green-eyes, greeneyes
+purple_eyes|purple_eyes, light_purple_eyes, purpleeyes, violet_eyes
+closed_eyes|closed_eyes, eyes_closed
+yellow_eyes|yellow_eyes, amber_eyes, gold_eyes, golden_eyes
+one_eye_closed|one_eye_closed, wink
+pink_eyes
+black_eyes|black_eyes, dark_eyes
+aqua_eyes|aqua_eyes, cyan_eyes, teal_eyes, turquoise_eyes
+orange_eyes
+grey_eyes|grey_eyes, gray_eyes, silver_eyes
+eyelashes|eyelashes, eye_lashes
+mole_under_eye
+eyepatch|eyepatch, eye_patch
+half-closed_eyes|half-closed_eyes, eyes_half_closed
+third_eye|third_eye, 3rd_eye
+glowing_eyes
+semi-rimless_eyewear|semi-rimless_eyewear, half-rim_glasses, half_rim_glasses, semi-rimless_glasses
+eyewear_on_head|eyewear_on_head, glasses_on_head, sunglasses_on_head
+eye_contact
+eyeshadow|eyeshadow, eye_shadow
+red-framed_eyewear|red-framed_eyewear, red-framed_glasses, red-rimmed_glasses, red_framed_glasses
+black-framed_eyewear|black-framed_eyewear, black-framed_glasses
+empty_eyes|empty_eyes, dead_eyes
+under-rim_eyewear|under-rim_eyewear, under-rim_glasses, under_rim_glasses
+crying_with_eyes_open
+wide-eyed|wide-eyed, eyes_wide, shocked_eyes, wide_eyed
+colored_eyelashes|colored_eyelashes, aqua_eyelashes, blonde_eyelashes, blue_eyelashes
+multicolored_eyes
+one_eye_covered|one_eye_covered, covered_eye
+scar_across_eye|scar_across_eye, eye_scar
+round_eyewear|round_eyewear, round_glasses
+adjusting_eyewear|adjusting_eyewear, adjusting_glasses, adjusting_sunglasses
+eyeliner
+bags_under_eyes|bags_under_eyes, dark_circles, eye_circles, eyebags
+alternate_eye_color|alternate_eye_color, alternative_eye_color
+glowing_eye
+eyewear_removed|eyewear_removed, glasses_off, glasses_removed, sunglasses_removed
+one-eyed|one-eyed, one_eye, one_eyed, single_eye
+ringed_eyes
+tinted_eyewear|tinted_eyewear, colored_lenses
+white_eyes
+covered_eyes|covered_eyes, eyes_covered
+rolling_eyes|rolling_eyes, eye_roll, rolled_eyes, rolleyes
+rimless_eyewear|rimless_eyewear, rimless_glasses
+symbol_in_eye
+blank_eyes
+no_eyes
+sparkling_eyes|sparkling_eyes, sparkle_eyes
+extra_eyes|extra_eyes, multiple_eyes
+holding_eyewear|holding_eyewear, holding_glasses, holding_sunglasses
+solid_circle_eyes|solid_circle_eyes, ÔÇó_ÔÇó
+solid_oval_eyes
+crazy_eyes
+gradient_eyes
+red_eyeshadow
+v_over_eye
+half-closed_eye
+fisheye
+medical_eyepatch
+uneven_eyes
+bandage_over_one_eye|bandage_over_one_eye, bandaged_eye, bandages_over_one_eye
+heart-shaped_eyewear|heart-shaped_eyewear, heart-shaped_glasses, heart-shaped_sunglasses
+blue-framed_eyewear|blue-framed_eyewear, blue-framed_glasses
+heart_in_eye
+covering_eyes|covering_eyes, hands_over_eyes
+long_eyelashes
+star_in_eye|star_in_eye, stars_in_eye
+over-rim_eyewear|over-rim_eyewear, over-rim_glasses, over_rim_glasses
+flaming_eye|flaming_eye, burning_eye, fiery_eye
+eyepatch_bikini
+rubbing_eyes|rubbing_eyes, eye_rub, rubbing_eye, wiping_eyes
+pink-framed_eyewear|pink-framed_eyewear, pink-framed_glasses
+rectangular_eyewear|rectangular_eyewear, rectangular_glasses
+shading_eyes
+no_eyewear|no_eyewear, no_glasses
+grey-framed_eyewear|grey-framed_eyewear, silver-framed_eyewear
+looking_over_eyewear|looking_over_eyewear, looking_over_glasses, looking_over_sunglasses
+eye_mask
+eye_focus|eye_focus, eyes_focus
+yellow-framed_eyewear|yellow-framed_eyewear, gold-framed_eyewear, yellow-framed_glasses
+green-framed_eyewear|green-framed_eyewear, green-framed_glasses
+white-framed_eyewear|white-framed_eyewear, white-framed_glasses
+blood_from_eyes|blood_from_eyes, blood_tears, bloody_tears, crying_blood
+narrowed_eyes
+hidden_eyes
+eyewear_on_headwear
+red-tinted_eyewear
+hand_on_eyewear|hand_on_eyewear, hand_on_glasses
+brown-framed_eyewear|brown-framed_eyewear, brown-framed_glasses
+blue_eyeshadow
+eyewear_strap|eyewear_strap, eyewear_chain, glasses_chain
+button_eyes
+orange-tinted_eyewear
+artificial_eye
+covering_one_eye|covering_one_eye, covering_eye
+hat_over_one_eye
+red_eyeliner
 
 # Clothing
-school uniform|school uniform, serafuku
-dress|dress, elegant dress
-casual clothes|casual clothes, everyday wear
-winter clothes|winter clothes, warm clothing
-summer clothes|summer clothes, light clothing
-swimsuit|swimsuit, bikini
-formal wear|formal wear, suit, evening dress
-traditional clothes|traditional clothes, kimono, yukata
+skirt
+shirt|shirt, shirt_only, shirts
+gloves|gloves, glove
+long_sleeves|long_sleeves, long_sleeve
+underwear|underwear, shitagi, undergarments
+school_uniform|school_uniform, school_girl, school_uniforms, schoolgirl
+panties|panties, pantie, pantsu, panty
+jacket
+swimsuit|swimsuit, bathing_suit, mizugi, swim_suit
+white_shirt|white_shirt, white_blouse
+short_sleeves
+bikini
+pleated_skirt
+shoes|shoes, shoe
+sleeveless|sleeveless, no_sleeves
+black_gloves|black_gloves, black_glove
+elbow_gloves|elbow_gloves, long_gloves, opera_gloves
+puffy_sleeves|puffy_sleeves, puffy_shoulders
+collared_shirt|collared_shirt, collared_blouse
+pants|pants, long_pants, trousers
+black_thighhighs
+white_gloves|white_gloves, white_glove
+miniskirt|miniskirt, mini_skirt, short_skirt
+wide_sleeves
+fingerless_gloves|fingerless_gloves, fingerless_glove
+black_skirt
+bra
+white_panties
+uniform|uniform, uniforms
+bracelet|bracelet, bracelets
+white_thighhighs
+open_jacket|open_jacket, open_blazer, open_track_jacket
+puffy_short_sleeves|puffy_short_sleeves, short_puffy_sleeves
+blue_skirt
+coat
+black_jacket|black_jacket, black_blazer
+sleeves_past_wrists|sleeves_past_wrists, sleeves_past_wrist
+black_panties
+one-piece_swimsuit|one-piece_swimsuit, one-piece, one_piece_swimsuit
+black_shirt|black_shirt, black_blouse
+open_shirt|open_shirt, open_blouse, openshirt, shirt_open
+sleeveless_shirt|sleeveless_shirt, sleeveless_blouse
+no_bra
+military_uniform
+no_panties|no_panties, nopan
+side-tie_bikini_bottom|side-tie_bikini_bottom, side-tie_bikini, side_tie_bikini
+black_bikini|black_bikini, black_bikini_bottom, black_bikini_top
+red_skirt
+thigh_boots|thigh_boots, thighboots, thighhigh_boots
+white_bikini|white_bikini, white_bikini_bottom, white_bikini_top
+plaid_skirt|plaid_skirt, tartan_skirt
+shirt_lift|shirt_lift, lift_shirt, shirt_up, shirtlift
+no_shoes
+skirt_lift|skirt_lift, lift_skirt, lifted_skirt, lifting_skirt
+black_pants
+underwear_only
+school_swimsuit|school_swimsuit, school_swimsuits, sukimizu, sukumizu
+knee_boots|knee_boots, kneeboots, kneehigh_boots
+white_skirt
+white_jacket
+frilled_skirt|frilled_skirt, frilly_skirt, ruffled_skirt
+blue_shirt|blue_shirt, blue_blouse
+juliet_sleeves|juliet_sleeves, puffy_shoulder_long_sleeves, puffy_shoulders_long_sleeves
+white_socks|white_socks, white_kneehighs
+frilled_sleeves|frilled_sleeves, ruffled_sleeves
+blue_jacket|blue_jacket, blue_blazer
+green_skirt
+pink_panties
+no_pants|no_pants, no_skirt, pantless, pantsless
+t-shirt|t-shirt, t_shirt, tshirt
+black_bra
+striped_panties|striped_panties, shimapan, stripped_panties
+black_socks|black_socks, black_kneehighs
+single_thighhigh|single_thighhigh, one_thighhigh, thighhigh
+skirt_set
+red_shirt|red_shirt, red_blouse
+side-tie_panties|side-tie_panties, himopan, side_tie_panties
+hakama_skirt|hakama_skirt, hakama
+bow_panties|bow_panties, panty_bow
+bikini_top_only|bikini_top_only, bikini_top
+string_bikini
+hooded_jacket
+micro_bikini|micro_bikini, microbikini
+grey_shirt|grey_shirt, gray_shirt, grey_blouse
+striped_thighhighs
+red_jacket|red_jacket, red_blazer
+upskirt
+blue_bikini|blue_bikini, blue_bikini_bottom, blue_bikini_top
+brown_gloves
+sleeves_rolled_up|sleeves_rolled_up, folded_sleeves, rolled-up_sleeves, rolled_sleeves
+grey_skirt|grey_skirt, gray_skirt
+red_gloves
+high_heel_boots|high_heel_boots, heel_boots
+pencil_skirt
+single_glove|single_glove, one_glove
+pink_skirt
+sleeves_past_fingers
+panties_under_pantyhose|panties_under_pantyhose, panties_behind_pantyhose, panties_below_pantyhose, panties_under_pantiehose
+white_bra
+puffy_long_sleeves|puffy_long_sleeves, long_puffy_sleeves
+
+# Accessories
+hat
+ribbon|ribbon, ribbons
+bow|bow, bows
+jewelry|jewelry, jewelery, jewellery
+earrings|earrings, aqua_earrings, black_earrings, blue_earrings
+glasses|glasses, megane, meganekko, meganeko
+bowtie|bowtie, bow_tie, neck_bow
+necklace
+bag|bag, bags
+mosaic_censoring|mosaic_censoring, mosaic_censor, pixel_censor, rough_censoring
+red_bow
+red_ribbon
+black_ribbon
+hatsune_miku
+black_bow
+neck_ribbon
+witch_hat|witch_hat, witches_hat, witchhat
+blue_bow
+sunglasses|sunglasses, shades
+ring|ring, rings
+hat_ribbon|hat_ribbon, hat_ribbons, hatband
+white_bow
+blue_ribbon
+pink_bow
+hat_bow
+ribbon_trim
+red_bowtie
+covering
+convenient_censoring|convenient_censoring, convenient_censorship
+tokin_hat|tokin_hat, tokin
+white_ribbon
+yellow_bow
+green_bow
+o-ring|o-ring, o_ring
+santa_hat|santa_hat, christmas_hat, stocking_cap
+tearing_up
+fingering
+pink_ribbon
+bowl|bowl, bowls
+hat_ornament
+school_bag|school_bag, schoolbag
+sun_hat|sun_hat, sunhat
+single_earring|single_earring, one_earring
+hat_removed|hat_removed, hat_off
+purple_bow
+bow_(weapon)|bow_(weapon), bow_and_arrow
+military_hat|military_hat, military_cap
+mini_hat|mini_hat, minihat, tiny_hat
+yellow_ribbon
+hoop_earrings|hoop_earrings, hoop_earring
+striped_bow
+top_hat|top_hat, magician_hat, tophat
+handbag|handbag, hand_bag, purse
+black_bowtie
+shoulder_bag
+covering_breasts|covering_breasts, breast_cover, breast_covering, breasts_covering
+orange_bow
+covering_mouth|covering_mouth, hands_over_mouth, hiding_mouth
+sailor_hat|sailor_hat, sailor_cap
+straw_hat
+green_ribbon
+purple_ribbon
+hat_flower
+drawstring|drawstring, drawstrings
+pointless_censoring|pointless_censoring, pointless_censorship
+cabbie_hat
+blue_bowtie
+wedding_ring|wedding_ring, wedding_band
+stud_earrings|stud_earrings, ear_stud, ear_studs
+back_bow
+heart_of_string
+string|string, strings
+holding_bag|holding_bag, holding_backpack, holding_purse
+ribbon_choker
+leg_ribbon
+o-ring_top|o-ring_top, o-ring_bikini_top, o_ring_top
+hat_feather|hat_feather, feather_hat_ornament, feather_in_hat
+out-of-frame_censoring|out-of-frame_censoring, out_of_frame_censoring
+star_earrings|star_earrings, star_earring
+polka_dot_bow
+cross_necklace
+star_hat_ornament
+frilled_bow
+arm_ribbon
+syringe
+neck_ring
+himekaidou_hatate
+rainbow|rainbow, rainbows
+heart_earrings|heart_earrings, heart_earring
+mini_top_hat|mini_top_hat, mini_tophat, tiny_top_hat
+fringe_trim|fringe_trim, fringe
+yellow_bowtie
+hata_no_kokoro
+bead_necklace
+white_bowtie
+striped_bowtie
+horn_ribbon|horn_ribbon, horn_ribbons
+animal_hat
+purple_bowtie
+holding_bow_(weapon)
 
 # Poses & Actions
-standing|standing, upright pose
-sitting|sitting, seated pose
-lying down|lying down, reclining
-walking|walking, in motion
-running|running, dynamic pose
-looking at viewer|looking at viewer, eye contact
-looking away|looking away, averted gaze
-arms crossed|arms crossed, defensive pose
-hands on hips|hands on hips, confident pose
+looking_at_viewer|looking_at_viewer, pov_eye_contact
+holding|holding, hold, holding_object
+sitting|sitting, sit, sitting_down
+standing
+lying|lying, laying, laying_down, lying_down
+looking_back|looking_back, looking_over_shoulder, turning
+hand_up|hand_up, hand_raised, one_hand_raised, raised_hand
+holding_weapon
+looking_at_another
+fingernails|fingernails, finger_nails, fingernail
+hand_on_hip|hand_on_hip, hand_on_waist
+looking_to_the_side|looking_to_the_side, looking_aside, looking_to_side
+hands_up|hands_up, hands_raised
+holding_hands|holding_hands, hand_holding, handholding, holding_another's_hand
+looking_away|looking_away, averted_eyes, averting_eyes
+holding_sword|holding_sword, holding_katana
+looking_down
+flying_sweatdrops|flying_sweatdrops, flying_sweatdrop
+crossed_arms|crossed_arms, arms_crossed, arms_folded, folded_arms
+standing_on_one_leg|standing_on_one_leg, on_one_foot, on_one_leg, standing_on_one_foot
+crossed_legs|crossed_legs, crossed_legs_(lying), crossed_legs_(sitting), crossed_legs_(standing)
+holding_food
+looking_up
+own_hands_together|own_hands_together, hands_together
+pointing
+hand_on_own_chest|hand_on_own_chest, hand_on_chest, hand_to_chest, hand_to_own_chest
+clenched_hand|clenched_hand, clenched_fist, closed_fist, fist
+holding_gun
+interlocked_fingers|interlocked_fingers, interlaced_fingers, intertwined_fingers
+hand_fan|hand_fan, fan, fan_(handheld), fans
+holding_cup|holding_cup, holding_drinking_glass, holding_glass, holding_mug
+index_finger_raised|index_finger_raised, finger_raised, raised_finger
+finger_to_mouth|finger_to_mouth, finger_on_lips, finger_on_mouth, finger_to_lips
+hand_on_own_face|hand_on_own_face, hand_on_face, hand_to_face
+handgun|handgun, hand_gun, pistol
+clenched_hands|clenched_hands, clenched_fists, closed_fists, fists
+flying
+holding_book
+long_fingernails
+walking
+hands|hands, hand
+holding_phone|holding_phone, holding_cellphone
+hand_on_another's_head
+hands_on_hips|hands_on_hips, akimbo, hands_on_waist
+animal_hands|animal_hands, animal_paws, paw, paws
+running|running, run
+paw_pose|paw_pose, cat_pose, dog_pose
+hand_in_pocket
+hand_between_legs|hand_between_legs, hands_between_legs
+pose|pose, posing
+outstretched_hand|outstretched_hand, hand_outstretched, hands_outstretched, outstretched_hands
+holding_umbrella
+waving|waving, wave
+hands_in_pockets
+holding_staff
+sitting_on_person|sitting_on_person, sitting_on
+sharp_fingernails
+holding_clothes
+hand_on_own_cheek|hand_on_own_cheek, hand_on_cheek, hand_to_cheek
+hand_on_headwear|hand_on_headwear, hand_on_hat
+hand_on_another's_shoulder
+holding_flower
+hand_to_own_mouth|hand_to_own_mouth, hand_on_lips, hand_to_lip, hand_to_mouth
+hands_on_own_chest|hands_on_own_chest, hands_on_chest, hands_to_chest
+holding_poke_ball|holding_poke_ball, holding_pokeball
+pov_hands|pov_hands, hand_pov
+claw_pose
+own_hands_clasped|own_hands_clasped, clasped_hands, hands_clasped, hands_clasped
+hands_on_own_face|hands_on_own_face, hands_on_face, hands_to_face
+heart_hands
+hand_on_another's_face
+holding_bottle
+holding_fan
+holding_tray
+hand_on_own_head
+holding_knife
+hand_on_own_chin|hand_on_own_chin, hand_on_chin, hand_to_chin
+looking_afar
+open_hand
+holding_microphone
+holding_polearm|holding_polearm, holding_lance, holding_naginata, holding_spear
+hand_on_own_knee|hand_on_own_knee, hand_on_knee
+hand_on_own_thigh
+holding_animal|holding_animal, holding_bat_(animal)
+holding_another's_wrist|holding_another's_wrist, grabbing_another's_wrist, wrist_grab
+handcuffs|handcuffs, handcuff
+holding_gift|holding_gift, holding_present
+holding_fruit|holding_fruit, holding_apple, holding_peach, holding_strawberry
+handheld_game_console|handheld_game_console, handheld
+sitting_on_lap|sitting_on_lap, lap_sitting, sitting_in_lap
+pointing_at_viewer|pointing_at_viewer, pov_pointing
+holding_stuffed_toy|holding_stuffed_toy, holding_stuffed_animal
+holding_plate
+holding_bouquet
+holding_instrument|holding_instrument, holding_guitar, holding_violin
+holding_chopsticks
+standing_split
+between_fingers
+holding_spoon
+hand_on_own_stomach|hand_on_own_stomach, hand_on_belly, hand_on_own_belly, hand_on_stomach
 
 # Expressions
-smile|smile, happy expression
-serious|serious, stern expression
-blush|blush, embarrassed, shy
-angry|angry, mad, furious
-sad|sad, melancholy, depressed
-surprised|surprised, shocked, amazed
-neutral expression|neutral expression, calm
+blush|blush, blushing, flush, flushed
+smile|smile, :), :}, smiling
+open_mouth|open_mouth, mouth_open
+closed_mouth
+nose_blush
+frown|frown, :(, :{, frowning
+mouth_hold
+blush_stickers|blush_stickers, blush_sticker
+wavy_mouth
+happy
+light_smile|light_smile, faint_smile
+surprised|surprised, shock, shocked, startled
+mole_under_mouth
+angry|angry, anger, mad
+happy_birthday
+light_blush
+serious|serious, stern
+full-face_blush|full-face_blush, full_face_blush
+mouth_mask|mouth_mask, face_mask
+covered_mouth|covered_mouth, hidden_mouth, mouth_covered
+chestnut_mouth
+triangle_mouth
+food_in_mouth
+happy_new_year
+evil_smile
+smile_precure!|smile_precure!, glitter_force, smile_precure
+sad|sad, sadness
+danganronpa:_trigger_happy_havoc|danganronpa:_trigger_happy_havoc, danganronpa_1
+body_blush
+seductive_smile
+light_frown
+usada_pekora
+ear_blush
+split_mouth|split_mouth, disconnected_mouth
+condom_in_mouth
+no_mouth
+stardust_crusaders
+sideways_mouth|sideways_mouth, cheek_mouth, side_mouth
+spoken_blush
+blood_from_mouth|blood_from_mouth, bloody_mouth, mouthbleed
+happy_halloween
+heart_in_mouth
+happy_valentine|happy_valentine, happy_valentine's_day
+clothes_in_mouth
+mouth_drool
+nervous_smile
+don-chan_(usada_pekora)
+smiley_face
+hino_akane_(smile_precure!)|hino_akane_(smile_precure!), hino_akane_(precure)
+false_smile|false_smile, fake_smile
+happy_tears
+sidesaddle
+crazy_smile
+mouth_veil
+yamato-no-kami_yasusada
+dot_mouth
+utensil_in_mouth|utensil_in_mouth, fork_in_mouth, spoon_in_mouth
+izumi-no-kami_kanesada
+mouth_pull
+mole_above_mouth
+extra_mouth
+prinz_eugen_(unfading_smile)_(azur_lane)
+rectangular_mouth|rectangular_mouth, :[]
+scarf_over_mouth
+cure_happy
+toast_in_mouth
+drinking_straw_in_mouth|drinking_straw_in_mouth, straw_in_mouth_(drinking)
+saddle
+goodsmile_racing
+sado_(kancolle)|sado_(kancolle), sado_(kantai_collection)
+usada_hikaru|usada_hikaru, rabi_en_rose
+yamamura_sadako
+osashin_(osada)|osashin_(osada), shin_osada
+sadism
+stitched_mouth
+tony_guisado
+stalk_in_mouth|stalk_in_mouth, grass_in_mouth, straw_in_mouth, twig_in_mouth
+flower_in_mouth
+scar_on_mouth|scar_on_mouth, mouth_scar
+blood_in_mouth
+nousagi_(usada_pekora)
+surprised_arms
+mouth
+kawakami_sadayo
+in_mouth
+pipe_in_mouth
+forced_smile
+sadamoto_yoshiyuki
+dsmile
+happy_facial
+candy_(smile_precure!)|candy_(smile_precure!), candy_(precure)
+asada_hachi|asada_hachi, sayshownen
+square_mouth
+wiping_mouth
+glasgow_smile
+chrono_crusade|chrono_crusade, chrno_crusade
+v_over_mouth
+kasen_kanesada
+full_mouth|full_mouth, mouth_full
+shoulder_blush
+
+# Body Features
+bare_shoulders|bare_shoulders, bare_shoulder, bareshoulders
+shorts|shorts, short_pants
+spread_legs|spread_legs, legs_spread, open_legs, spread_leg
+armpits|armpits, armpit, showing_armpits
+black_legwear|black_legwear, black_kneehighs, black_leggings, black_pantyhose
+off_shoulder|off_shoulder, off-shoulder, off_shoulders
+armor|armor, armour
+arm_up|arm_up, arm_raised, one_arm_up, raised_arm
+arms_up|arms_up, arms_above, arms_above_head, arms_raised
+white_legwear|white_legwear, white_kneehighs, white_leggings, white_pantyhose
+legs|legs, leg
+bare_arms
+short_shorts|short_shorts, booty_shorts, hot_pants, hotpants
+clothing_cutout
+bare_legs
+arm_support
+highleg
+arms_behind_back|arms_behind_back, arms_behind, hands_behind_back
+thick_thighs|thick_thighs, big_thighs, fat_thighs, thighthick
+black_shorts
+leg_up|leg_up, one_leg_raised
+thick_eyebrows
+outstretched_arms|outstretched_arms, arms_outstretched
+outstretched_arm|outstretched_arm, arm_outstretched
+polearm
+bike_shorts|bike_shorts, biker_shorts, spandex_shorts, spats
+shoulder_armor|shoulder_armor, shoulder_armour
+armband|armband, arm_band, armbands
+arms_behind_head|arms_behind_head, hands_behind_head
+torn_legwear|torn_legwear, ripped_pantyhose, torn_pantyhose, torn_thighhighs
+clothing_aside|clothing_aside, clothes_aside
+striped_legwear|striped_legwear, striped_kneehighs, striped_leggings, striped_pantyhose
+armlet|armlet, arm_bracelets, armlets
+between_legs
+heavy_breathing|heavy_breathing, panting
+highleg_leotard
+cropped_legs
+legs_up
+arm_behind_back|arm_behind_back, hand_behind_back
+asymmetrical_legwear
+arm_at_side
+legs_apart
+arm_behind_head|arm_behind_head, hand_behind_head
+denim_shorts|denim_shorts, daisy_dukes, daisydukes, jean_shorts
+blue_shorts
+long_legs
+v_arms|v_arms, v-arms
+legs_together|legs_together, knees_together, knees_together_feet_together
+league_of_legends
+white_shorts
+the_legend_of_zelda|the_legend_of_zelda, legend_of_zelda, zelda_no_densetsu
+bandaged_arm|bandaged_arm, bandaged_arms
+short_eyebrows
+spread_arms|spread_arms, arms_spread
+tall_image
+arms_at_sides
+lowleg
+arm_warmers|arm_warmers, armwarmers
+leg_lift|leg_lift, leg_raise, leg_raised, raised_leg
+brown_legwear|brown_legwear, brown_kneehighs, brown_leggings, brown_pantyhose
+arm_grab|arm_grab, arm_hold, grabbing_arm
+uneven_legwear|uneven_legwear, asymmetrical_legwear
+earmuffs|earmuffs, ear_muffs, earmuff
+japanese_armor|japanese_armor, japanese_armour, samurai_armor
+toeless_legwear|toeless_legwear, toeless_socks
+hugging_own_legs|hugging_own_legs, hugging_knees, hugging_legs, knee_hug
+print_legwear|print_legwear, print_kneehighs, print_leggings, print_pantyhose
+bathing
+petite
+lace-trimmed_legwear|lace-trimmed_legwear, lace-trimmed_kneehighs, lace-trimmed_socks, lace-trimmed_thighhighs
+red_legwear|red_legwear, red_kneehighs, red_leggings, red_pantyhose
+arm_tattoo
+danganronpa_v3:_killing_harmony|danganronpa_v3:_killing_harmony, danganronpa_v3, new_danganronpa_v3
+mismatched_legwear
+arm_strap
+red_shorts
+fishnet_legwear|fishnet_legwear, fishnet_pantyhose, fishnet_stockings, fishnet_thighhighs
+legwear_under_shorts|legwear_under_shorts, leggings_under_shorts, pantyhose_under_shorts, shorts_over_leggings
+short_kimono
+shoulder_blades
+over_shoulder
+mechanical_arms|mechanical_arms, robot_arms, robotic_arms
+shoulder_cutout
+bandaged_leg
+leg_grab|leg_grab, grabbing_leg
+arm_cannon
+bound_arms|bound_arms, arms_bound, arms_tied, tied_arms
+shoulder_tattoo
+leggings
+purple_legwear|purple_legwear, purple_kneehighs, purple_leggings, purple_pantyhose
+arm_under_breasts
+shoulder_pads|shoulder_pads, shoulder_pad, shoulderpads
+m_legs
+arm_garter
+arm_guards|arm_guards, arm_guard
+armpit_crease
+off-shoulder_sweater
+micro_shorts
+grey_shorts|grey_shorts, gray_shorts
+grey_legwear|grey_legwear, gray_kneehighs, gray_leggings, gray_legwear
 
 # Settings
-outdoors|outdoors, outside, nature
-indoors|indoors, interior, inside
-classroom|classroom, school setting
-bedroom|bedroom, private room
-kitchen|kitchen, cooking area
-beach|beach, seaside, ocean
-forest|forest, woods, trees
-city|city, urban, cityscape
-park|park, public space
+simple_background
+white_background
+outdoors|outdoors, outdoor, outside
+sky
+cloud|cloud, clouds
+indoors
+grey_background|grey_background, gray_background
+star_(symbol)
+blue_sky
+gradient_background
+sparkle|sparkle, sparkles, sparkling
+blurry_background
+blue_background
+transparent_background|transparent_background, transparent_gif, transparent_png
+beach
+moon
+sunlight|sunlight, sunshine
+pink_background
+cloudy_sky
+black_background
+building|building, buildings
+star_(sky)|star_(sky), stars_(sky)
+night_sky
+love_live!_school_idol_project
+yellow_background
+red_background
+full_moon|full_moon, fullmoon
+two-tone_background
+broom|broom, broomstick
+starry_sky
+brown_background
+purple_background
+green_background
+sunset
+city
+love_live!_sunshine!!
+orange_background
+sun
+sunflower|sunflower, sunflowers
+electricity
+bishoujo_senshi_sailor_moon
+classroom|classroom, class_room
+beachball|beachball, beach_ball
+lucky_star
+cityscape
+school_desk
+star-shaped_pupils
+polka_dot_background|polka_dot_background, polka-dot_background
+office_lady|office_lady, officelady, ol
+star_print
+idolmaster_cinderella_girls_starlight_stage
+fate_testarossa|fate_testarossa, fate_t_harlaown, fate_testarossa_harlaown
+striped_background
+sunbeam|sunbeam, crepuscular_rays, god_rays, light_shaft
+tokyo_afterschool_summoners|tokyo_afterschool_summoners, housamo, tokyo_houkago_summoners
+bedroom
+mushroom|mushroom, mushrooms
+bathroom
+beige_background
+starry_background|starry_background, star_background
+joseph_joestar
+checkered_background
+broom_riding|broom_riding, broomriding, riding_broom, sitting_on_broom
+high_school_dxd|high_school_dxd, highschool_dxd
+dappled_sunlight|dappled_sunlight, komorebi, sunlight_through_trees
+multicolored_background|multicolored_background, colorful_background
+joseph_joestar_(young)
+beach_umbrella
+aqua_background|aqua_background, cyan_background
+love_live!_nijigasaki_high_school_idol_club|love_live!_nijigasaki_high_school_idol_club, perfect_dream_project
+dark_background
+hammer_(sunset_beach)|hammer_(sunset_beach), aenobas
+phantasy_star
+kitsune
+asuna_(sao)
+kitchen
+tsundere
+argyle_background|argyle_background, diamond_background
+phantasy_star_online_2
+starfish
+heart_background
+cloud_strife
+halftone_background
+school
+red_moon|red_moon, blood_moon
+photo_background|photo_background, anime_in_real_life
+asuna_(blue_archive)
+sailor_moon|sailor_moon, sailormoon
+love_live!_school_idol_festival
+background_text
+gradient_sky
+shooting_star|shooting_star, shooting_stars
+jonathan_joestar
+matsunaga_kouyou
+orange_sky
+city_lights
+sparkle_background
+moonlight
+star_sapphire|star_sapphire, starlight_starsapphire
+sunburst
 
-# Lighting & Atmosphere
-natural lighting|natural lighting, daylight
-golden hour|golden hour, sunset lighting
-night|night, dark, moonlight
-studio lighting|studio lighting, professional
-soft lighting|soft lighting, gentle illumination
-dramatic lighting|dramatic lighting, cinematic
+# Objects
+weapon|weapon, weapons
+flower|flower, flowers
+sword|sword, swords
+scarf|scarf, muffler
+tree|tree, trees
+gun|gun, firearm, guns
+book|book, books
+window
+bed
+bed_sheet|bed_sheet, bed_sheets, bedsheet, bedsheets
+headphones|headphones, headphone
+on_bed
+scar|scar, scars
+phone|phone, telephone
+table
+cardigan
+remilia_scarlet
+cellphone|cellphone, cell_phone, keitai, mobile_phone
+plant|plant, plants
+flandre_scarlet
+white_flower
+red_flower
+gundam
+microphone|microphone, mic
+carrying|carrying, carry
+smartphone|smartphone, smart_phone
+scar_on_face|scar_on_face, facial_scar
+pink_flower
+ribbed_sweater
+blue_flower
+red_scarf
+street_fighter|street_fighter, streetfighter
+open_book
+card|card, cards
+yellow_flower
+palm_tree|palm_tree, palm_trees
+card_(medium)
+door|door, doors
+purple_flower
+sword_art_online
+bookshelf|bookshelf, bookcase, bookshelves
+white_scarf
+car|car, cars
+toaru_kagaku_no_railgun|toaru_kagaku_no_railgun, a_certain_scientific_railgun, to_aru_kagaku_no_railgun
+potted_plant|potted_plant, potted_plants
+carrot|carrot, carrots
+computer
+open_cardigan|open_cardigan, open_sweater
+princess_carry|princess_carry, bridal_carry
+scared|scared, afraid, fear
+raiden_shogun|raiden_shogun, baal_(genshin_impact), raiden_(genshin_impact), raiden_shogun_(genshin_impact)
+black_scarf
+huge_weapon|huge_weapon, bfg, huge_gun, huge_sword
+head_scarf|head_scarf, headscarf
+headphones_around_neck
+scar_on_cheek|scar_on_cheek, cheek_scar
+id_card
+earphones
+sliding_doors|sliding_doors, sliding_door
+blue_scarf
+submachine_gun
+christmas_tree
+cardcaptor_sakura|cardcaptor_sakura, card_captor_sakura, ccs
+playing_card|playing_card, playing_cards
+planted|planted, planted_weapon
+brown_cardigan
+plaid_scarf
+gundam_00|gundam_00, gundam00
+cardboard_box|cardboard_box, danbooru
+street
+elsword
+bare_tree|bare_tree, dead_tree
+lily_(flower)|lily_(flower), lillies
+book_stack|book_stack, stacked_books
+trading_card|trading_card, trading_cards
+water_gun|water_gun, squirt_gun, water_pistol, watergun
+microphone_stand
+flower_knight_girl
+flower_field
+wo-class_aircraft_carrier|wo-class_aircraft_carrier, wo-class_(kantai_collection)
+weapon_on_back|weapon_on_back, sword_on_back
+notebook
+striped_scarf
+machine_gun|machine_gun, machinegun
+flower_knot
+gundam_build_fighters
+planted_sword|planted_sword, sword_in_ground
+gundam_seed
+blood_on_weapon|blood_on_weapon, bloody_sword, bloody_weapon
+grey_cardigan
+brown_scarf
+black_flower
+glowing_weapon
+macaron
+pink_scarf
+energy_sword|energy_sword, light_sword
+open_door
+mascara
+keyboard_(computer)|keyboard_(computer), computer_keyboard
+orange_flower
 
-# Art Styles
-anime|anime, manga style
-realistic|realistic, photorealistic
-semi-realistic|semi-realistic, stylized
-chibi|chibi, cute, deformed
-sketch|sketch, rough drawing
-watercolor|watercolor, painted style
+# Colors
+greyscale|greyscale, b&w, black_and_white, grayscale
+censored|censored, censor, censoring
+black_footwear|black_footwear, black_boots, black_shoes
+black_pantyhose
+uncensored|uncensored, descensored, uncensoring
+black_headwear|black_headwear, black_hat
+covered_navel|covered_navel, clothed_navel
+colored_skin
+white_headwear|white_headwear, white_hat
+black_choker
+brown_footwear|brown_footwear, brown_boots, brown_shoes
+white_footwear|white_footwear, white_boots, white_shoes
+granblue_fantasy
+blue_sailor_collar
+red_necktie
+red_footwear|red_footwear, red_boots, red_shoes
+blue_archive
+black_nails|black_nails, black_fingernails
+white_apron
+black_leotard
+feathered_wings|feathered_wings, feather_wings
+red_nails|red_nails, red_fingernails
+red_headwear|red_headwear, red_hat
+multicolored_clothes|multicolored_clothes, multicolored_clothing
+red_neckerchief
+black_necktie
+white_border
+pink_nails|pink_nails, pink_fingernails
+blue_headwear|blue_headwear, blue_hat
+spot_color|spot_color, spot_colors
+colored_sclera
+blue_nails|blue_nails, blue_fingernails
+idolmaster_shiny_colors|idolmaster_shiny_colors, shiny_colors
+black_wings|black_wings, black_wing, dark_wings
+white_pantyhose
+black_sailor_collar
+black_serafuku
+blue_footwear|blue_footwear, blue_boots, blue_shoes
+white_skin
+white_pupils
+blue_theme
+white_sailor_collar
+brown_pantyhose
+black_belt
+black_vest
+red_rose
+blue_necktie
+pink_lips|pink_lips, pink_lipstick
+white_kimono|white_kimono, white_yukata
+white_leotard
+green_headwear|green_headwear, green_hat
+blue_skin
+alternate_color|alternate_color, alternate_colors, alternative_color
+white_wings
+pink_footwear|pink_footwear, pink_boots, pink_shoes
+black_bodysuit
+brown_headwear|brown_headwear, brown_hat
+blue_kimono|blue_kimono, blue_yukata
+black_sclera
+red_cape
+purple_nails|purple_nails, lavender_nails, purple_fingernails
+red_vest
+yellow_ascot
+black_cape
+checkered_clothes|checkered_clothes, checkered_clothing
+red_lips|red_lips, red_lipstick
+blazblue
+brown_belt
+white_sweater
+pink_headwear|pink_headwear, pink_hat
+red_kimono|red_kimono, red_yukata
+red_hakama
+blue_leotard
+red_choker
+blue_rose
+black_collar
+white_outline
+black_sweater
+black_border
+pink_kimono|pink_kimono, pink_yukata
+yellow_neckerchief
+black_kimono|black_kimono, black_yukata
+purple_headwear|purple_headwear, purple_hat
+green_skin
+blue_vest
+red_ascot
+colorized
+watercolor_(medium)|watercolor_(medium), watercolor, watercolour
+blue_neckerchief
+red_leotard
+green_nails|green_nails, green_fingernails
+checkered_floor
+white_cape
+purple_footwear|purple_footwear, purple_boots, purple_shoes
+black_cat|black_cat, black_cat_(animal)
+black_hoodie
+black_neckerchief
+white_capelet
+white_rose
+white_choker
 
-# Negative Prompts
-low quality, worst quality, bad anatomy
-blurry, pixelated, jpeg artifacts
-bad hands, extra fingers, missing fingers
-bad face, deformed, ugly
-watermark, signature, text
-poorly drawn, amateur, sketch
-noise, grain, compression artifacts
+# Art Style
+heart|heart, <3, hearts
+parted_lips
+artist_name
+sketch|sketch, rough, rough_sketch
+artist_request|artist_request, tagme_(artist)
+banned_artist
+garter_straps|garter_straps, garter_strap
+traditional_media|traditional_media, handdrawn
+heart-shaped_pupils|heart-shaped_pupils, heart_shaped_pupils
+partial_commentary
+artoria_pendragon_(fate)|artoria_pendragon_(fate), artoria_pendragon_(all)
+breasts_apart
+light_particles|light_particles, dust_particles
+spoken_heart
+partially_submerged
+jpeg_artifacts|jpeg_artifacts, jpeg_artefacts, jpegartifacts, jpg_artifacts
+nontraditional_miko
+garter_belt|garter_belt, garterbelt
+doggystyle|doggystyle, doggy_style
+third-party_edit|third-party_edit, edited, photoshopped
+knees_together_feet_apart|knees_together_feet_apart, knees_touching
+realistic
+partially_translated|partially_translated, partial_translation, partly_translated
+anime_screencap|anime_screencap, screencap
+pokemon_(anime)
+retro_artstyle|retro_artstyle, oldschool
+bridal_garter|bridal_garter, leg_garter
+heart_censor|heart_censor, censor_heart
+style_parody
+indian_style|indian_style, agura
+painting_(medium)|painting_(medium), paint_(medium)
+pixel_art|pixel_art, sprite
+artist_logo
+lineart|lineart, line_art
+artist_self-insert|artist_self-insert, artist_self_insert
+second-party_source
+tifa_lockhart|tifa_lockhart, tifa_lockheart
+partially_unbuttoned
+1990s_(style)|1990s_(style), 90's, 90s
+heart_brooch
+third-party_source
+to_heart_2|to_heart_2, toheart2
+bad_deviantart_id
+heart_cutout
+heartcatch_precure!|heartcatch_precure!, heartcatch_precure, heartcatch_pretty_cure, heartcatch_pretty_cure!
+heart_print
+heart_ahoge
+heart-shaped_box|heart-shaped_box, heart_box
+heart-shaped_chocolate|heart-shaped_chocolate, chocolate_heart
+arthropod_girl|arthropod_girl, bug_girl, buggirl, insect_girl
+heart_pasties
+1980s_(style)|1980s_(style), 80's, 80s
+tartaglia_(genshin_impact)|tartaglia_(genshin_impact), childe_(genshin_impact)
+eromanga_sensei|eromanga_sensei, ero_manga_sensei
+earth_(planet)|earth_(planet), earth
+digital_media_player|digital_media_player, mp3_player
+promotional_art
+painting_(object)
+heart_choker
+concept_art
+scan_artifacts|scan_artifacts, bad_scan, badscan, scan_artefact
+partially_unzipped
+kingdom_hearts|kingdom_hearts, kingdom_hearts_mobile
+traditional_youkai|traditional_youkai, youkai
+left-to-right_manga|left-to-right_manga, left-to-right, left_to_right_manga
+pokemon_sm_(anime)
+quarter_note|quarter_note, crotchet
+hidamari_sketch|hidamari_sketch, sunshine_sketch
+artoria_pendragon_(lancer)_(fate)|artoria_pendragon_(lancer)_(fate), artoria_pendragon_(lancer)
+erica_hartmann
+heart_pillow
+heart_tattoo
+pokemon_(classic_anime)
+faux_traditional_media
+fine_art_parody
+mechanical_parts|mechanical_parts, cybernetic_parts, mechabare, parts_exposed
+napoleon_bonaparte_(fate)|napoleon_bonaparte_(fate), napoleon_bonaparte_(fate/grand_order)
+manga_(object)|manga_(object), doujin_(object), doujinshi_(object)
+azumanga_daioh|azumanga_daioh, azumanga, azumanga_daiou
+raising_heart|raising_heart, raging_heart
+chart
+deviantart_username
+pokemon_xy_(anime)
+nail_art
+producer_(idolmaster_cinderella_girls_anime)|producer_(idolmaster_cinderella_girls_anime), producer_(idolmaster_cinderella_girls), takeuchi-p
+artoria_pendragon_(lancer_alter)_(fate)|artoria_pendragon_(lancer_alter)_(fate), artoria_pendragon_(lancer_alter)
+danganronpa_3_(anime)|danganronpa_3_(anime), danganronpa_3, danganronpa_3
+nontraditional_playboy_bunny
+painting_(action)|painting_(action), painting
+earth_(ornament)
+heart_tail|heart_tail, heart_tails, tail_heart
+martha_(fate)|martha_(fate), saint_martha
+skadi_the_corrupting_heart_(arknights)
+arcana_heart
+yuno_(hidamari_sketch)|yuno_(hidamari_sketch), yuno
+to_heart|to_heart, toheart
+production_art
+pokemon_dppt_(anime)|pokemon_dppt_(anime), pokemon_dp_(anime)
+artoria_caster_(fate)|artoria_caster_(fate), artoria_pendragon_(caster), artoria_pendragon_(caster)_(fate)
+homare_(fool's_art)|homare_(fool's_art), homare_(artist)
+
+# General
+commentary_request
+breasts|breasts, boobs, breast, breats
+large_breasts|large_breasts, big_breasts, large_boobs, large_breast
+bad_id|bad_id, bad_skeb_id
+original|original, original_character
+touhou|touhou, toho
+navel|navel, belly_button, bellybutton
+bad_pixiv_id
+photoshop_(medium)
+animal_ears|animal_ears, kemonomimi
+cleavage|cleavage, clevage, overboob
+commentary|commentary, commentaries
+medium_breasts
+collarbone|collarbone, clavicle, clavicles, collarbones
+monochrome|monochrome, monochome, monochorme, monochromatic
+tail|tail, animal_tail, animal_tails, shippo
+translated|translated, translatied, translation
+full_body
+kantai_collection|kantai_collection, kancolle, kankore
+upper_body|upper_body, bust
+ass|ass, butt, butt_cheeks, buttocks
+comic|comic, comics, manga
+ahoge
+:d
+hetero
+male_focus|male_focus, male, male_only, man
+pantyhose|pantyhose, panty_hose, tights
+sidelocks|sidelocks, forelocks, payot
+thighs|thighs, thigh
+cowboy_shot
+sweat|sweat, sweating
+translation_request|translation_request, translate_request, translation_requested, translationrequest
+small_breasts
+frills|frills, frill, frilled, frilly
+food
+japanese_clothes|japanese_clothes, japanese_clothing, traditional_japanese_clothes, wafuku
+wings|wings, wing
+open_clothes|open_clothes, open_clothing
+necktie|necktie, neck_tie, tie
+horns
+fate_(series)
+barefoot|barefoot, bare_feet, bare_foot, barefeet
+serafuku|serafuku, sailor_fuku
+teeth|teeth, bared_teeth
+day
+alternate_costume|alternate_costume, alternate_outfit, alternate_outfit, alternative_costume
+choker
+tongue|tongue, tongues
+pointy_ears|pointy_ears, elf_ears, elven_ears, long_ears
+fang
+midriff
+striped|striped, stripes
+shiny
+belt|belt, belts
+tears|tears, tear
+cat_ears|cat_ears, catears, nekomimi
+fate/grand_order|fate/grand_order, fgo
+virtual_youtuber|virtual_youtuber, vtuber
+3girls|3girls, 3girl
+signature|signature, artist_signature, autograph, signed
+dark_skin|dark_skin, brown_skin, dark_skin_female, dark_skinned_female
+hood
+idolmaster|idolmaster, idol_master, idolm@ster, the_idolmaster
+tongue_out
+on_back|on_back, lying_on_back, supine
+english_commentary
+sailor_collar
+kimono
+pokemon|pokemon, pocket_monsters, pokemons, pok├®mon
+water
+chibi|chibi, super_deformed
+clothes_lift
+cape
+from_behind|from_behind, viewed_from_behind
+stomach
+twitter_username|twitter_username, artist_twitter
+nail_polish|nail_polish, colored_nails, nail_varnish, nailpolish
+yuri|yuri, girl's_love, girl_love, girls_love
+sweatdrop|sweatdrop, sweat_drop, sweat_drops, sweatdrops
+rabbit_ears|rabbit_ears, bunny_ear, bunny_ears, rabbit_ear
+mole|mole, beauty_mark
+grin
+:o|:o, :0
+huge_breasts|huge_breasts, huge_boobs, huge_breast, huge_tits
+blurry|blurry, blurred
+character_name
+apron
+vest
+high_heels|high_heels, heels, highheels
+flat_chest|flat_chest, flat_chested, flatchest, pettanko
+collar
+feet|feet, foot
+dated
+from_side|from_side, side, side_view, viewed_from_side
+vocaloid|vocaloid, vocaloid_2, vocaloid_3
+sweater
+speech_bubble|speech_bubble, speech_balloon, text_bubble, word_bubble
+leotard
+two_side_up|two_side_up, two_sides_up
+english_text|english_text, english
+
