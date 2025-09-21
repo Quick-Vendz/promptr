@@ -1,0 +1,64 @@
+# Quality & Technical
+masterpiece, best quality, high resolution, detailed
+ultra detailed, extremely detailed, photorealistic
+romantic, handsome, perfect couple
+
+# Character Focus
+2boys, male couple, gay couple, yaoi
+two men, duo, together, same-sex couple
+
+# Relationship Dynamics
+romantic, loving, intimate, affectionate
+dating, married, partners, boyfriends
+commitment, bond, connection
+
+# Body Types & Appearance
+both muscular, one tall one short, similar height
+contrasting builds, athletic, fit, strong
+complementary appearances, handsome pair
+
+# Hair Styles
+contrasting hair, different hair colors
+short hair, neat hair, styled hair
+one blonde one brunette, varied styles
+
+# Poses & Interactions
+holding hands, embracing, hugging, kissing
+leaning together, sitting close, standing together
+looking at each other, intimate pose, caring gesture
+protective pose, supportive, tender moment
+
+# Clothing - Coordinated
+matching styles, complementary outfits
+casual wear, formal wear, relaxed clothing
+coordinated colors, stylish, well-dressed
+
+# Settings
+home, apartment, living room, bedroom
+cafe, restaurant, park, beach, city
+private setting, intimate space, cozy environment
+
+# Activities
+date night, casual hangout, cooking together
+working out together, traveling, relaxing
+everyday moments, special occasions
+
+# Emotions
+happy, content, in love, peaceful
+comfortable, natural, genuine, tender
+smiling, laughing, relaxed, intimate
+
+# Lighting & Mood
+soft lighting, natural lighting, warm atmosphere
+comfortable, intimate, peaceful, romantic
+golden hour, soft shadows, cozy lighting
+
+# Art Styles
+realistic, semi-realistic, anime style
+detailed, emotional, beautiful illustration
+mature, tasteful, artistic, well-drawn
+
+# Negative Prompts
+low quality, worst quality, bad anatomy
+stereotypical, exaggerated, uncomfortable
+blurry, pixelated, ugly, deformed

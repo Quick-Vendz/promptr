@@ -1,0 +1,67 @@
+# Quality & Technical
+masterpiece, best quality, high resolution, detailed
+ultra detailed, extremely detailed, photorealistic
+romantic, beautiful, perfect couple
+
+# Character Focus
+1girl, 1boy, couple, heterosexual, male and female
+two people, duo, together, pair
+
+# Relationship Dynamics
+romantic, loving, intimate, affectionate
+dating, married, wedding, engagement
+boyfriend and girlfriend, husband and wife
+
+# Poses & Interactions
+holding hands, embracing, hugging, kissing
+dancing together, walking together, sitting together
+looking at each other, gazing, eye contact
+leaning on each other, cuddling, snuggling
+
+# Hair & Appearance
+complementary colors, matching outfits
+height difference, size difference
+long hair girl, short hair boy, contrasting styles
+
+# Clothing - Coordinated
+matching outfits, complementary colors
+formal wear, casual wear, date outfit
+wedding dress and tuxedo, prom attire
+
+# Clothing - Female
+dress, skirt, blouse, elegant clothing
+jewelry, makeup, heels, feminine attire
+
+# Clothing - Male
+suit, shirt, tie, masculine clothing
+dress shoes, formal wear, casual attire
+
+# Romantic Settings
+restaurant, cafe, park, beach, garden
+bedroom, living room, balcony, rooftop
+church, wedding venue, romantic location
+
+# Activities
+date night, dinner date, movie date
+wedding ceremony, proposal, anniversary
+vacation, travel, romantic getaway
+
+# Emotions
+happy, joyful, in love, content, blissful
+romantic, passionate, tender, gentle
+smiling, laughing, peaceful
+
+# Lighting & Mood
+romantic lighting, soft lighting, warm lighting
+candlelight, sunset, golden hour
+intimate atmosphere, cozy, dreamy
+
+# Art Styles
+romantic style, soft style, beautiful illustration
+anime couple, realistic couple, artistic
+detailed, emotional, heartwarming
+
+# Negative Prompts
+low quality, worst quality, bad anatomy
+awkward pose, uncomfortable, forced
+blurry, pixelated, ugly, deformed

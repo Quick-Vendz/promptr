@@ -1,0 +1,69 @@
+# Quality & Technical
+masterpiece, best quality, high resolution, detailed
+ultra detailed, extremely detailed, photorealistic
+romantic, beautiful, perfect couple
+
+# Character Focus
+2girls, female couple, lesbian couple, yuri
+two women, duo, together, same-sex couple
+
+# Relationship Dynamics
+romantic, loving, intimate, affectionate
+dating, married, partners, girlfriends
+commitment, bond, connection
+
+# Body Types & Appearance
+height difference, similar height, contrasting builds
+both feminine, one tomboyish, varied styles
+beautiful pair, complementary appearances
+
+# Hair Styles
+contrasting hair lengths, different colors
+long and short hair, varied styles
+braided together, touching hair, hair play
+
+# Poses & Interactions
+holding hands, embracing, hugging, kissing
+cuddling, lying together, sitting close
+looking at each other, tender moment, gentle touch
+protective pose, caring gesture, intimate pose
+
+# Clothing - Coordinated
+matching outfits, complementary styles
+feminine wear, casual wear, cute clothing
+coordinated accessories, stylish, pretty
+
+# Clothing - Individual
+dresses, skirts, blouses, casual wear
+jewelry, makeup, accessories, shoes
+varied styles, personal expression
+
+# Settings
+home, apartment, bedroom, living room
+cafe, restaurant, park, garden, beach
+private setting, intimate space, beautiful location
+
+# Activities
+date night, shopping together, cooking together
+studying together, relaxing, traveling
+everyday moments, special occasions
+
+# Emotions
+happy, content, in love, peaceful, joyful
+comfortable, natural, genuine, tender
+smiling, laughing, relaxed, intimate
+
+# Lighting & Mood
+soft lighting, natural lighting, romantic atmosphere
+comfortable, intimate, peaceful, dreamy
+golden hour, soft shadows, beautiful lighting
+
+# Art Styles
+realistic, semi-realistic, anime style, shoujo style
+detailed, emotional, beautiful illustration
+soft, gentle, artistic, well-drawn
+
+# Negative Prompts
+low quality, worst quality, bad anatomy
+stereotypical, fetishized, uncomfortable
+blurry, pixelated, ugly, deformed
