@@ -1,0 +1,30 @@
+# Local tag files (not pushed to GitHub)
+*.nsfw.txt
+*.local.txt
+local_tags/
+private_tags/
+
+# Personal/private tag files
+personal/
+custom/
+
+# Backup files
+*.bak
+*.backup
+
+# Editor files
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+
+# Temporary files
+*.tmp
+*.temp

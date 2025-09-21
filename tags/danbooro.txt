@@ -1,0 +1,86 @@
+# Quality Prefix
+masterpiece, best quality, ultra detailed
+high resolution, 8k, extremely detailed
+official art, beautiful and aesthetic
+absurdres, incredibly absurdres
+
+# Character Features
+1girl|1girl, solo, female focus
+1boy|1boy, solo, male focus
+multiple girls|multiple girls, group
+multiple boys|multiple boys, group
+long hair|long hair, flowing hair
+short hair|short hair, bob cut
+blonde hair|blonde hair, golden hair
+brown hair|brown hair, chestnut hair
+black hair|black hair, dark hair
+red hair|red hair, auburn hair
+blue eyes|blue eyes, sapphire eyes
+green eyes|green eyes, emerald eyes
+brown eyes|brown eyes, amber eyes
+
+# Clothing
+school uniform|school uniform, serafuku
+dress|dress, elegant dress
+casual clothes|casual clothes, everyday wear
+winter clothes|winter clothes, warm clothing
+summer clothes|summer clothes, light clothing
+swimsuit|swimsuit, bikini
+formal wear|formal wear, suit, evening dress
+traditional clothes|traditional clothes, kimono, yukata
+
+# Poses & Actions
+standing|standing, upright pose
+sitting|sitting, seated pose
+lying down|lying down, reclining
+walking|walking, in motion
+running|running, dynamic pose
+looking at viewer|looking at viewer, eye contact
+looking away|looking away, averted gaze
+arms crossed|arms crossed, defensive pose
+hands on hips|hands on hips, confident pose
+
+# Expressions
+smile|smile, happy expression
+serious|serious, stern expression
+blush|blush, embarrassed, shy
+angry|angry, mad, furious
+sad|sad, melancholy, depressed
+surprised|surprised, shocked, amazed
+neutral expression|neutral expression, calm
+
+# Settings
+outdoors|outdoors, outside, nature
+indoors|indoors, interior, inside
+classroom|classroom, school setting
+bedroom|bedroom, private room
+kitchen|kitchen, cooking area
+beach|beach, seaside, ocean
+forest|forest, woods, trees
+city|city, urban, cityscape
+park|park, public space
+
+# Lighting & Atmosphere
+natural lighting|natural lighting, daylight
+golden hour|golden hour, sunset lighting
+night|night, dark, moonlight
+studio lighting|studio lighting, professional
+soft lighting|soft lighting, gentle illumination
+dramatic lighting|dramatic lighting, cinematic
+
+# Art Styles
+anime|anime, manga style
+realistic|realistic, photorealistic
+semi-realistic|semi-realistic, stylized
+chibi|chibi, cute, deformed
+sketch|sketch, rough drawing
+watercolor|watercolor, painted style
+
+# Negative Prompts
+low quality, worst quality, bad anatomy
+blurry, pixelated, jpeg artifacts
+bad hands, extra fingers, missing fingers
+bad face, deformed, ugly
+watermark, signature, text
+poorly drawn, amateur, sketch
+noise, grain, compression artifacts
