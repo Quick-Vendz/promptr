@@ -425,15 +425,12 @@ Issue Name|negative,prompt,values
                     this.selectedNegatives = [];
                     this.tagStrengths = {};
                     
-                    // Check if this is the embedded sample data
+                    // Load data for the selected file
                     if (this.selectedFile === 'embedded-sample') {
                         this.loadSampleData();
                     } else {
-                        // Load from local file content
-                        const localFile = this.availableFiles.find(f => f.file === this.selectedFile && f.isLocal);
-                        if (localFile && localFile.content) {
-                            this.parseCategories(localFile.content);
-                        }
+                        // Use the same loading logic as initial load
+                        await this.loadCategories();
                     }
                     
                     // Re-open all categories
