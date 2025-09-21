@@ -19,16 +19,7 @@ Issue Name|negative,prompt,values
 -->
 <html lang="en">
 <head>
-    <meta charse                            name: "🔧 Adding URLs to Dropdown",
-                            type: "tutorial",
-                            tags: [
-                                { display: "Find Configuration", value: "Look for 'githubConfig.files' array in the HTML file", type: "info" },
-                                { display: "GitHub Example", value: "{ file: 'tags/female.txt', name: 'Female Character' }", type: "info" },
-                                { display: "Catbox Example", value: "{ file: 'https://files.catbox.moe/abc123.txt', name: 'My Custom Tags' }", type: "info" },
-                                { display: "Mix Sources", value: "Combine GitHub files and Catbox files in same dropdown", type: "info" },
-                                { display: "Order Matters", value: "Files appear in dropdown in the order you list them", type: "info" },
-                                { display: "Test URLs", value: "Always verify your Catbox URL loads before adding to code", type: "info" }
-                            ]>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prompt Generator</title>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -103,7 +94,7 @@ Issue Name|negative,prompt,values
                 </div>
                 
                 <!-- How to Use Section -->
-                <div class="bg-blue-900 border border-blue-700 rounded-lg p-4 mb-4" x-show="selectedFile === 'tutorial'">
+                <div class="bg-blue-900 border border-blue-700 rounded-lg p-4 mb-4 mt-10" x-show="selectedFile === 'tutorial'">
                     <h3 class="text-lg font-semibold text-blue-200 mb-3">🚀 Quick Start Guide</h3>
                     <div class="space-y-2 text-sm text-blue-100">
                         <div class="flex items-start space-x-2">
@@ -149,6 +140,7 @@ Issue Name|negative,prompt,values
                                         x-show="getCategoryCount(category) > 0"
                                         class="px-2 py-1 text-xs rounded-full font-semibold"
                                         :class="category.type === 'prefix' ? 'bg-purple-500 text-white' : 
+                                               category.type === 'negative-prefix' ? 'bg-orange-500 text-white' :
                                                category.type === 'negative' ? 'bg-red-500 text-white' : 
                                                'bg-blue-500 text-white'"
                                         x-text="getCategoryCount(category)"
@@ -433,6 +425,40 @@ Issue Name|negative,prompt,values
                 </div>
             </div>
 
+            <!-- Negative Prefix Tags Section -->
+            <div class="bg-gray-800 border-b border-gray-700 p-6" x-show="selectedNegativePrefixes.length > 0 && selectedFile !== 'tutorial'">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-lg font-semibold text-orange-300">Negative Prefix Tags</h2>
+                    <button 
+                        @click="clearAllNegativePrefixes()"
+                        class="text-sm text-red-400 hover:text-red-300 transition-colors"
+                    >
+                        Clear All
+                    </button>
+                </div>
+                
+                <div class="flex flex-wrap gap-2">
+                    <template x-for="tag in selectedNegativePrefixes" :key="tag.display || tag">
+                        <span 
+                            class="inline-flex items-center text-sm bg-orange-600 text-white border border-orange-600 rounded-full transition-colors"
+                        >
+                            <span 
+                                class="px-3 py-1"
+                                x-text="tag.display || tag"
+                            ></span>
+                            <button 
+                                @click="removeTag(tag)"
+                                class="pr-3 py-1 text-orange-200 hover:text-white"
+                            >
+                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                        </span>
+                    </template>
+                </div>
+            </div>
+
             <!-- Negative Tags Section -->
             <div class="bg-gray-800 border-b border-gray-700 p-6" x-show="selectedNegatives.length > 0 && selectedFile !== 'tutorial'">
                 <div class="flex items-center justify-between mb-4">
@@ -502,7 +528,7 @@ Issue Name|negative,prompt,values
                 </div>
 
                 <!-- Negative Prompt Section -->
-                <div x-show="generateNegativePrompt().length > 0">
+                <div x-show="generateNegativePrompt().length > 0 || selectedNegativePrefixes.length > 0">
                     <div class="flex items-center justify-between mb-4">
                         <h2 class="text-xl font-semibold text-red-300">Negative Prompt</h2>
                         <button 
@@ -546,6 +572,7 @@ Issue Name|negative,prompt,values
                 selectedTags: [],
                 selectedPrefixes: [],
                 selectedNegatives: [],
+                selectedNegativePrefixes: [], // Track negative prefix-style tags
                 tagStrengths: {}, // Track tag strength levels (0=normal, 1=emphasized)
                 openCategories: [],
                 copyFeedback: false,
@@ -558,8 +585,8 @@ Issue Name|negative,prompt,values
                 async init() {
                     // Load GitHub-hosted files and sample data
                     await this.discoverAvailableFiles();
-                    // Open all categories by default for better UX
-                    this.openCategories = this.categories.map(cat => cat.name);
+                    // Start with all categories closed
+                    this.openCategories = [];
                 },
 
                 async discoverAvailableFiles() {
@@ -569,17 +596,17 @@ Issue Name|negative,prompt,values
                         repo: 'promptr',                  // Your repository name
                         branch: 'main',                   // Your branch name
                         files: [
-                            { file: 'tags/female.txt', name: 'Female Character' },
-                            { file: 'tags/male.txt', name: 'Male Character' },
-                            { file: 'tags/couple.txt', name: 'Couple (Heterosexual)' },
-                            { file: 'tags/lesbian_couple.txt', name: 'Lesbian Couple' },
-                            { file: 'tags/gay_couple.txt', name: 'Gay Couple' },
-                            { file: 'tags/group.txt', name: 'Group/Multiple Characters' }
+                            { file: 'tags/female.txt', name: '- Female Character' },
+                            { file: 'tags/male.txt', name: '- Male Character' },
+                            { file: 'tags/couple.txt', name: '- Couple (Heterosexual)' },
+                            { file: 'tags/lesbian_couple.txt', name: '- Lesbian Couple' },
+                            { file: 'tags/gay_couple.txt', name: '- Gay Couple' },
+                            { file: 'tags/group.txt', name: '- Group/Multiple Characters' }
                         ]
                     };
 
                     this.availableFiles = [
-                        { file: 'tutorial', name: 'How to Add Your Own Tags (Tutorial)', isLocal: true, content: null }
+                        { file: 'tutorial', name: 'Tutorials', isLocal: true, content: null }
                     ];
 
                     // Try to load files from GitHub and other sources
@@ -627,6 +654,7 @@ Issue Name|negative,prompt,values
                     this.selectedTags = [];
                     this.selectedPrefixes = [];
                     this.selectedNegatives = [];
+                    this.selectedNegativePrefixes = [];
                     this.tagStrengths = {};
                     
                     // Load data for the selected file
@@ -637,8 +665,8 @@ Issue Name|negative,prompt,values
                         await this.loadCategories();
                     }
                     
-                    // Re-open all categories
-                    this.openCategories = this.categories.map(cat => cat.name);
+                    // Start with all categories closed
+                    this.openCategories = [];
                 },
 
                 async loadCustomFile(event) {
@@ -672,11 +700,12 @@ Issue Name|negative,prompt,values
                         this.selectedTags = [];
                         this.selectedPrefixes = [];
                         this.selectedNegatives = [];
+                        this.selectedNegativePrefixes = [];
                         this.tagStrengths = {};
                         
                         // Parse the file content
                         this.parseCategories(text);
-                        this.openCategories = this.categories.map(cat => cat.name);
+                        this.openCategories = [];
 
                     } catch (error) {
                         console.error('Error loading custom file:', error);
@@ -740,6 +769,8 @@ Issue Name|negative,prompt,values
                             const categoryName = currentCategory.name.toLowerCase();
                             if (categoryName.includes('prefix') || categoryName.includes('style prefix')) {
                                 currentCategory.type = 'prefix';
+                            } else if (categoryName.includes('negative prefix') || categoryName.includes('negative common') || categoryName.includes('negative issues')) {
+                                currentCategory.type = 'negative-prefix';
                             } else if (categoryName.includes('negative')) {
                                 currentCategory.type = 'negative';
                             }
@@ -899,6 +930,8 @@ Issue Name|negative,prompt,values
                     
                     if (tag.type === 'prefix') {
                         this.togglePrefixTag(tag);
+                    } else if (tag.type === 'negative-prefix') {
+                        this.toggleNegativePrefixTag(tag);
                     } else if (tag.type === 'negative') {
                         this.toggleNegativeTag(tag);
                     } else {
@@ -935,6 +968,8 @@ Issue Name|negative,prompt,values
                     
                     if (tag.type === 'prefix') {
                         this.selectedPrefixes = this.selectedPrefixes.filter(t => (t.value || t) !== tagKey);
+                    } else if (tag.type === 'negative-prefix') {
+                        this.selectedNegativePrefixes = this.selectedNegativePrefixes.filter(t => (t.value || t) !== tagKey);
                     } else if (tag.type === 'negative') {
                         this.selectedNegatives = this.selectedNegatives.filter(t => (t.value || t) !== tagKey);
                     } else {
@@ -949,6 +984,15 @@ Issue Name|negative,prompt,values
                         this.selectedPrefixes = this.selectedPrefixes.filter(t => (t.value || t) !== tagKey);
                     } else {
                         this.selectedPrefixes.push(tag);
+                    }
+                },
+
+                toggleNegativePrefixTag(tag) {
+                    const tagKey = tag.value || tag;
+                    if (this.selectedNegativePrefixes.find(t => (t.value || t) === tagKey)) {
+                        this.selectedNegativePrefixes = this.selectedNegativePrefixes.filter(t => (t.value || t) !== tagKey);
+                    } else {
+                        this.selectedNegativePrefixes.push(tag);
                     }
                 },
 
@@ -974,6 +1018,10 @@ Issue Name|negative,prompt,values
                     this.selectedNegatives = [];
                 },
 
+                clearAllNegativePrefixes() {
+                    this.selectedNegativePrefixes = [];
+                },
+
                 getTagClass(tag) {
                     const tagKey = tag.value || tag;
                     
@@ -990,6 +1038,10 @@ Issue Name|negative,prompt,values
                         return this.selectedPrefixes.find(t => (t.value || t) === tagKey) 
                             ? 'bg-purple-600 text-white border-purple-600' 
                             : 'bg-gray-700 text-purple-300 border-purple-500 hover:border-purple-400 hover:bg-gray-600';
+                    } else if (tag.type === 'negative-prefix') {
+                        return this.selectedNegativePrefixes.find(t => (t.value || t) === tagKey)
+                            ? 'bg-orange-600 text-white border-orange-600'
+                            : 'bg-gray-700 text-orange-300 border-orange-500 hover:border-orange-400 hover:bg-gray-600';
                     } else if (tag.type === 'negative') {
                         return this.selectedNegatives.find(t => (t.value || t) === tagKey)
                             ? 'bg-red-600 text-white border-red-600'
@@ -1014,6 +1066,8 @@ Issue Name|negative,prompt,values
                     
                     if (tag.type === 'prefix') {
                         return 'bg-purple-600 text-white border-purple-600';
+                    } else if (tag.type === 'negative-prefix') {
+                        return 'bg-orange-600 text-white border-orange-600';
                     } else if (tag.type === 'negative') {
                         return 'bg-red-600 text-white border-red-600';
                     } else if (strength === 1) {
@@ -1062,8 +1116,20 @@ Issue Name|negative,prompt,values
                 },
 
                 generateNegativePrompt() {
-                    if (this.selectedNegatives.length === 0) return '';
-                    return this.selectedNegatives.map(tag => tag.value || tag).join(', ');
+                    const negatives = [];
+                    
+                    // Add negative prefix tags (these contain multiple comma-separated values)
+                    this.selectedNegativePrefixes.forEach(tag => {
+                        negatives.push(tag.value || tag);
+                    });
+                    
+                    // Add individual negative tags
+                    this.selectedNegatives.forEach(tag => {
+                        negatives.push(tag.value || tag);
+                    });
+                    
+                    if (negatives.length === 0) return '';
+                    return negatives.join(', ');
                 },
 
                 async copyPrompt() {

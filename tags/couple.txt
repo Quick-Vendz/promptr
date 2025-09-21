@@ -150,14 +150,20 @@ detailed
 emotional
 heartwarming
 
+# Negative Common Issues
+Bad Anatomy|bad anatomy, deformed, mutated, malformed limbs
+Poor Quality|low quality, worst quality, blurry, pixelated
+Awkward Poses|awkward pose, uncomfortable positioning, forced interaction
+Technical Issues|artifacts, compression, noise, distortion
+
 # Negative Prompts
-low quality
-worst quality
-bad anatomy
-awkward pose
-uncomfortable
-forced
-blurry
-pixelated
 ugly
 deformed
+bad hands
+extra limbs
+disconnected limbs
+floating limbs
+missing fingers
+extra fingers
+bad proportions
+unnatural pose
