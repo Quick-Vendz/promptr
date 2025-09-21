@@ -1,19 +1,10 @@
 <!DOCTYPE html>
 <!--
-PROMPT GENERATOR - GitHub Integration Setup
+PROMPT GENERATOR - Configured for Quick-Vendz/promptr repository
 
-To host your tag files on GitHub:
-
-1. Create a new GitHub repository (e.g., "prompt-generator-tags")
-2. Upload your .txt tag files to the repository
-3. Update the githubConfig object in the JavaScript below:
-   - owner: Your GitHub username
-   - repo: Your repository name  
-   - branch: Your branch name (usually 'main')
-   - files: Array of your tag files with display names
-
-Example GitHub raw URL format:
-https://raw.githubusercontent.com/USERNAME/REPO/BRANCH/FILENAME.txt
+This prompt generator fetches tag files directly from the GitHub repository.
+Tag files (kage, pony, sdxl) are loaded from:
+https://raw.githubusercontent.com/Quick-Vendz/promptr/main/
 
 Tag file format:
 # Category Name
@@ -381,13 +372,13 @@ Issue Name|negative,prompt,values
                 async discoverAvailableFiles() {
                     // GitHub repository configuration
                     const githubConfig = {
-                        owner: 'your-username',           // Replace with your GitHub username
-                        repo: 'prompt-generator-tags',    // Replace with your repository name
-                        branch: 'main',                   // Replace with your branch name
+                        owner: 'Quick-Vendz',             // Your GitHub username
+                        repo: 'promptr',                  // Your repository name
+                        branch: 'main',                   // Your branch name
                         files: [
-                            { file: 'kage.txt', name: 'Kage Tags' },
-                            { file: 'pony.txt', name: 'Pony Tags' },
-                            { file: 'sdxl.txt', name: 'SDXL Tags' }
+                            { file: 'kage', name: 'Kage Tags' },
+                            { file: 'pony', name: 'Pony Tags' },
+                            { file: 'sdxl', name: 'SDXL Tags' }
                             // Add more files here as needed
                         ]
                     };
