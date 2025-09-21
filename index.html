@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<!--
+PROMPT GENERATOR - GitHub Integration Setup
+
+To host your tag files on GitHub:
+
+1. Create a new GitHub repository (e.g., "prompt-generator-tags")
+2. Upload your .txt tag files to the repository
+3. Update the githubConfig object in the JavaScript below:
+   - owner: Your GitHub username
+   - repo: Your repository name  
+   - branch: Your branch name (usually 'main')
+   - files: Array of your tag files with display names
+
+Example GitHub raw URL format:
+https://raw.githubusercontent.com/USERNAME/REPO/BRANCH/FILENAME.txt
+
+Tag file format:
+# Category Name
+Tag Display Name|actual,prompt,values
+Simple Tag
+Another Tag
+
+# Prefix (categories with "prefix" in name become prefix tags)
+Style Name|prompt,values
+
+# Negative Prompts (categories with "negative" in name become negative tags)  
+Issue Name|negative,prompt,values
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        [x-cloak] { display: none !important; }
+        
+        /* Dark mode scrollbars */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #1f2937; /* gray-800 */
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #374151; /* gray-700 */
+            border-radius: 6px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4b5563; /* gray-600 */
+        }
+        
+        /* Firefox scrollbar */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #374151 #1f2937;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 min-h-screen text-gray-100">
+    <div x-data="promptGenerator()" x-cloak class="flex h-screen">
+        <!-- Left Panel - Categories and Tags -->
+        <div class="w-1/2 bg-gray-800 border-r border-gray-700 overflow-y-auto h-screen">
+            <div class="p-6 border-b border-gray-700">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-100">Prompt Categories</h1>
+                        <p class="text-gray-400 mt-1">Click tags to add them to your prompt</p>
+                    </div>
+                    <div class="flex flex-col items-end gap-2">
+                        <label class="text-sm text-gray-400">Tag File:</label>
+                        <div class="flex gap-2 items-center">
+                            <select 
+                                x-model="selectedFile" 
+                                @change="loadSelectedFile()"
+                                class="bg-gray-700 text-gray-100 border border-gray-600 rounded px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            >
+                                <template x-for="fileInfo in availableFiles" :key="fileInfo.file">
+                                    <option :value="fileInfo.file" x-text="fileInfo.name"></option>
+                                </template>
+                            </select>
+                            <button 
+                                @click="$refs.fileInput.click()"
+                                class="bg-blue-600 text-white px-3 py-1 text-sm rounded hover:bg-blue-700 transition-colors"
+                                title="Load custom tag file"
+                            >
+                                Browse
+                            </button>
+                        </div>
+                        <input 
+                            x-ref="fileInput"
+                            type="file" 
+                            accept=".txt,.csv"
+                            @change="loadCustomFile($event)"
+                            class="hidden"
+                        />
+                    </div>
+                </div>
+            </div>
+            
+            <div class="p-6 space-y-4">
+                <template x-for="category in categories" :key="category.name">
+                    <div class="border border-gray-600 rounded-lg overflow-hidden bg-gray-750">
+                        <!-- Accordion Header -->
+                        <button 
+                            @click="toggleCategory(category.name)"
+                            class="w-full px-4 py-3 text-left bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+                        >
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <h3 class="font-semibold text-gray-100" x-text="category.name"></h3>
+                                    <span 
+                                        x-show="getCategoryCount(category) > 0"
+                                        class="px-2 py-1 text-xs rounded-full font-semibold"
+                                        :class="category.type === 'prefix' ? 'bg-purple-500 text-white' : 
+                                               category.type === 'negative' ? 'bg-red-500 text-white' : 
+                                               'bg-blue-500 text-white'"
+                                        x-text="getCategoryCount(category)"
+                                    ></span>
+                                </div>
+                                <svg 
+                                    class="w-5 h-5 text-gray-400 transform transition-transform duration-200"
+                                    :class="openCategories.includes(category.name) ? 'rotate-180' : ''"
+                                    fill="none" 
+                                    stroke="currentColor" 
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                        </button>
+                        
+                        <!-- Accordion Content with smooth height transition -->
+                        <div 
+                            class="overflow-hidden transition-all duration-300 ease-in-out bg-gray-800"
+                            :style="openCategories.includes(category.name) ? 'max-height: 500px;' : 'max-height: 0px;'"
+                        >
+                            <div class="p-4">
+                                <div class="flex flex-wrap gap-2">
+                                    <template x-for="tag in category.tags" :key="tag.display || tag">
+                                        <button
+                                            @click="addRemoveTag(tag)"
+                                            class="px-3 py-1 text-sm rounded-full border transition-all duration-200 hover:shadow-md"
+                                            :class="getTagClass(tag)"
+                                            x-text="tag.display || tag"
+                                        ></button>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+
+        <!-- Right Panel - Selected Tags and Prompt -->
+        <div class="w-1/2 bg-gray-900 flex flex-col h-screen overflow-y-auto">
+            <!-- Prefix Tags Section -->
+            <div class="bg-gray-800 border-b border-gray-700 p-6" x-show="selectedPrefixes.length > 0">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-lg font-semibold text-purple-300">Prefix Tags</h2>
+                    <button 
+                        @click="clearAllPrefixes()"
+                        class="text-sm text-red-400 hover:text-red-300 transition-colors"
+                    >
+                        Clear All
+                    </button>
+                </div>
+                
+                <div class="flex flex-wrap gap-2">
+                    <template x-for="tag in selectedPrefixes" :key="tag.display || tag">
+                        <span 
+                            class="inline-flex items-center text-sm bg-purple-600 text-white border border-purple-600 rounded-full transition-colors"
+                        >
+                            <span 
+                                class="px-3 py-1"
+                                x-text="tag.display || tag"
+                            ></span>
+                            <button 
+                                @click="removeTag(tag)"
+                                class="pr-3 py-1 text-purple-200 hover:text-white"
+                            >
+                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                        </span>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Selected Tags Section -->
+            <div class="bg-gray-800 border-b border-gray-700 p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-semibold text-gray-100">Selected Tags</h2>
+                    <button 
+                        @click="clearAllTags()"
+                        class="text-sm text-red-400 hover:text-red-300 transition-colors"
+                        x-show="selectedTags.length > 0"
+                    >
+                        Clear All
+                    </button>
+                </div>
+                
+                <div class="flex flex-wrap gap-2">
+                    <template x-for="tag in selectedTags" :key="tag.display || tag">
+                        <span 
+                            class="inline-flex items-center text-sm text-white border rounded-full transition-colors"
+                            :class="tagStrengths[tag.value || tag] === 1 ? 'bg-green-600 border-green-600' : 'bg-blue-600 border-blue-600'"
+                        >
+                            <span 
+                                @click="toggleTagStrength(tag)"
+                                class="cursor-pointer hover:opacity-80 px-3 py-1"
+                                x-text="(tagStrengths[tag.value || tag] === 1 ? '(' + (tag.display || tag) + ')' : (tag.display || tag))"
+                            ></span>
+                            <button 
+                                @click="removeTag(tag)"
+                                class="pr-3 py-1 hover:text-white"
+                                :class="tagStrengths[tag.value || tag] === 1 ? 'text-green-200' : 'text-blue-200'"
+                            >
+                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                        </span>
+                    </template>
+                    
+                    <div x-show="selectedTags.length === 0 && selectedPrefixes.length === 0" class="text-gray-500 text-sm py-2">
+                        No tags selected. Click tags from the categories to add them.
+                    </div>
+                </div>
+                
+                <!-- Tag strength legend -->
+                <div class="mt-4 text-xs text-gray-400" x-show="selectedTags.length > 0">
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center">
+                            <span class="w-3 h-3 bg-blue-600 rounded-full mr-1"></span>
+                            <span>Normal</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="w-3 h-3 bg-green-600 rounded-full mr-1"></span>
+                            <span>Emphasized ()</span>
+                        </div>
+                        <div class="text-gray-500">Click tag text to toggle emphasis, X to remove</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Negative Tags Section -->
+            <div class="bg-gray-800 border-b border-gray-700 p-6" x-show="selectedNegatives.length > 0">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-lg font-semibold text-red-300">Negative Tags</h2>
+                    <button 
+                        @click="clearAllNegatives()"
+                        class="text-sm text-red-400 hover:text-red-300 transition-colors"
+                    >
+                        Clear All
+                    </button>
+                </div>
+                
+                <div class="flex flex-wrap gap-2">
+                    <template x-for="tag in selectedNegatives" :key="tag.display || tag">
+                        <span 
+                            class="inline-flex items-center text-sm bg-red-600 text-white border border-red-600 rounded-full transition-colors"
+                        >
+                            <span 
+                                class="px-3 py-1"
+                                x-text="tag.display || tag"
+                            ></span>
+                            <button 
+                                @click="removeTag(tag)"
+                                class="pr-3 py-1 text-red-200 hover:text-white"
+                            >
+                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                        </span>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Generated Prompt Section -->
+            <div class="flex-1 p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-semibold text-gray-100">Generated Prompt</h2>
+                    <button 
+                        @click="copyPrompt()"
+                        class="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        x-show="generatePrompt().length > 0"
+                    >
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                        </svg>
+                        Copy Prompt
+                    </button>
+                </div>
+                
+                <div class="bg-gray-800 border border-gray-600 rounded-lg p-4 min-h-[150px] mb-4">
+                    <pre class="whitespace-pre-wrap text-gray-200 leading-relaxed" x-text="generatePrompt() || 'Your generated prompt will appear here...'"></pre>
+                </div>
+                
+                <!-- Copy Feedback -->
+                <div 
+                    x-show="copyFeedback"
+                    x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 transform translate-y-2"
+                    x-transition:enter-end="opacity-100 transform translate-y-0"
+                    x-transition:leave="transition ease-in duration-200"
+                    x-transition:leave-start="opacity-100 transform translate-y-0"
+                    x-transition:leave-end="opacity-0 transform translate-y-2"
+                    class="mb-4 p-3 bg-green-900 text-green-200 rounded-lg text-sm"
+                >
+                    ✓ Prompt copied to clipboard!
+                </div>
+
+                <!-- Negative Prompt Section -->
+                <div x-show="generateNegativePrompt().length > 0">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-xl font-semibold text-red-300">Negative Prompt</h2>
+                        <button 
+                            @click="copyNegativePrompt()"
+                            class="flex items-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500"
+                        >
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                            </svg>
+                            Copy Negative
+                        </button>
+                    </div>
+                    
+                    <div class="bg-gray-800 border border-red-600 rounded-lg p-4 min-h-[100px]">
+                        <pre class="whitespace-pre-wrap text-red-200 leading-relaxed" x-text="generateNegativePrompt()"></pre>
+                    </div>
+                    
+                    <!-- Negative Copy Feedback -->
+                    <div 
+                        x-show="negativeCopyFeedback"
+                        x-transition:enter="transition ease-out duration-300"
+                        x-transition:enter-start="opacity-0 transform translate-y-2"
+                        x-transition:enter-end="opacity-100 transform translate-y-0"
+                        x-transition:leave="transition ease-in duration-200"
+                        x-transition:leave-start="opacity-100 transform translate-y-0"
+                        x-transition:leave-end="opacity-0 transform translate-y-2"
+                        class="mt-4 p-3 bg-green-900 text-green-200 rounded-lg text-sm"
+                    >
+                        ✓ Negative prompt copied to clipboard!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function promptGenerator() {
+            return {
+                categories: [],
+                allTags: [], // Track all tags in original order
+                selectedTags: [],
+                selectedPrefixes: [],
+                selectedNegatives: [],
+                tagStrengths: {}, // Track tag strength levels (0=normal, 1=emphasized)
+                openCategories: [],
+                copyFeedback: false,
+                negativeCopyFeedback: false,
+                selectedFile: 'prompt-data.txt', // Default file
+                availableFiles: [], // Will be populated by file discovery
+
+                async init() {
+                    // Load GitHub-hosted files and sample data
+                    await this.discoverAvailableFiles();
+                    // Open all categories by default for better UX
+                    this.openCategories = this.categories.map(cat => cat.name);
+                },
+
+                async discoverAvailableFiles() {
+                    // GitHub repository configuration
+                    const githubConfig = {
+                        owner: 'your-username',           // Replace with your GitHub username
+                        repo: 'prompt-generator-tags',    // Replace with your repository name
+                        branch: 'main',                   // Replace with your branch name
+                        files: [
+                            { file: 'kage.txt', name: 'Kage Tags' },
+                            { file: 'pony.txt', name: 'Pony Tags' },
+                            { file: 'sdxl.txt', name: 'SDXL Tags' }
+                            // Add more files here as needed
+                        ]
+                    };
+
+                    this.availableFiles = [
+                        { file: 'embedded-sample', name: 'Sample Tags (Built-in)', isLocal: true, content: null }
+                    ];
+
+                    // Try to load files from GitHub
+                    for (const fileInfo of githubConfig.files) {
+                        try {
+                            const githubUrl = `https://raw.githubusercontent.com/${githubConfig.owner}/${githubConfig.repo}/${githubConfig.branch}/${fileInfo.file}`;
+                            const response = await fetch(githubUrl);
+                            
+                            if (response.ok) {
+                                this.availableFiles.push({
+                                    file: fileInfo.file,
+                                    name: fileInfo.name,
+                                    url: githubUrl,
+                                    isGithub: true
+                                });
+                            }
+                        } catch (error) {
+                            console.log(`Could not load ${fileInfo.file} from GitHub:`, error);
+                        }
+                    }
+
+                    // Set the first available file as selected
+                    this.selectedFile = this.availableFiles[0].file;
+                    
+                    // Load initial data
+                    if (this.selectedFile === 'embedded-sample') {
+                        this.loadSampleData();
+                    } else {
+                        await this.loadCategories();
+                    }
+                },
+
+                async loadSelectedFile() {
+                    // Clear existing selections when switching files
+                    this.selectedTags = [];
+                    this.selectedPrefixes = [];
+                    this.selectedNegatives = [];
+                    this.tagStrengths = {};
+                    
+                    // Check if this is the embedded sample data
+                    if (this.selectedFile === 'embedded-sample') {
+                        this.loadSampleData();
+                    } else {
+                        // Load from local file content
+                        const localFile = this.availableFiles.find(f => f.file === this.selectedFile && f.isLocal);
+                        if (localFile && localFile.content) {
+                            this.parseCategories(localFile.content);
+                        }
+                    }
+                    
+                    // Re-open all categories
+                    this.openCategories = this.categories.map(cat => cat.name);
+                },
+
+                async loadCustomFile(event) {
+                    const file = event.target.files[0];
+                    if (!file) return;
+
+                    try {
+                        const text = await file.text();
+                        
+                        // Add this file to available files if not already there
+                        const fileName = file.name;
+                        const displayName = fileName.replace(/\.(txt|csv)$/i, '').replace(/[-_]/g, ' ');
+                        
+                        const existingIndex = this.availableFiles.findIndex(f => f.file === fileName);
+                        if (existingIndex === -1) {
+                            this.availableFiles.push({ 
+                                file: fileName, 
+                                name: displayName,
+                                content: text,
+                                isLocal: true 
+                            });
+                        } else {
+                            // Update existing entry with new content
+                            this.availableFiles[existingIndex].content = text;
+                        }
+
+                        // Switch to this file
+                        this.selectedFile = fileName;
+                        
+                        // Clear existing selections
+                        this.selectedTags = [];
+                        this.selectedPrefixes = [];
+                        this.selectedNegatives = [];
+                        this.tagStrengths = {};
+                        
+                        // Parse the file content
+                        this.parseCategories(text);
+                        this.openCategories = this.categories.map(cat => cat.name);
+
+                    } catch (error) {
+                        console.error('Error loading custom file:', error);
+                        alert('Error loading file. Please make sure it\'s a valid text file.');
+                    }
+                },
+
+                async loadCategories() {
+                    try {
+                        let text;
+                        
+                        if (this.selectedFile === 'embedded-sample') {
+                            this.loadSampleData();
+                            return;
+                        }
+
+                        // Check if this is a locally loaded file
+                        const localFile = this.availableFiles.find(f => f.file === this.selectedFile && f.isLocal);
+                        
+                        if (localFile && localFile.content) {
+                            // Use cached content from locally loaded file
+                            text = localFile.content;
+                        } else {
+                            // Check if this is a GitHub file
+                            const githubFile = this.availableFiles.find(f => f.file === this.selectedFile && f.isGithub);
+                            
+                            if (githubFile && githubFile.url) {
+                                // Fetch from GitHub
+                                const response = await fetch(githubFile.url);
+                                if (!response.ok) throw new Error('File not found on GitHub');
+                                text = await response.text();
+                            } else {
+                                throw new Error('File source not found');
+                            }
+                        }
+                        
+                        this.parseCategories(text);
+                    } catch (error) {
+                        console.error('Error loading categories from ' + this.selectedFile + ':', error);
+                        // Fallback to sample data if file doesn't exist
+                        this.loadSampleData();
+                    }
+                },
+
+                parseCategories(text) {
+                    const lines = text.split('\n').filter(line => line.trim());
+                    const categories = [];
+                    const allTags = [];
+                    let currentCategory = null;
+
+                    lines.forEach(line => {
+                        if (line.startsWith('#')) {
+                            // Category header
+                            currentCategory = {
+                                name: line.substring(1).trim(),
+                                tags: [],
+                                type: 'normal' // default type
+                            };
+                            
+                            // Check for special category types
+                            const categoryName = currentCategory.name.toLowerCase();
+                            if (categoryName.includes('prefix') || categoryName.includes('style prefix')) {
+                                currentCategory.type = 'prefix';
+                            } else if (categoryName.includes('negative')) {
+                                currentCategory.type = 'negative';
+                            }
+                            
+                            categories.push(currentCategory);
+                        } else if (currentCategory && line.trim()) {
+                            // Tag - check if it has a display name format "Display Name|actual_prompt"
+                            const tagLine = line.trim();
+                            let tag;
+                            
+                            if (tagLine.includes('|')) {
+                                const [displayName, actualPrompt] = tagLine.split('|');
+                                tag = {
+                                    display: displayName.trim(),
+                                    value: actualPrompt.trim(),
+                                    type: currentCategory.type
+                                };
+                            } else {
+                                tag = {
+                                    display: tagLine,
+                                    value: tagLine,
+                                    type: currentCategory.type
+                                };
+                            }
+                            
+                            currentCategory.tags.push(tag);
+                            if (currentCategory.type === 'normal') {
+                                allTags.push(tag);
+                            }
+                        }
+                    });
+
+                    // Sort tags alphabetically within each category
+                    categories.forEach(category => {
+                        category.tags.sort((a, b) => {
+                            const displayA = (a.display || a).toLowerCase();
+                            const displayB = (b.display || b).toLowerCase();
+                            return displayA.localeCompare(displayB);
+                        });
+                    });
+
+                    this.categories = categories;
+                    this.allTags = allTags;
+                },
+
+                loadSampleData() {
+                    this.categories = [
+                        {
+                            name: "Model Prefix",
+                            type: "prefix",
+                            tags: [
+                                { display: "Pony: Anime", value: "score_9, score_8_up, score_7_up, source_anime", type: "prefix" },
+                                { display: "SDXL: High Quality", value: "masterpiece, best quality, ultra detailed, 8k", type: "prefix" },
+                                { display: "Anime Style", value: "anime, manga style, cel shading", type: "prefix" },
+                                { display: "Oil Painting", value: "oil painting, brush strokes, textured canvas", type: "prefix" },
+                                { display: "Digital Art", value: "digital art, concept art, trending on artstation", type: "prefix" }
+                            ]
+                        },
+                        {
+                            name: "Style",
+                            type: "normal",
+                            tags: [
+                                { display: "professional", value: "professional", type: "normal" },
+                                { display: "casual", value: "casual", type: "normal" },
+                                { display: "creative", value: "creative", type: "normal" },
+                                { display: "formal", value: "formal", type: "normal" },
+                                { display: "conversational", value: "conversational", type: "normal" },
+                                { display: "academic", value: "academic", type: "normal" },
+                                { display: "technical", value: "technical", type: "normal" },
+                                { display: "artistic", value: "artistic", type: "normal" },
+                                { display: "minimalist", value: "minimalist", type: "normal" },
+                                { display: "elaborate", value: "elaborate", type: "normal" }
+                            ]
+                        },
+                        {
+                            name: "Negative Prompts",
+                            type: "negative",
+                            tags: [
+                                { display: "Low Quality", value: "low quality, blurry, pixelated, compression artifacts", type: "negative" },
+                                { display: "Bad Anatomy", value: "bad anatomy, deformed, malformed, extra limbs, missing limbs", type: "negative" },
+                                { display: "Art Issues", value: "ugly, poorly drawn, amateur, sketch, draft", type: "negative" },
+                                { display: "Unwanted Elements", value: "watermark, signature, text, logo, copyright", type: "negative" },
+                                { display: "Technical Problems", value: "noise, grain, oversaturated, undersaturated", type: "negative" },
+                                { display: "Facial Issues", value: "bad face, deformed face, extra eyes, missing eyes", type: "negative" },
+                                { display: "Hand Problems", value: "bad hands, deformed hands, extra fingers, missing fingers", type: "negative" },
+                                { display: "Body Issues", value: "bad proportions, asymmetrical, distorted", type: "negative" }
+                            ]
+                        }
+                    ];
+                    
+                    // Sort sample data tags alphabetically within each category
+                    this.categories.forEach(category => {
+                        category.tags.sort((a, b) => {
+                            const displayA = (a.display || a).toLowerCase();
+                            const displayB = (b.display || b).toLowerCase();
+                            return displayA.localeCompare(displayB);
+                        });
+                    });
+                    
+                    // Create allTags array for sample data (only normal tags)
+                    this.allTags = [];
+                    this.categories.forEach(category => {
+                        if (category.type === 'normal') {
+                            this.allTags.push(...category.tags);
+                        }
+                    });
+                },
+
+                toggleCategory(categoryName) {
+                    // Allow multiple categories to be open - simple toggle
+                    if (this.openCategories.includes(categoryName)) {
+                        this.openCategories = this.openCategories.filter(name => name !== categoryName);
+                    } else {
+                        this.openCategories.push(categoryName);
+                    }
+                },
+
+                addRemoveTag(tag) {
+                    const tagKey = tag.value || tag;
+                    
+                    if (tag.type === 'prefix') {
+                        this.togglePrefixTag(tag);
+                    } else if (tag.type === 'negative') {
+                        this.toggleNegativeTag(tag);
+                    } else {
+                        // Normal tags - simple add/remove only for left panel
+                        if (this.selectedTags.find(t => (t.value || t) === tagKey)) {
+                            // Remove tag
+                            this.selectedTags = this.selectedTags.filter(t => (t.value || t) !== tagKey);
+                            delete this.tagStrengths[tagKey];
+                        } else {
+                            // Add tag normally
+                            const newSelectedTags = [...this.selectedTags, tag];
+                            this.selectedTags = this.allTags.filter(t => newSelectedTags.find(st => (st.value || st) === (t.value || t)));
+                            this.tagStrengths[tagKey] = 0;
+                        }
+                    }
+                },
+
+                toggleTagStrength(tag) {
+                    // This function is for right-panel tags only - cycles through strength levels
+                    const tagKey = tag.value || tag;
+                    const currentStrength = this.tagStrengths[tagKey] || 0;
+                    
+                    if (currentStrength === 0) {
+                        // Emphasize tag
+                        this.tagStrengths[tagKey] = 1;
+                    } else {
+                        // Back to normal
+                        this.tagStrengths[tagKey] = 0;
+                    }
+                },
+
+                removeTag(tag) {
+                    const tagKey = tag.value || tag;
+                    
+                    if (tag.type === 'prefix') {
+                        this.selectedPrefixes = this.selectedPrefixes.filter(t => (t.value || t) !== tagKey);
+                    } else if (tag.type === 'negative') {
+                        this.selectedNegatives = this.selectedNegatives.filter(t => (t.value || t) !== tagKey);
+                    } else {
+                        this.selectedTags = this.selectedTags.filter(t => (t.value || t) !== tagKey);
+                        delete this.tagStrengths[tagKey];
+                    }
+                },
+
+                togglePrefixTag(tag) {
+                    const tagKey = tag.value || tag;
+                    if (this.selectedPrefixes.find(t => (t.value || t) === tagKey)) {
+                        this.selectedPrefixes = this.selectedPrefixes.filter(t => (t.value || t) !== tagKey);
+                    } else {
+                        this.selectedPrefixes.push(tag);
+                    }
+                },
+
+                toggleNegativeTag(tag) {
+                    const tagKey = tag.value || tag;
+                    if (this.selectedNegatives.find(t => (t.value || t) === tagKey)) {
+                        this.selectedNegatives = this.selectedNegatives.filter(t => (t.value || t) !== tagKey);
+                    } else {
+                        this.selectedNegatives.push(tag);
+                    }
+                },
+
+                clearAllTags() {
+                    this.selectedTags = [];
+                    this.tagStrengths = {};
+                },
+
+                clearAllPrefixes() {
+                    this.selectedPrefixes = [];
+                },
+
+                clearAllNegatives() {
+                    this.selectedNegatives = [];
+                },
+
+                getTagClass(tag) {
+                    const tagKey = tag.value || tag;
+                    
+                    if (tag.type === 'prefix') {
+                        return this.selectedPrefixes.find(t => (t.value || t) === tagKey) 
+                            ? 'bg-purple-600 text-white border-purple-600' 
+                            : 'bg-gray-700 text-purple-300 border-purple-500 hover:border-purple-400 hover:bg-gray-600';
+                    } else if (tag.type === 'negative') {
+                        return this.selectedNegatives.find(t => (t.value || t) === tagKey)
+                            ? 'bg-red-600 text-white border-red-600'
+                            : 'bg-gray-700 text-red-300 border-red-500 hover:border-red-400 hover:bg-gray-600';
+                    } else {
+                        const isSelected = this.selectedTags.find(t => (t.value || t) === tagKey);
+                        const strength = this.tagStrengths[tagKey] || 0;
+                        
+                        if (!isSelected) {
+                            return 'bg-gray-700 text-gray-300 border-gray-500 hover:border-blue-400 hover:bg-gray-600';
+                        } else if (strength === 1) {
+                            return 'bg-green-600 text-white border-green-600'; // Emphasized
+                        } else {
+                            return 'bg-blue-600 text-white border-blue-600'; // Normal selected
+                        }
+                    }
+                },
+
+                getSelectedTagClass(tag) {
+                    const tagKey = tag.value || tag;
+                    const strength = this.tagStrengths[tagKey] || 0;
+                    
+                    if (tag.type === 'prefix') {
+                        return 'bg-purple-600 text-white border-purple-600';
+                    } else if (tag.type === 'negative') {
+                        return 'bg-red-600 text-white border-red-600';
+                    } else if (strength === 1) {
+                        return 'bg-green-600 text-white border-green-600'; // Emphasized
+                    } else {
+                        return 'bg-blue-600 text-white border-blue-600'; // Normal
+                    }
+                },
+
+                getCategoryCount(category) {
+                    if (category.type === 'prefix') {
+                        return this.selectedPrefixes.filter(selected => 
+                            category.tags.some(tag => (tag.value || tag) === (selected.value || selected))
+                        ).length;
+                    } else if (category.type === 'negative') {
+                        return this.selectedNegatives.filter(selected => 
+                            category.tags.some(tag => (tag.value || tag) === (selected.value || selected))
+                        ).length;
+                    } else {
+                        return this.selectedTags.filter(selected => 
+                            category.tags.some(tag => (tag.value || tag) === (selected.value || selected))
+                        ).length;
+                    }
+                },
+
+                generatePrompt() {
+                    const parts = [];
+                    
+                    // Add prefixes first
+                    if (this.selectedPrefixes.length > 0) {
+                        parts.push(...this.selectedPrefixes.map(tag => tag.value || tag));
+                    }
+                    
+                    // Add normal tags with strength modifiers
+                    if (this.selectedTags.length > 0) {
+                        const tagParts = this.selectedTags.map(tag => {
+                            const tagKey = tag.value || tag;
+                            const strength = this.tagStrengths[tagKey] || 0;
+                            const value = tag.value || tag;
+                            return strength === 1 ? `(${value})` : value;
+                        });
+                        parts.push(...tagParts);
+                    }
+                    
+                    return parts.join(', ');
+                },
+
+                generateNegativePrompt() {
+                    if (this.selectedNegatives.length === 0) return '';
+                    return this.selectedNegatives.map(tag => tag.value || tag).join(', ');
+                },
+
+                async copyPrompt() {
+                    const prompt = this.generatePrompt();
+                    if (prompt) {
+                        try {
+                            await navigator.clipboard.writeText(prompt);
+                            this.showCopyFeedback();
+                        } catch (error) {
+                            console.error('Error copying to clipboard:', error);
+                        }
+                    }
+                },
+
+                async copyNegativePrompt() {
+                    const prompt = this.generateNegativePrompt();
+                    if (prompt) {
+                        try {
+                            await navigator.clipboard.writeText(prompt);
+                            this.showNegativeCopyFeedback();
+                        } catch (error) {
+                            console.error('Error copying negative prompt to clipboard:', error);
+                        }
+                    }
+                },
+
+                showCopyFeedback() {
+                    this.copyFeedback = true;
+                    setTimeout(() => {
+                        this.copyFeedback = false;
+                    }, 2000);
+                },
+
+                showNegativeCopyFeedback() {
+                    this.negativeCopyFeedback = true;
+                    setTimeout(() => {
+                        this.negativeCopyFeedback = false;
+                    }, 2000);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

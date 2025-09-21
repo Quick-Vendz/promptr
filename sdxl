@@ -1,0 +1,102 @@
+# Style Prefix
+Pony: Anime|score_9, score_8_up, score_7_up, source_anime
+Pony: Realistic|score_9, score_8_up, score_7_up, source_realistic
+SDXL: High Quality|masterpiece, best quality, ultra detailed, 8k
+SDXL: Photorealistic|photorealistic, hyperrealistic, highly detailed
+Anime Style|anime, manga style, cel shading
+Oil Painting|oil painting, brush strokes, textured canvas
+Digital Art|digital art, concept art, trending on artstation
+
+# Style
+professional
+casual
+creative
+formal
+conversational
+academic
+technical
+artistic
+minimalist
+elaborate
+
+# Tone
+friendly
+authoritative
+helpful
+encouraging
+direct
+empathetic
+confident
+humble
+enthusiastic
+calm
+
+# Format
+bullet points
+paragraph
+numbered list
+Q&A format
+step-by-step guide
+table format
+outline
+summary
+detailed explanation
+examples included
+
+# Purpose
+explain
+analyze
+create
+summarize
+compare
+evaluate
+describe
+instruct
+persuade
+inform
+
+# Audience
+beginner
+intermediate
+expert
+general audience
+technical audience
+business audience
+academic audience
+children
+teenagers
+adults
+
+# Length
+brief
+detailed
+comprehensive
+concise
+in-depth
+quick overview
+full analysis
+short summary
+extended discussion
+thorough examination
+
+# Special Instructions
+include examples
+provide sources
+use simple language
+be specific
+avoid jargon
+include statistics
+focus on benefits
+highlight key points
+provide actionable advice
+use visual descriptions
+
+# Negative Prompts
+Low Quality|low quality, blurry, pixelated, compression artifacts
+Bad Anatomy|bad anatomy, deformed, malformed, extra limbs, missing limbs
+Art Issues|ugly, poorly drawn, amateur, sketch, draft
+Unwanted Elements|watermark, signature, text, logo, copyright
+Technical Problems|noise, grain, oversaturated, undersaturated
+Facial Issues|bad face, deformed face, extra eyes, missing eyes
+Hand Problems|bad hands, deformed hands, extra fingers, missing fingers
+Body Issues|bad proportions, asymmetrical, distorted
