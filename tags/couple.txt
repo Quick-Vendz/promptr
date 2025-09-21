@@ -1,3 +1,7 @@
+# Model Prefix
+SDXL Quality|masterpiece, best quality, ultra detailed, 8k
+Anime Style|anime, manga style, cel shading
+
 # Quality & Technical
 masterpiece
 best quality
