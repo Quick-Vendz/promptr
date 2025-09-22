@@ -3,7 +3,7 @@ these | these_1, these_2, these_3
 are | are_1, are_2, are_3
 multi | multi_1, multi_2, multi_3
 tags | tag_1, tag_2, tag_3
-with | with_1, with_2, with_3,
+with | with_1, with_2, with_3
 'prefix' | prefix_1, prefix_2, prefix_3
 in | in_1, in_2, in_3
 the | the_1, the_2, the_3
@@ -43,7 +43,7 @@ mixed | mixed_1, mixed_2, mixed_3
 dog
 banana
 cat
-adding [a-z] will make the tags be displayed alphabetically
+adding [a-z] to a category name will make the tags be displayed alphabetically
 
 # Negative tags
 negative

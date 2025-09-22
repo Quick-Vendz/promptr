@@ -74,18 +74,34 @@ Issue Name|negative,prompt,values
                     <div class="flex flex-col items-end gap-2">
                         <label class="text-sm text-gray-400">Tag File:</label>
                         <div class="flex gap-2 items-center">
+                            <button 
+                                x-show="availableFiles.find(f => f.file === selectedFile && f.isLocal === true && !f.isBuiltIn)"
+                                @click="removeLocalFile(selectedFile)"
+                                class="bg-red-600 text-white px-3 py-1 text-sm rounded hover:bg-red-700 transition-colors"
+                                title="Remove this local file"
+                            >
+                                Remove
+                            </button>
                             <select 
                                 x-model="selectedFile" 
                                 @change="loadSelectedFile()"
-                                class="bg-gray-700 text-gray-100 border border-gray-600 rounded px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                class="bg-gray-700 text-gray-100 border border-gray-600 rounded px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 flex-1"
                             >
                                 <template x-for="fileInfo in availableFiles" :key="fileInfo.file">
-                                    <option :value="fileInfo.file" x-text="fileInfo.name"></option>
+                                    <option :value="fileInfo.file" x-text="fileInfo.isLocal ? '📁 ' + fileInfo.name : fileInfo.name"></option>
                                 </template>
                             </select>
                             <button 
+                                x-show="availableFiles.find(f => f.file === selectedFile && f.isLocal === true && !f.isBuiltIn)"
+                                @click="refreshLocalFile()"
+                                class="bg-green-600 text-white px-3 py-1 text-sm rounded hover:bg-green-700 transition-colors"
+                                :title="`Refresh/replace '${selectedFile}' with updated version (must select same filename)`"
+                            >
+                                Refresh
+                            </button>
+                            <button 
                                 @click="$refs.fileInput.click()"
-                                class="bg-blue-600 text-white px-3 py-1 text-sm rounded hover:bg-blue-700 ml-2 transition-colors"
+                                class="bg-blue-600 text-white px-3 py-1 text-sm rounded hover:bg-blue-700 transition-colors"
                                 title="Load custom tag file"
                             >
                                 Browse
@@ -177,15 +193,26 @@ Issue Name|negative,prompt,values
 
                 <!-- Regular Categories (Dynamic) -->
                 <template x-for="category in categories" :key="category.name">
-                    <div class="border border-gray-600 rounded-lg overflow-hidden bg-gray-750">
+                    <div 
+                        class="border rounded-lg overflow-hidden bg-gray-750"
+                        :class="category.type === 'prefix' ? 'border-purple-500' : 
+                               category.type === 'negative' ? 'border-orange-500' : 
+                               'border-gray-600'"
+                    >
                         <!-- Accordion Header -->
                         <button 
                             @click="toggleCategory(category.name)"
-                            class="w-full px-4 py-3 text-left bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+                            class="w-full px-4 py-3 text-left bg-gray-700 hover:bg-gray-600 focus:outline-none transition-colors"
                         >
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center space-x-2">
-                                    <h3 class="font-semibold text-gray-100" x-text="category.name"></h3>
+                                    <h3 
+                                        class="font-semibold" 
+                                        :class="category.type === 'prefix' ? 'text-purple-300' : 
+                                               category.type === 'negative' ? 'text-orange-300' : 
+                                               'text-gray-100'"
+                                        x-text="category.name"
+                                    ></h3>
                                     <span 
                                         x-show="getCategoryCount(category) > 0"
                                         class="px-2 py-1 text-xs rounded-full font-semibold"
@@ -212,9 +239,9 @@ Issue Name|negative,prompt,values
                             class="overflow-hidden transition-all duration-300 ease-in-out bg-gray-800"
                             :style="openCategories.includes(category.name) ? 'max-height: 500px;' : 'max-height: 0px;'"
                         >
-                            <div class="p-4">
+                            <div class="p-4" x-show="category.tags && category.tags.length > 0">
                                 <div class="flex flex-wrap gap-2">
-                                    <template x-for="tag in category.tags" :key="tag.display || tag">
+                                    <template x-for="(tag, index) in category.tags" :key="`${category.name}-${index}-${tag.display || tag}`">
                                         <button
                                             @click="addRemoveTag(tag)"
                                             class="px-3 py-1 text-sm rounded-full border transition-all duration-200 hover:shadow-md"
@@ -368,8 +395,8 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                         </button>
                     </div>
                     
-                    <div class="bg-gray-800 border border-red-600 rounded-lg p-4 min-h-[100px]">
-                        <pre class="whitespace-pre-wrap text-red-200 leading-relaxed" x-text="generateNegativePrompt()"></pre>
+                    <div class="bg-gray-800 border border-orange-600 rounded-lg p-4 min-h-[100px]">
+                        <pre class="whitespace-pre-wrap text-orange-200 leading-relaxed" x-text="generateNegativePrompt()"></pre>
                     </div>
                     
                     <!-- Negative Copy Feedback -->
@@ -421,7 +448,7 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                 </div>
                 
                 <div class="flex flex-wrap gap-2">
-                    <template x-for="tag in selectedPrefixes" :key="tag.display || tag">
+                    <template x-for="(tag, index) in selectedPrefixes" :key="`prefix-${index}-${tag.display || tag}`">
                         <span 
                             class="inline-flex items-center text-sm text-white rounded transition-colors"
                             :class="getSelectedTagClass(tag)"
@@ -458,7 +485,7 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                 </div>
                 
                 <div class="flex flex-wrap gap-2">
-                    <template x-for="tag in selectedTags" :key="tag.display || tag">
+                    <template x-for="(tag, index) in selectedTags" :key="`normal-${index}-${tag.display || tag}`">
                         <span 
                             class="inline-flex items-center text-sm text-white rounded transition-colors"
                             :class="getSelectedTagClass(tag)"
@@ -514,7 +541,7 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                 </div>
                 
                 <div class="flex flex-wrap gap-2">
-                    <template x-for="tag in selectedNegatives" :key="tag.display || tag">
+                    <template x-for="(tag, index) in selectedNegatives" :key="`negative-${index}-${tag.display || tag}`">
                         <span 
                             class="inline-flex items-center text-sm text-white rounded transition-colors"
                             :class="getSelectedTagClass(tag)"
@@ -547,7 +574,6 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                 allTags: [], // Track all tags in original order
                 selectedTags: [],
                 selectedPrefixes: [],
-                selectedNegatives: [],
                 selectedNegatives: [], // Track negative tags
                 tagStrengths: {}, // Track tag strength levels (0=normal, 1=emphasized)
                 openCategories: [],
@@ -556,6 +582,7 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                 selectedFile: 'prompt-data.txt', // Default file
                 availableFiles: [], // Will be populated by file discovery
                 showInfoPanel: false,
+                fileToReplace: null, // Track which file to replace when refreshing
 
                 async init() {
                     // Load persisted state before loading files
@@ -571,6 +598,7 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                 },
 
                 async discoverAvailableFiles() {
+                    console.log('Starting file discovery...');
                     // GitHub repository configuration
                     const githubConfig = {
                         owner: 'Quick-Vendz',             // Your GitHub username
@@ -581,27 +609,45 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                         ]
                     };
 
+                    // Preserve any local files that were restored from persistence, but reset built-in files
+                    const preservedLocalFiles = this.availableFiles.filter(f => f.isLocal && !f.isBuiltIn);
+                    
                     this.availableFiles = [
-                        { file: 'tutorial', name: 'Help & Guide', isLocal: true, content: null }
+                        { file: 'tutorial', name: 'Help & Guide', isLocal: false, isBuiltIn: true, content: null },
+                        ...preservedLocalFiles
                     ];
+
+                    console.log('Trying to load files:', githubConfig.files);
 
                     // Try to load files from GitHub and other sources
                     for (const fileInfo of githubConfig.files) {
                         try {
                             let fileUrl;
+                            let isGithub = true;
                             
                             // Check if it's already a full URL (like Catbox)
                             if (fileInfo.file.startsWith('http://') || fileInfo.file.startsWith('https://')) {
                                 fileUrl = fileInfo.file;
+                                isGithub = false;
                             } else {
-                                // Build GitHub URL for relative paths
+                                // Try GitHub URL first for relative paths
                                 fileUrl = `https://raw.githubusercontent.com/${githubConfig.owner}/${githubConfig.repo}/${githubConfig.branch}/${fileInfo.file}`;
                             }
                             
-                            const response = await fetch(fileUrl);
+                            let response = await fetch(fileUrl);
+                            
+                            // If GitHub fails, try loading from local server
+                            if (!response.ok && isGithub) {
+                                console.log(`GitHub load failed for ${fileInfo.file} (${response.status}), trying local server...`);
+                                fileUrl = `/${fileInfo.file}`;
+                                response = await fetch(fileUrl);
+                                isGithub = false;
+                                console.log(`Local server response for ${fileInfo.file}:`, response.status);
+                            }
                             
                             // Security: Validate response and content type
                             if (response.ok) {
+                                console.log(`Successfully loaded ${fileInfo.file} from ${isGithub ? 'GitHub' : 'local server'}`);
                                 const contentType = response.headers.get('content-type') || '';
                                 if (!contentType.includes('text/plain') && !contentType.includes('text/csv') && !contentType.includes('application/octet-stream')) {
                                     console.log(`Skipping ${fileInfo.file}: Invalid content type (${contentType})`);
@@ -619,15 +665,21 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                                     file: fileInfo.file,
                                     name: fileInfo.name,
                                     url: fileUrl,
-                                    isGithub: !fileInfo.file.startsWith('http'), // Only GitHub files are relative paths
+                                    isGithub: isGithub,
+                                    isLocal: !isGithub && !fileInfo.file.startsWith('http'),
                                     isCatbox: fileInfo.file.includes('catbox.moe')
                                 });
+                                console.log(`Added file to dropdown: ${fileInfo.name}`);
+                            } else {
+                                console.log(`Failed to load ${fileInfo.file}: HTTP ${response.status}`);
                             }
                         } catch (error) {
                             console.log(`Could not load ${fileInfo.file}:`, error);
                         }
                     }
 
+                    console.log('File discovery complete. Available files:', this.availableFiles.map(f => f.name));
+                    
                     // Set the first available file as selected
                     this.selectedFile = this.availableFiles[0].file;
                     
@@ -686,25 +738,49 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                             return;
                         }
                         
-                        // Add this file to available files if not already there
+                        // Extract file info
                         const fileName = file.name;
                         const displayName = fileName.replace(/\.(txt|csv)$/i, '').replace(/[-_]/g, ' ');
                         
-                        const existingIndex = this.availableFiles.findIndex(f => f.file === fileName);
+                        // Handle file replacement or addition
+                        let targetFileName = fileName;
+                        let targetDisplayName = displayName;
+                        
+                        // If we're replacing a file, validate filename matches
+                        if (this.fileToReplace) {
+                            const fileToReplaceInfo = this.availableFiles.find(f => f.file === this.fileToReplace);
+                            if (fileToReplaceInfo) {
+                                // Check if the selected file has the same name as the file being replaced
+                                if (fileName !== this.fileToReplace) {
+                                    alert(`Filename mismatch! You selected "${fileName}" but are trying to refresh "${this.fileToReplace}". Please select the same filename to refresh, or use Browse to add a new file.`);
+                                    this.fileToReplace = null;
+                                    event.target.value = '';
+                                    return;
+                                }
+                                targetFileName = this.fileToReplace;
+                                targetDisplayName = fileToReplaceInfo.name;
+                            }
+                        }
+                        
+                        const existingIndex = this.availableFiles.findIndex(f => f.file === targetFileName);
                         if (existingIndex === -1) {
                             this.availableFiles.push({ 
-                                file: fileName, 
-                                name: displayName,
+                                file: targetFileName, 
+                                name: targetDisplayName,
                                 content: text,
                                 isLocal: true 
                             });
                         } else {
                             // Update existing entry with new content
                             this.availableFiles[existingIndex].content = text;
+                            this.availableFiles[existingIndex].name = targetDisplayName;
                         }
 
                         // Switch to this file
-                        this.selectedFile = fileName;
+                        this.selectedFile = targetFileName;
+                        
+                        // Clear the replacement flag
+                        this.fileToReplace = null;
                         
                         // Clear existing selections
                         this.selectedTags = [];
@@ -715,12 +791,17 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                         // Parse the file content
                         this.parseCategories(text);
                         this.openCategories = [];
+                        
+                        // Clear the file input for security
+                        event.target.value = '';
 
                     } catch (error) {
                         console.error('Error loading custom file:', error);
                         alert('Error loading file. Please make sure it\'s a valid text file.');
                         // Security: Clear the file input on error
                         event.target.value = '';
+                        // Clear replacement flag on error
+                        this.fileToReplace = null;
                     }
                 },
 
@@ -788,6 +869,14 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                     const categories = [];
                     const allTags = [];
                     let currentCategory = null;
+                    
+                    // Skip duplicate checking for example tags file (tutorial purposes)
+                    const isExampleFile = this.selectedFile === 'tags/example_tags.txt';
+                    
+                    // Track tags to detect duplicates within same purpose (positive vs negative)
+                    const positiveTagValues = new Set(); // For normal and prefix tags
+                    const negativeTagValues = new Set(); // For negative tags
+                    const duplicates = [];
 
                     lines.forEach(line => {
                         if (line.startsWith('#')) {
@@ -835,12 +924,45 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                                 };
                             }
                             
+                            // Check for duplicates within the same purpose (but skip for example file)
+                            const tagValue = tag.value.toLowerCase();
+                            if (!isExampleFile) {
+                                if (currentCategory.type === 'negative') {
+                                    if (negativeTagValues.has(tagValue)) {
+                                        duplicates.push({
+                                            tag: tag.value,
+                                            category: currentCategory.name,
+                                            type: 'negative'
+                                        });
+                                    } else {
+                                        negativeTagValues.add(tagValue);
+                                    }
+                                } else {
+                                    // Normal and prefix tags are both "positive" purpose
+                                    if (positiveTagValues.has(tagValue)) {
+                                        duplicates.push({
+                                            tag: tag.value,
+                                            category: currentCategory.name,
+                                            type: currentCategory.type
+                                        });
+                                    } else {
+                                        positiveTagValues.add(tagValue);
+                                    }
+                                }
+                            }
+                            
                             currentCategory.tags.push(tag);
                             if (currentCategory.type === 'normal') {
                                 allTags.push(tag);
                             }
                         }
                     });
+
+                    // Show warning if duplicates found (but not for example file)
+                    if (!isExampleFile && duplicates.length > 0) {
+                        const duplicateList = duplicates.map(d => `"${d.tag}" in "${d.category}" (${d.type})`).join('\n');
+                        alert(`⚠️ Duplicate tags detected!\n\nThe same tag appears multiple times within the same purpose:\n\n${duplicateList}\n\nNote: Tags can appear in both positive AND negative categories, but shouldn't be duplicated within the same purpose (positive or negative).`);
+                    }
 
                     // Sort tags alphabetically only for categories with [a-z] keyword
                     categories.forEach(category => {
@@ -962,6 +1084,14 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                     this.selectedTags = [];
                     this.selectedPrefixes = [];
                     this.selectedNegatives = [];
+                    this.tagStrengths = {};
+                    // Note: We don't clear persisted state here, just current selections
+                    // The state will be auto-saved due to the watchers
+                },
+
+                clearPromptTags() {
+                    this.selectedTags = [];
+                    this.selectedPrefixes = [];
                     this.tagStrengths = {};
                     // Note: We don't clear persisted state here, just current selections
                     // The state will be auto-saved due to the watchers
@@ -1148,6 +1278,18 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                             this.selectedNegatives = state.selectedNegatives || [];
                             this.tagStrengths = state.tagStrengths || {};
                             this.selectedFile = state.selectedFile || 'tutorial';
+                            
+                            // Restore local files if they exist
+                            if (state.localFiles && Array.isArray(state.localFiles)) {
+                                // Add local files back to availableFiles
+                                state.localFiles.forEach(localFile => {
+                                    const existingIndex = this.availableFiles.findIndex(f => f.file === localFile.file);
+                                    if (existingIndex === -1) {
+                                        this.availableFiles.push(localFile);
+                                    }
+                                });
+                            }
+                            
                             console.log('Loaded persisted state:', state);
                         }
                     } catch (error) {
@@ -1157,12 +1299,16 @@ Bad Anatomy|deformed, distorted, malformed</pre>
 
                 saveState() {
                     try {
+                        // Extract only local files to save (exclude built-in files)
+                        const localFiles = this.availableFiles.filter(f => f.isLocal && !f.isBuiltIn);
+                        
                         const state = {
                             selectedTags: this.selectedTags,
                             selectedPrefixes: this.selectedPrefixes,
                             selectedNegatives: this.selectedNegatives,
                             tagStrengths: this.tagStrengths,
                             selectedFile: this.selectedFile,
+                            localFiles: localFiles, // Save local files
                             timestamp: Date.now()
                         };
                         localStorage.setItem('promptGenerator_state', JSON.stringify(state));
@@ -1178,6 +1324,7 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                     this.$watch('selectedPrefixes', () => this.saveState());
                     this.$watch('selectedNegatives', () => this.saveState());
                     this.$watch('tagStrengths', () => this.saveState());
+                    this.$watch('availableFiles', () => this.saveState()); // Save when files are added
                     this.$watch('selectedFile', () => {
                         this.saveState();
                         // Close info panel when switching away from tutorial
@@ -1190,10 +1337,39 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                 clearPersistedState() {
                     try {
                         localStorage.removeItem('promptGenerator_state');
-                        console.log('Cleared persisted state');
+                        
+                        // Also remove local files from availableFiles
+                        this.availableFiles = this.availableFiles.filter(f => !f.isLocal);
+                        
+                        // Reset to tutorial if current selection was a local file
+                        const currentFile = this.availableFiles.find(f => f.file === this.selectedFile);
+                        if (!currentFile) {
+                            this.selectedFile = 'tutorial';
+                            this.loadTutorial();
+                        }
+                        
+                        console.log('Cleared persisted state and local files');
                     } catch (error) {
                         console.log('Error clearing persisted state:', error);
                     }
+                },
+
+                removeLocalFile(fileName) {
+                    // Remove from availableFiles
+                    this.availableFiles = this.availableFiles.filter(f => f.file !== fileName);
+                    
+                    // Switch to tutorial if the removed file was selected
+                    if (this.selectedFile === fileName) {
+                        this.selectedFile = 'tutorial';
+                        this.loadTutorial();
+                    }
+                },
+
+                refreshLocalFile() {
+                    // Store the current file name for replacement
+                    this.fileToReplace = this.selectedFile;
+                    // Trigger file input
+                    this.$refs.fileInput.click();
                 }
             }
         }
