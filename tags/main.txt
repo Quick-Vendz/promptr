@@ -1,0 +1,16 @@
+# Prefix (Model)
+
+# Prefix
+WAI-NSFW-Illustrious-SDXL v15 | masterpiece, best quality
+
+
+
+
+
+
+
+# Negative (Model)
+
+
+# Negative
+WAI-NSFW-Illustrious-SDXL v15 | bad quality,worst quality,worst detail,

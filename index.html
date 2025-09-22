@@ -81,7 +81,7 @@ Issue Name|negative,prompt,values
                         <label class="text-sm text-gray-400">Tag File:</label>
                         <div class="flex gap-2 items-center">
                             <button 
-                                x-show="availableFiles.find(f => f.file === selectedFile && f.isLocal === true && !f.isBuiltIn)"
+                                x-show="availableFiles.find(f => f.file === selectedFile && f.isLocal === true && !f.isBuiltIn && f.canDelete !== false)"
                                 @click="removeLocalFile(selectedFile)"
                                 class="bg-red-600 text-white px-3 py-1 text-sm rounded hover:bg-red-700 transition-colors"
                                 title="Remove this local file"
@@ -102,7 +102,7 @@ Issue Name|negative,prompt,values
                                 </template>
                             </select>
                             <button 
-                                x-show="availableFiles.find(f => f.file === selectedFile && f.isLocal === true && !f.isBuiltIn)"
+                                x-show="availableFiles.find(f => f.file === selectedFile && f.isLocal === true && !f.isBuiltIn && f.canDelete !== false)"
                                 @click="refreshLocalFile()"
                                 class="bg-green-600 text-white px-3 py-1 text-sm rounded hover:bg-green-700 transition-colors"
                                 :title="`Refresh/replace '${selectedFile}' with updated version (must select same filename)`"
@@ -669,7 +669,8 @@ Issue Name|negative,prompt,values
                         branch: 'main',                   // Your branch name
                         files: [
                             { file: 'tags/tag_types_example.txt', name: '🎓 tag type examples' },
-                            { file: 'tags/template.txt', name: '📝 template file' }
+                            { file: 'tags/template.txt', name: '📝 template file' },
+                            { file: 'tags/main.txt', name: '📁 main tags', isDefault: true } // Special default file
                         ]
                     };
 
@@ -725,6 +726,9 @@ Issue Name|negative,prompt,values
                                     continue;
                                 }
 
+                                // Check if this is a default file (main.txt)
+                                const isDefaultFile = fileInfo.isDefault || false;
+                                
                                 // Add as built-in file (these are from GitHub config)
                                 this.availableFiles.push({
                                     file: fileInfo.file,
@@ -733,6 +737,8 @@ Issue Name|negative,prompt,values
                                     isGithub: isGithub,
                                     isLocal: false,
                                     isBuiltIn: true,
+                                    isDefault: isDefaultFile, // Mark default files
+                                    canDelete: !isDefaultFile, // Default files cannot be deleted
                                     isCatbox: fileInfo.file.includes('catbox.moe'),
                                     disabled: false
                                 });
@@ -745,19 +751,33 @@ Issue Name|negative,prompt,values
                         }
                     }
                     
-                    // Add separator if there are local files
-                    if (preservedLocalFiles.length > 0) {
+                    // Separate default files from regular built-in files
+                    const builtInFiles = this.availableFiles.filter(f => f.isBuiltIn && !f.isDefault);
+                    const defaultFiles = this.availableFiles.filter(f => f.isDefault);
+                    
+                    // Reorganize: built-in files first, then separator, then default files, then user files
+                    this.availableFiles = [...builtInFiles];
+                    
+                    // Add separator if there are default files or local files
+                    if (defaultFiles.length > 0 || preservedLocalFiles.length > 0) {
                         this.availableFiles.push({ file: 'separator', name: '──────────────', isLocal: false, isBuiltIn: true, disabled: true });
                     }
                     
-                    // Add preserved local files at the end
+                    // Add default files first (like main.txt)
+                    this.availableFiles.push(...defaultFiles);
+                    
+                    // Add preserved local files after default files
                     this.availableFiles.push(...preservedLocalFiles);
 
                     console.log('File discovery complete. Available files:', this.availableFiles.map(f => f.name));
                     
-                    // Set the first selectable file as selected (avoid separator)
+                    // Set default file selection priority: main.txt > first selectable file > tutorial
+                    const mainFile = this.availableFiles.find(f => f.file === 'tags/main.txt');
                     const firstSelectableFile = this.availableFiles.find(f => !f.disabled);
-                    if (firstSelectableFile) {
+                    
+                    if (mainFile) {
+                        this.selectedFile = mainFile.file;
+                    } else if (firstSelectableFile) {
                         this.selectedFile = firstSelectableFile.file;
                     } else {
                         this.selectedFile = 'tutorial'; // fallback
@@ -1513,19 +1533,33 @@ Issue Name|negative,prompt,values
                 },
 
                 removeLocalFile(fileName) {
+                    // Check if this is a default file that cannot be deleted
+                    const fileInfo = this.availableFiles.find(f => f.file === fileName);
+                    if (fileInfo && fileInfo.isDefault) {
+                        alert('This is a default file and cannot be deleted.');
+                        return;
+                    }
+                    
                     // Remove from availableFiles
                     this.availableFiles = this.availableFiles.filter(f => f.file !== fileName);
                     
-                    // Remove separator if no local files remain
+                    // Check if separator should be removed (only if no default files and no local files)
+                    const hasDefaultFiles = this.availableFiles.some(f => f.isDefault);
                     const hasLocalFiles = this.availableFiles.some(f => f.isLocal && !f.isBuiltIn);
-                    if (!hasLocalFiles) {
+                    if (!hasDefaultFiles && !hasLocalFiles) {
                         this.availableFiles = this.availableFiles.filter(f => f.file !== 'separator');
                     }
                     
-                    // Switch to tutorial if the removed file was selected
+                    // Switch to main.txt if available, otherwise tutorial
                     if (this.selectedFile === fileName) {
-                        this.selectedFile = 'tutorial';
-                        this.loadTutorial();
+                        const mainFile = this.availableFiles.find(f => f.file === 'tags/main.txt');
+                        if (mainFile) {
+                            this.selectedFile = mainFile.file;
+                            this.loadSelectedFile();
+                        } else {
+                            this.selectedFile = 'tutorial';
+                            this.loadTutorial();
+                        }
                     }
                 },
 
