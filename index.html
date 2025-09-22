@@ -21,10 +21,18 @@ Issue Name|negative,prompt,values
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSP temporarily disabled for debugging - will re-enable with proper configuration -->
+    <!-- <meta http-equiv="Content-Security-Policy" 
+          content="default-src 'self'; 
+                   script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://unpkg.com; 
+                   style-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; 
+                   connect-src 'self' https://raw.githubusercontent.com; 
+                   img-src 'self' data:; 
+                   font-src 'self' data:;"> -->
     <title>Prompt Generator</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <!-- Updated: GitHub Pages deployment -->
+    <!-- CDN scripts restored to original configuration for compatibility -->
     <style>
         [x-cloak] { display: none !important; }
         
@@ -77,7 +85,7 @@ Issue Name|negative,prompt,values
                             </select>
                             <button 
                                 @click="$refs.fileInput.click()"
-                                class="bg-blue-600 text-white px-3 py-1 text-sm rounded hover:bg-blue-700 transition-colors"
+                                class="bg-blue-600 text-white px-3 py-1 text-sm rounded hover:bg-blue-700 ml-2 transition-colors"
                                 title="Load custom tag file"
                             >
                                 Browse
@@ -196,142 +204,121 @@ Issue Name|negative,prompt,values
                 </div>
                 
                 <div x-show="currentInfoTag" class="space-y-4 text-sm text-gray-100">
-                    <!-- Dynamic content based on currentInfoTag -->
-                    <template x-if="currentInfoTag && currentInfoTag.display === 'Step 1: Prepare Your Tag File'">
-                        <div>
-                            <h3 class="font-semibold text-blue-300 mb-2">📝 Creating Your Tag File</h3>
-                            <div class="bg-gray-700 rounded-lg p-4 space-y-3">
-                                <p>Create a plain text file (.txt) with your tags organized into categories:</p>
-                                <div class="bg-gray-800 rounded p-3 font-mono text-xs text-gray-300">
-                                    <div class="text-green-400"># Quality & Technical</div>
-                                    <div>masterpiece</div>
-                                    <div>best quality</div>
-                                    <div>detailed</div>
-                                    <div class="mt-2 text-green-400"># Character Features</div>
-                                    <div>1girl</div>
-                                    <div>long hair</div>
-                                    <div>blue eyes</div>
-                                </div>
-                                <div class="bg-yellow-900 border border-yellow-700 rounded p-3">
-                                    <p class="text-yellow-200 font-medium">💡 Best Practices:</p>
-                                    <ul class="text-yellow-100 text-xs mt-1 space-y-1">
-                                        <li>• One tag per line</li>
-                                        <li>• Use # for category headers</li>
-                                        <li>• Keep categories focused (10-30 tags each)</li>
-                                        <li>• Use descriptive category names</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </template>
-                    
-                    <template x-if="currentInfoTag && currentInfoTag.display === 'Step 2: Upload to Catbox'">
-                        <div>
-                            <h3 class="font-semibold text-green-300 mb-2">📤 Uploading to Catbox</h3>
-                            <div class="bg-gray-700 rounded-lg p-4 space-y-3">
-                                <p>Catbox.moe is a free file hosting service perfect for sharing tag files:</p>
-                                <ol class="list-decimal list-inside space-y-2 text-gray-300">
-                                    <li>Go to <a href="https://catbox.moe" target="_blank" class="text-blue-400 hover:text-blue-300 underline">catbox.moe</a></li>
-                                    <li>Click "Browse" and select your .txt file</li>
-                                    <li>Click "Upload" and wait for completion</li>
-                                    <li>Copy the direct link (starts with https://files.catbox.moe/)</li>
-                                </ol>
-                                <div class="bg-green-900 border border-green-700 rounded p-3 mt-3">
-                                    <p class="text-green-200 font-medium">✅ Pro Tip:</p>
-                                    <p class="text-green-100 text-xs mt-1">Save the link immediately - Catbox doesn't provide file management, so you'll need this URL to access your file later.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </template>
-                    
-                    <template x-if="currentInfoTag && currentInfoTag.display === 'Step 4A: Add URL Directly'">
-                        <div>
-                            <h3 class="font-semibold text-purple-300 mb-2">⚡ Quick URL Loading</h3>
-                            <div class="bg-gray-700 rounded-lg p-4 space-y-3">
-                                <p>The fastest way to use your Catbox-hosted tag file:</p>
-                                <ol class="list-decimal list-inside space-y-2 text-gray-300">
-                                    <li>Click the "Browse" button above</li>
-                                    <li>Paste your Catbox URL instead of selecting a file</li>
-                                    <li>Your tags will load instantly!</li>
-                                </ol>
-                                <div class="bg-gray-800 rounded p-3">
-                                    <p class="text-gray-300 text-xs font-mono">Example URL:</p>
-                                    <p class="text-blue-400 text-xs font-mono">https://files.catbox.moe/abc123.txt</p>
-                                </div>
-                                <div class="bg-purple-900 border border-purple-700 rounded p-3">
-                                    <p class="text-purple-200 font-medium">🚀 Perfect for:</p>
-                                    <ul class="text-purple-100 text-xs mt-1 space-y-1">
-                                        <li>• Testing new tag files</li>
-                                        <li>• Sharing with friends</li>
-                                        <li>• Temporary additions</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </template>
-                    
-                    <template x-if="currentInfoTag && currentInfoTag.display === 'Catbox File Storage'">
-                        <div>
-                            <h3 class="font-semibold text-green-300 mb-2">🗂️ About Catbox File Storage</h3>
-                            <div class="bg-gray-700 rounded-lg p-4 space-y-3">
-                                <p>Catbox.moe is the recommended platform for hosting your tag files:</p>
-                                <div class="grid grid-cols-1 gap-3">
-                                    <div class="bg-green-900 border border-green-700 rounded p-3">
-                                        <p class="text-green-200 font-medium">✅ Free Forever</p>
-                                        <p class="text-green-100 text-xs">No registration required, completely free</p>
-                                    </div>
-                                    <div class="bg-blue-900 border border-blue-700 rounded p-3">
-                                        <p class="text-blue-200 font-medium">⚡ Fast & Reliable</p>
-                                        <p class="text-blue-100 text-xs">CDN-powered hosting with excellent uptime</p>
-                                    </div>
-                                    <div class="bg-purple-900 border border-purple-700 rounded p-3">
-                                        <p class="text-purple-200 font-medium">🔗 Direct Access</p>
-                                        <p class="text-purple-100 text-xs">Files can be accessed directly by URL, perfect for APIs</p>
-                                    </div>
-                                </div>
-                                <a href="https://catbox.moe" target="_blank" 
-                                   class="inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors">
-                                    Visit Catbox.moe →
+                    <!-- Default info for tutorial tags -->
+                    <div>
+                        <h3 class="font-semibold text-blue-300 mb-2" x-text="currentInfoTag.display"></h3>
+                        <div class="bg-gray-700 rounded-lg p-4">
+                            <p x-text="currentInfoTag.value" class="text-gray-200"></p>
+                            <template x-if="currentInfoTag.type === 'link' && currentInfoTag.value.startsWith('https://')">
+                                <a :href="currentInfoTag.value" target="_blank" 
+                                   class="inline-block mt-3 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
+                                    Visit Link →
                                 </a>
-                            </div>
+                            </template>
                         </div>
-                    </template>
+                    </div>
+                </div>
+            </div>
+
+                        <!-- Generated Prompt Section -->
+            <div class="flex-1 p-6" x-show="selectedFile !== 'tutorial'">
+                <div class="flex items-center justify-between mb-4 mt-4">
+                    <h2 class="text-xl font-semibold text-gray-100">Generated Prompt</h2>
+                    <div class="flex items-center gap-2">
+                        <button 
+                            @click="clearAllSelections()"
+                            class="flex items-center px-3 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 text-sm"
+                            x-show="selectedTags.length > 0 || selectedPrefixes.length > 0 || selectedNegatives.length > 0 || selectedNegativePrefixes.length > 0"
+                        >
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                            </svg>
+                            Clear All
+                        </button>
+                        <button 
+                            @click="copyPrompt()"
+                            class="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            x-show="generatePrompt().length > 0"
+                        >
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                            </svg>
+                            Copy Prompt
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-800 border border-gray-600 rounded-lg p-4 min-h-[150px] mb-4">
+                    <pre class="whitespace-pre-wrap text-gray-200 leading-relaxed" x-text="generatePrompt() || 'Your generated prompt will appear here...'"></pre>
+                </div>
+                
+                <!-- Copy Feedback -->
+                <div 
+                    x-show="copyFeedback"
+                    x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 transform translate-y-2"
+                    x-transition:enter-end="opacity-100 transform translate-y-0"
+                    x-transition:leave="transition ease-in duration-200"
+                    x-transition:leave-start="opacity-100 transform translate-y-0"
+                    x-transition:leave-end="opacity-0 transform translate-y-2"
+                    class="mb-4 p-3 bg-green-900 text-green-200 rounded-lg text-sm"
+                >
+                    ✓ Prompt copied to clipboard!
+                </div>
+
+                <!-- Negative Prompt Section -->
+                <div x-show="generateNegativePrompt().length > 0 || selectedNegativePrefixes.length > 0" class="mb-6 mt-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-xl font-semibold text-red-300">Negative Prompt</h2>
+                        <button 
+                            @click="copyNegativePrompt()"
+                            class="flex items-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500"
+                        >
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                            </svg>
+                            Copy Negative
+                        </button>
+                    </div>
                     
-                    <!-- Default info for other tags -->
-                    <template x-if="currentInfoTag && !['Step 1: Prepare Your Tag File', 'Step 2: Upload to Catbox', 'Step 4A: Add URL Directly', 'Catbox File Storage'].includes(currentInfoTag.display)">
-                        <div>
-                            <h3 class="font-semibold text-blue-300 mb-2" x-text="currentInfoTag.display"></h3>
-                            <div class="bg-gray-700 rounded-lg p-4">
-                                <p x-text="currentInfoTag.value" class="text-gray-200"></p>
-                                <template x-if="currentInfoTag.type === 'link' && currentInfoTag.value.startsWith('https://')">
-                                    <a :href="currentInfoTag.value" target="_blank" 
-                                       class="inline-block mt-3 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
-                                        Visit Link →
-                                    </a>
-                                </template>
-                            </div>
-                        </div>
-                    </template>
+                    <div class="bg-gray-800 border border-red-600 rounded-lg p-4 min-h-[100px]">
+                        <pre class="whitespace-pre-wrap text-red-200 leading-relaxed" x-text="generateNegativePrompt()"></pre>
+                    </div>
+                    
+                    <!-- Negative Copy Feedback -->
+                    <div 
+                        x-show="negativeCopyFeedback"
+                        x-transition:enter="transition ease-out duration-300"
+                        x-transition:enter-start="opacity-0 transform translate-y-2"
+                        x-transition:enter-end="opacity-100 transform translate-y-0"
+                        x-transition:leave="transition ease-in duration-200"
+                        x-transition:leave-start="opacity-100 transform translate-y-0"
+                        x-transition:leave-end="opacity-0 transform translate-y-2"
+                        class="mt-4 p-3 bg-green-900 text-green-200 rounded-lg text-sm"
+                    >
+                        ✓ Negative prompt copied to clipboard!
+                    </div>
                 </div>
             </div>
             
             <!-- Tutorial Welcome Section -->
             <div class="flex-1 p-6 flex items-center justify-center" x-show="selectedFile === 'tutorial' && !showInfoPanel">
-                <div class="text-center space-y-4">
+                <!-- <div class="text-center space-y-4">
                     <div class="text-6xl">📚</div>
-                    <h2 class="text-2xl font-semibold text-gray-100">Welcome to the Tutorial!</h2>
+                    <h2 class="text-2xl font-semibold text-gray-100">Welcome to the Guide!</h2>
                     <p class="text-gray-400 max-w-md">
-                        Click any tutorial tag on the left to see detailed information and step-by-step guides here.
+                        Click any guide section on the left to see detailed information and helpful resources.
                     </p>
                     <div class="bg-blue-900 border border-blue-700 rounded-lg p-4 text-left max-w-md">
-                        <h3 class="text-blue-200 font-medium mb-2">💡 Getting Started:</h3>
+                        <h3 class="text-blue-200 font-medium mb-2">💡 Quick Navigation:</h3>
                         <ul class="text-blue-100 text-sm space-y-1">
-                            <li>• Click "📚 How to Add Your Own Tag Files" to learn the basics</li>
-                            <li>• Click "🔗 Useful Links" for important resources</li>
-                            <li>• Use the dropdown above to switch to actual tag collections</li>
+                            <li>• Start with "� Quick Start Guide" for basics</li>
+                            <li>• Check "📄 Tag File Format" to create your own files</li>
+                            <li>• Visit "🔗 Example Files & Links" for templates</li>
+                            <li>• Use "🐛 Report Issues & Suggestions" to help improve this tool</li>
                         </ul>
                     </div>
-                </div>
+                </div> -->
             </div>
             
             <!-- Prefix Tags Section -->
@@ -493,74 +480,6 @@ Issue Name|negative,prompt,values
                 </div>
             </div>
 
-            <!-- Generated Prompt Section -->
-            <div class="flex-1 p-6" x-show="selectedFile !== 'tutorial'">
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-xl font-semibold text-gray-100">Generated Prompt</h2>
-                    <button 
-                        @click="copyPrompt()"
-                        class="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        x-show="generatePrompt().length > 0"
-                    >
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-                        </svg>
-                        Copy Prompt
-                    </button>
-                </div>
-                
-                <div class="bg-gray-800 border border-gray-600 rounded-lg p-4 min-h-[150px] mb-4">
-                    <pre class="whitespace-pre-wrap text-gray-200 leading-relaxed" x-text="generatePrompt() || 'Your generated prompt will appear here...'"></pre>
-                </div>
-                
-                <!-- Copy Feedback -->
-                <div 
-                    x-show="copyFeedback"
-                    x-transition:enter="transition ease-out duration-300"
-                    x-transition:enter-start="opacity-0 transform translate-y-2"
-                    x-transition:enter-end="opacity-100 transform translate-y-0"
-                    x-transition:leave="transition ease-in duration-200"
-                    x-transition:leave-start="opacity-100 transform translate-y-0"
-                    x-transition:leave-end="opacity-0 transform translate-y-2"
-                    class="mb-4 p-3 bg-green-900 text-green-200 rounded-lg text-sm"
-                >
-                    ✓ Prompt copied to clipboard!
-                </div>
-
-                <!-- Negative Prompt Section -->
-                <div x-show="generateNegativePrompt().length > 0 || selectedNegativePrefixes.length > 0">
-                    <div class="flex items-center justify-between mb-4">
-                        <h2 class="text-xl font-semibold text-red-300">Negative Prompt</h2>
-                        <button 
-                            @click="copyNegativePrompt()"
-                            class="flex items-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500"
-                        >
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-                            </svg>
-                            Copy Negative
-                        </button>
-                    </div>
-                    
-                    <div class="bg-gray-800 border border-red-600 rounded-lg p-4 min-h-[100px]">
-                        <pre class="whitespace-pre-wrap text-red-200 leading-relaxed" x-text="generateNegativePrompt()"></pre>
-                    </div>
-                    
-                    <!-- Negative Copy Feedback -->
-                    <div 
-                        x-show="negativeCopyFeedback"
-                        x-transition:enter="transition ease-out duration-300"
-                        x-transition:enter-start="opacity-0 transform translate-y-2"
-                        x-transition:enter-end="opacity-100 transform translate-y-0"
-                        x-transition:leave="transition ease-in duration-200"
-                        x-transition:leave-start="opacity-100 transform translate-y-0"
-                        x-transition:leave-end="opacity-0 transform translate-y-2"
-                        class="mt-4 p-3 bg-green-900 text-green-200 rounded-lg text-sm"
-                    >
-                        ✓ Negative prompt copied to clipboard!
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -583,10 +502,16 @@ Issue Name|negative,prompt,values
                 currentInfoTag: null,
 
                 async init() {
+                    // Load persisted state before loading files
+                    this.loadPersistedState();
+                    
                     // Load GitHub-hosted files and sample data
                     await this.discoverAvailableFiles();
                     // Start with all categories closed
                     this.openCategories = [];
+                    
+                    // Setup auto-save watchers
+                    this.setupPersistence();
                 },
 
                 async discoverAvailableFiles() {
@@ -606,7 +531,7 @@ Issue Name|negative,prompt,values
                     };
 
                     this.availableFiles = [
-                        { file: 'tutorial', name: 'Tutorials', isLocal: true, content: null }
+                        { file: 'tutorial', name: 'Help & Guide', isLocal: true, content: null }
                     ];
 
                     // Try to load files from GitHub and other sources
@@ -624,7 +549,21 @@ Issue Name|negative,prompt,values
                             
                             const response = await fetch(fileUrl);
                             
+                            // Security: Validate response and content type
                             if (response.ok) {
+                                const contentType = response.headers.get('content-type') || '';
+                                if (!contentType.includes('text/plain') && !contentType.includes('text/csv') && !contentType.includes('application/octet-stream')) {
+                                    console.log(`Skipping ${fileInfo.file}: Invalid content type (${contentType})`);
+                                    continue;
+                                }
+
+                                // Security: Check response size before reading
+                                const contentLength = response.headers.get('content-length');
+                                if (contentLength && parseInt(contentLength) > 1024 * 1024) {
+                                    console.log(`Skipping ${fileInfo.file}: File too large (${contentLength} bytes)`);
+                                    continue;
+                                }
+
                                 this.availableFiles.push({
                                     file: fileInfo.file,
                                     name: fileInfo.name,
@@ -650,12 +589,8 @@ Issue Name|negative,prompt,values
                 },
 
                 async loadSelectedFile() {
-                    // Clear existing selections when switching files
-                    this.selectedTags = [];
-                    this.selectedPrefixes = [];
-                    this.selectedNegatives = [];
-                    this.selectedNegativePrefixes = [];
-                    this.tagStrengths = {};
+                    // Note: We now preserve selections across file switches
+                    // Users can manually clear if they want to start fresh
                     
                     // Load data for the selected file
                     if (this.selectedFile === 'tutorial') {
@@ -674,7 +609,31 @@ Issue Name|negative,prompt,values
                     if (!file) return;
 
                     try {
+                        // Security: Validate file size (1MB limit)
+                        if (file.size > 1024 * 1024) {
+                            alert('File too large. Maximum size is 1MB.');
+                            return;
+                        }
+
+                        // Security: Validate file type
+                        if (!file.name.match(/\.(txt|csv)$/i)) {
+                            alert('Invalid file type. Only .txt and .csv files are allowed.');
+                            return;
+                        }
+
                         const text = await file.text();
+                        
+                        // Security: Validate content size (100KB text limit)
+                        if (text.length > 100000) {
+                            alert('File content too large. Maximum content size is 100KB.');
+                            return;
+                        }
+
+                        // Security: Basic content validation - check for suspicious patterns
+                        if (text.includes('<script') || text.includes('javascript:') || text.includes('data:text/html')) {
+                            alert('File contains potentially unsafe content.');
+                            return;
+                        }
                         
                         // Add this file to available files if not already there
                         const fileName = file.name;
@@ -710,6 +669,8 @@ Issue Name|negative,prompt,values
                     } catch (error) {
                         console.error('Error loading custom file:', error);
                         alert('Error loading file. Please make sure it\'s a valid text file.');
+                        // Security: Clear the file input on error
+                        event.target.value = '';
                     }
                 },
 
@@ -736,7 +697,29 @@ Issue Name|negative,prompt,values
                                 // Fetch from GitHub
                                 const response = await fetch(githubFile.url);
                                 if (!response.ok) throw new Error('File not found on GitHub');
+                                
+                                // Security: Validate content type and size
+                                const contentType = response.headers.get('content-type') || '';
+                                const contentLength = response.headers.get('content-length');
+                                
+                                if (!contentType.includes('text/plain') && !contentType.includes('text/csv') && !contentType.includes('application/octet-stream')) {
+                                    throw new Error('Invalid content type from GitHub');
+                                }
+                                
+                                if (contentLength && parseInt(contentLength) > 1024 * 1024) {
+                                    throw new Error('File too large from GitHub');
+                                }
+                                
                                 text = await response.text();
+                                
+                                // Security: Validate fetched content
+                                if (text.length > 100000) {
+                                    throw new Error('Content too large from GitHub');
+                                }
+                                
+                                if (text.includes('<script') || text.includes('javascript:') || text.includes('data:text/html')) {
+                                    throw new Error('Content contains potentially unsafe data from GitHub');
+                                }
                             } else {
                                 throw new Error('File source not found');
                             }
@@ -819,82 +802,14 @@ Issue Name|negative,prompt,values
                 loadTutorial() {
                     this.categories = [
                         {
-                            name: "📚 How to Add Your Own Tag Files",
+                            name: "📄 Creating Tag Files & Resources",
                             type: "tutorial",
                             tags: [
-                                { display: "Step 1: Prepare Your Tag File", value: "Create a .txt file with your tags. Format: One tag per line, with # Category headers", type: "info" },
-                                { display: "Step 2: Upload to Catbox", value: "Go to catbox.moe and upload your .txt file", type: "info" },
-                                { display: "Step 3: Get the Direct Link", value: "Copy the direct link to your uploaded file (starts with https://files.catbox.moe/)", type: "info" },
-                                { display: "Step 4A: Add URL Directly", value: "Use 'Browse' button and paste Catbox URL for instant loading", type: "info" },
-                                { display: "Step 4B: Add to Dropdown", value: "Edit the code to permanently add your Catbox URL to the dropdown", type: "info" }
-                            ]
-                        },
-                        {
-                            name: "⚡ Using Catbox URLs Directly", 
-                            type: "tutorial",
-                            tags: [
-                                { display: "URL Format", value: "https://files.catbox.moe/abc123.txt - Direct file access", type: "info" },
-                                { display: "No Login Required", value: "Catbox files work immediately with any prompt generator", type: "info" },
-                                { display: "Fast Loading", value: "CDN-hosted files load faster than GitHub in many regions", type: "info" },
-                                { display: "Paste & Go", value: "Just paste the URL in 'Browse' button dialog for instant access", type: "info" },
-                                { display: "Permanent Links", value: "Catbox URLs don't expire - perfect for sharing", type: "info" }
-                            ]
-                        },
-                        {
-                            name: "📄 Tag File Format Example",
-                            type: "tutorial", 
-                            tags: [
-                                { display: "# Quality & Technical", value: "Category headers start with #", type: "info" },
-                                { display: "masterpiece", value: "Individual tags on separate lines", type: "info" },
-                                { display: "best quality", value: "No commas needed between tags", type: "info" },
-                                { display: "detailed", value: "Simple format, easy to read", type: "info" },
-                                { display: "", value: "Empty line between categories (optional)", type: "info" },
-                                { display: "# Character Features", value: "Another category header", type: "info" },
-                                { display: "1girl", value: "Character count tags", type: "info" },
-                                { display: "long hair", value: "Appearance tags", type: "info" }
-                            ]
-                        },
-                        {
-                            name: "� Adding URLs to Dropdown",
-                            type: "tutorial",
-                            tags: [
-                                { display: "Edit Configuration", value: "Find the 'githubConfig.files' array in the code", type: "info" },
-                                { display: "Add Catbox Entry", value: "{ file: 'https://files.catbox.moe/your-file.txt', name: 'My Tags' }", type: "info" },
-                                { display: "Full URLs Work", value: "Use complete Catbox URLs instead of relative paths", type: "info" },
-                                { display: "Mix Sources", value: "Combine GitHub files and Catbox files in same dropdown", type: "info" },
-                                { display: "Test First", value: "Always test your Catbox URL works before adding to code", type: "info" }
-                            ]
-                        },
-                        {
-                            name: "🔗 Useful Links",
-                            type: "tutorial",
-                            tags: [
-                                { display: "Catbox File Storage", value: "https://catbox.moe", type: "link" },
-                                { display: "Example Tag Files", value: "https://github.com/Quick-Vendz/promptr/tree/main/tags", type: "link" },
-                                { display: "Tag File Templates", value: "Download ready-to-use tag file templates", type: "link" },
-                                { display: "Support & Help", value: "Join our community for help and tag sharing", type: "link" }
-                            ]
-                        },
-                        {
-                            name: "💡 Pro Tips",
-                            type: "tutorial",
-                            tags: [
-                                { display: "Keep Files Small", value: "Aim for 200-500 tags per file for fast loading", type: "tip" },
-                                { display: "Organize by Theme", value: "Create separate files for different styles/characters", type: "tip" },
-                                { display: "Test Your Files", value: "Always test your uploaded files before sharing", type: "tip" },
-                                { display: "Share with Community", value: "Share useful tag collections with other users", type: "tip" },
-                                { display: "Regular Updates", value: "Keep your tag files updated with new discoveries", type: "tip" }
-                            ]
-                        },
-                        {
-                            name: "⚙️ Technical Notes",
-                            type: "tutorial",
-                            tags: [
-                                { display: "File Size Limit", value: "Keep files under 1MB for best performance", type: "tech" },
-                                { display: "Character Encoding", value: "Use UTF-8 encoding for special characters", type: "tech" },
-                                { display: "CORS Support", value: "Catbox.moe supports cross-origin requests", type: "tech" },
-                                { display: "Cache Friendly", value: "Files are cached for faster repeated loading", type: "tech" },
-                                { display: "Mobile Compatible", value: "Works on all devices and screen sizes", type: "tech" }
+                                { 
+                                    display: "📝 Complete Guide: Creating & Using Tag Files", 
+                                    value: "🎯 Tag File Format:\n\n# Basic Tags\nblonde hair\nbrown hair\nslim body\ncurvy figure\n\n# Prefix Styles (becomes purple tags)\nRealistic|photorealistic, detailed, high quality\nAnime|anime style, manga style, cel shaded\nOil Painting|oil painting, brush strokes, canvas\n\n# Negative Issues (becomes red tags)\nBlurry|blurry, out of focus, low quality\nDeformed|deformed, distorted, malformed\nBad Anatomy|bad anatomy, extra limbs, missing limbs\n\n💾 How to Create & Load:\n1. Create a .txt file using the format above\n2. Save your file with any name (e.g., 'my_tags.txt')\n3. Click the Browse button and select your file\n4. Categories with 'prefix' become purple style tags\n5. Categories with 'negative' become red negative tags\n\n📥 Download Ready-Made Collections:\nhttps://github.com/Quick-Vendz/promptr/tree/main/tags\n\n📚 Available Collections:\n• Female Character Tags\n• Male Character Tags\n• Couple (Heterosexual) Tags\n• Lesbian Couple Tags\n• Gay Couple Tags\n• Group/Multiple Character Tags\n\nSelect any collection from the dropdown above to start immediately!", 
+                                    type: "link"
+                                }
                             ]
                         }
                     ];
@@ -1020,6 +935,16 @@ Issue Name|negative,prompt,values
 
                 clearAllNegativePrefixes() {
                     this.selectedNegativePrefixes = [];
+                },
+
+                clearAllSelections() {
+                    this.selectedTags = [];
+                    this.selectedPrefixes = [];
+                    this.selectedNegatives = [];
+                    this.selectedNegativePrefixes = [];
+                    this.tagStrengths = {};
+                    // Note: We don't clear persisted state here, just current selections
+                    // The state will be auto-saved due to the watchers
                 },
 
                 getTagClass(tag) {
@@ -1168,6 +1093,62 @@ Issue Name|negative,prompt,values
                     setTimeout(() => {
                         this.negativeCopyFeedback = false;
                     }, 2000);
+                },
+
+                // Persistence methods for localStorage
+                loadPersistedState() {
+                    try {
+                        const saved = localStorage.getItem('promptGenerator_state');
+                        if (saved) {
+                            const state = JSON.parse(saved);
+                            this.selectedTags = state.selectedTags || [];
+                            this.selectedPrefixes = state.selectedPrefixes || [];
+                            this.selectedNegatives = state.selectedNegatives || [];
+                            this.selectedNegativePrefixes = state.selectedNegativePrefixes || [];
+                            this.tagStrengths = state.tagStrengths || {};
+                            this.selectedFile = state.selectedFile || 'tutorial';
+                            console.log('Loaded persisted state:', state);
+                        }
+                    } catch (error) {
+                        console.log('Error loading persisted state:', error);
+                    }
+                },
+
+                saveState() {
+                    try {
+                        const state = {
+                            selectedTags: this.selectedTags,
+                            selectedPrefixes: this.selectedPrefixes,
+                            selectedNegatives: this.selectedNegatives,
+                            selectedNegativePrefixes: this.selectedNegativePrefixes,
+                            tagStrengths: this.tagStrengths,
+                            selectedFile: this.selectedFile,
+                            timestamp: Date.now()
+                        };
+                        localStorage.setItem('promptGenerator_state', JSON.stringify(state));
+                        console.log('Saved state to localStorage');
+                    } catch (error) {
+                        console.log('Error saving state:', error);
+                    }
+                },
+
+                setupPersistence() {
+                    // Auto-save whenever tags change
+                    this.$watch('selectedTags', () => this.saveState());
+                    this.$watch('selectedPrefixes', () => this.saveState());
+                    this.$watch('selectedNegatives', () => this.saveState());
+                    this.$watch('selectedNegativePrefixes', () => this.saveState());
+                    this.$watch('tagStrengths', () => this.saveState());
+                    this.$watch('selectedFile', () => this.saveState());
+                },
+
+                clearPersistedState() {
+                    try {
+                        localStorage.removeItem('promptGenerator_state');
+                        console.log('Cleared persisted state');
+                    } catch (error) {
+                        console.log('Error clearing persisted state:', error);
+                    }
                 }
             }
         }
