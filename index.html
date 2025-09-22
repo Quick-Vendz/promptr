@@ -124,7 +124,7 @@ Issue Name|negative,prompt,values
                         <div class="flex items-start space-x-2">
                             <span class="bg-blue-700 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold mt-0.5">1</span>
                             <div>
-                                <strong>Select a tag collection:</strong> Use the dropdown above to choose Female, Male, Couple, or Group tags
+                                <strong>Select a tag collection:</strong> Use the dropdown above to choose a default tag collection
                             </div>
                         </div>
                         <div class="flex items-start space-x-2">
@@ -316,7 +316,7 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                                 <div>
                                     <p class="font-semibold text-blue-200">📚 Available Collections:</p>
                                     <ul class="mt-2 space-y-1 text-gray-300 list-disc list-inside">
-                                        <li>Example Tags Collection - demonstrates all features</li>
+                                        <li>Tag Types Example - demonstrates all features</li>
                                     </ul>
                                 </div>
                                 
@@ -363,7 +363,10 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                 </div>
                 
                 <div class="bg-gray-800 border border-gray-600 rounded-lg p-4 min-h-[150px] mb-4">
-                    <pre class="whitespace-pre-wrap text-gray-200 leading-relaxed" x-text="generatePrompt() || 'Your generated prompt will appear here...'"></pre>
+                    <div 
+                        class="whitespace-pre-wrap leading-relaxed" 
+                        x-html="generatePromptHTML() || '<span class=&quot;text-gray-400&quot;>Your generated prompt will appear here...</span>'"
+                    ></div>
                 </div>
                 
                 <!-- Copy Feedback -->
@@ -386,7 +389,7 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                         <h2 class="text-xl font-semibold text-red-300">Negative Prompt</h2>
                         <button 
                             @click="copyNegativePrompt()"
-                            class="flex items-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 text-sm"
+                            class="flex items-center px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-red-700 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 text-sm"
                         >
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
@@ -507,7 +510,7 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                         </span>
                     </template>
                     
-                    <div x-show="selectedTags.length === 0 && selectedPrefixes.length === 0" class="text-gray-500 text-sm py-2">
+                    <div x-show="selectedTags.length === 0" class="text-gray-500 text-sm py-2">
                         No tags selected. Click tags from the categories to add them.
                     </div>
                 </div>
@@ -534,7 +537,7 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                     <h2 class="text-lg font-semibold text-orange-300">Negative Tags</h2>
                     <button 
                         @click="clearAllNegatives()"
-                        class="text-sm text-orange-400 hover:text-orange-300 transition-colors"
+                        class="text-sm text-red-400 hover:text-orange-300 transition-colors"
                     >
                         Clear All
                     </button>
@@ -605,7 +608,7 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                         repo: 'promptr',                  // Your repository name
                         branch: 'main',                   // Your branch name
                         files: [
-                            { file: 'tags/example_tags.txt', name: '- Example Tags Collection' }
+                            { file: 'tags/tag_types_example.txt', name: '- tag type examples' }
                         ]
                     };
 
@@ -871,7 +874,7 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                     let currentCategory = null;
                     
                     // Skip duplicate checking for example tags file (tutorial purposes)
-                    const isExampleFile = this.selectedFile === 'tags/example_tags.txt';
+                    const isExampleFile = this.selectedFile === 'tags/tag_types_example.txt';
                     
                     // Track tags to detect duplicates within same purpose (positive vs negative)
                     const positiveTagValues = new Set(); // For normal and prefix tags
@@ -961,7 +964,7 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                     // Show warning if duplicates found (but not for example file)
                     if (!isExampleFile && duplicates.length > 0) {
                         const duplicateList = duplicates.map(d => `"${d.tag}" in "${d.category}" (${d.type})`).join('\n');
-                        alert(`⚠️ Duplicate tags detected!\n\nThe same tag appears multiple times within the same purpose:\n\n${duplicateList}\n\nNote: Tags can appear in both positive AND negative categories, but shouldn't be duplicated within the same purpose (positive or negative).`);
+                        alert(`⚠️ Duplicate tags detected!\n\nThe same tag appears multiple times within the same purpose:\n\n${duplicateList}\n\nNote: Tags can appear in both positive AND negative categories, but shouldn't be duplicated within the same purpose (positive or negative) as this will cause logic issues.`);
                     }
 
                     // Sort tags alphabetically only for categories with [a-z] keyword
@@ -1217,6 +1220,33 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                     return parts.join(', ');
                 },
 
+                generatePromptHTML() {
+                    const parts = [];
+                    
+                    // Add prefixes first (in purple)
+                    if (this.selectedPrefixes.length > 0) {
+                        const prefixParts = this.selectedPrefixes.map(tag => 
+                            `<span class="text-purple-400">${tag.value || tag}</span>`
+                        );
+                        parts.push(...prefixParts);
+                    }
+                    
+                    // Add normal tags with strength modifiers (in normal color)
+                    if (this.selectedTags.length > 0) {
+                        const tagParts = this.selectedTags.map(tag => {
+                            const tagKey = tag.value || tag;
+                            const strength = this.tagStrengths[tagKey] || 0;
+                            const value = tag.value || tag;
+                            const displayValue = strength === 1 ? `(${value})` : value;
+                            return `<span class="text-gray-200">${displayValue}</span>`;
+                        });
+                        parts.push(...tagParts);
+                    }
+                    
+                    // Ensure proper spacing: comma + space between tags
+                    return parts.join(', ');
+                },
+
                 generateNegativePrompt() {
                     const negatives = [];
                     
@@ -1226,6 +1256,7 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                     });
                     
                     if (negatives.length === 0) return '';
+                    // Ensure proper spacing: comma + space between tags
                     return negatives.join(', ');
                 },
 
