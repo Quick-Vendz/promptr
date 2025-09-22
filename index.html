@@ -354,34 +354,39 @@ Issue Name|negative,prompt,values
                             <p class="text-gray-300 text-sm mt-1">A: Tags maintain their original file order for consistency. This ensures your prompt always has the same structure regardless of click order.</p>
                         </div>
                         
-                        <div class="bg-gray-700 p-3 rounded">
+                        <!-- <div class="bg-gray-700 p-3 rounded">
                             <p class="font-medium text-yellow-300">Q: What's the difference between prefix, normal, and negative tags?</p>
                             <p class="text-gray-300 text-sm mt-1">A: <span class="text-purple-400">Prefix tags</span> appear first in your prompt (like art styles), <span class="text-blue-400">normal tags</span> are the main content, and <span class="text-orange-400">negative tags</span> go to a separate negative prompt to exclude unwanted elements.</p>
-                        </div>
+                        </div> -->
                         
-                        <div class="bg-gray-700 p-3 rounded">
+                        <!-- <div class="bg-gray-700 p-3 rounded">
                             <p class="font-medium text-yellow-300">Q: How do I emphasize important tags?</p>
                             <p class="text-gray-300 text-sm mt-1">A: Click the tag text (not the X) in the Selected Tags section to toggle emphasis. Emphasized tags get parentheses: (important tag)</p>
-                        </div>
+                        </div> -->
                         
-                        <div class="bg-gray-700 p-3 rounded">
+                        <!-- <div class="bg-gray-700 p-3 rounded">
                             <p class="font-medium text-yellow-300">Q: Can I have the same tag in both positive and negative categories?</p>
                             <p class="text-gray-300 text-sm mt-1">A: Yes! You might want "realistic" as a positive tag and "realistic" as a negative tag for different use cases. The app correctly handles this.</p>
-                        </div>
+                        </div> -->
                         
                         <div class="bg-gray-700 p-3 rounded">
                             <p class="font-medium text-yellow-300">Q: My selections disappeared when I refreshed the page!</p>
-                            <p class="text-gray-300 text-sm mt-1">A: Your selections auto-save! If they're missing, check if you're using private/incognito mode, or if localStorage is disabled. You can also manually clear saved data using the settings.</p>
+                            <p class="text-gray-300 text-sm mt-1">A: Your current selections auto-save in to local storage! If they're missing, check if you're using private/incognito mode, or if localStorage is disabled. You can also manually clear saved data using the settings.</p>
                         </div>
                         
-                        <div class="bg-gray-700 p-3 rounded">
+                        <!-- <div class="bg-gray-700 p-3 rounded">
                             <p class="font-medium text-yellow-300">Q: What does [a-z] in category names do?</p>
                             <p class="text-gray-300 text-sm mt-1">A: Adding [a-z] to a category name (like "Hair Colors [a-z]") sorts that category's tags alphabetically. Without it, tags stay in file order.</p>
-                        </div>
+                        </div> -->
                         
                         <div class="bg-gray-700 p-3 rounded">
                             <p class="font-medium text-yellow-300">Q: How do I reset everything?</p>
                             <p class="text-gray-300 text-sm mt-1">A: Use "Clear All" buttons for current selections, or open browser developer tools (F12) → Console → type: <code class="bg-gray-700 px-1 rounded">localStorage.clear()</code> → press Enter → refresh page.</p>
+                        </div>
+
+                        <div class="bg-gray-700 p-3 rounded">
+                            <p class="font-medium text-yellow-300">Q: Can I save my prompts?</p>
+                            <p class="text-gray-300 text-sm mt-1">A: Unfortunately, no. This is a limitation of the app as a serverless static site, which can't access or alter files/data without additional systems. If the project raises any interest, a fully functional app with accounts libraries and other features could be an option, but as of now there are no plans for this.</p>
                         </div>
                     </div>
                 </div>
