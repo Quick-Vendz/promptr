@@ -88,7 +88,12 @@ Issue Name|negative,prompt,values
                                 class="bg-gray-700 text-gray-100 border border-gray-600 rounded px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 flex-1"
                             >
                                 <template x-for="fileInfo in availableFiles" :key="fileInfo.file">
-                                    <option :value="fileInfo.file" x-text="fileInfo.isLocal ? '📁 ' + fileInfo.name : fileInfo.name"></option>
+                                    <option 
+                                        :value="fileInfo.file" 
+                                        :disabled="fileInfo.disabled"
+                                        :style="fileInfo.disabled ? 'color: #6b7280; background-color: #374151;' : ''"
+                                        x-text="fileInfo.isLocal && !fileInfo.isBuiltIn ? '📁 ' + fileInfo.name : fileInfo.name"
+                                    ></option>
                                 </template>
                             </select>
                             <button 
@@ -154,16 +159,16 @@ Issue Name|negative,prompt,values
                 <div x-show="selectedFile === 'tutorial'" class="border border-blue-600 rounded-lg overflow-hidden bg-blue-900">
                     <!-- Accordion Header -->
                     <button 
-                        @click="toggleCategory('📄 Creating Tag Files & Resources')"
+                        @click="toggleCategory('📄 Resources')"
                         class="w-full px-4 py-3 text-left bg-blue-700 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
                     >
                         <div class="flex items-center justify-between">
                             <div class="flex items-center space-x-2">
-                                <h3 class="font-semibold text-blue-100">📄 Creating Tag Files & Resources</h3>
+                                <h3 class="font-semibold text-blue-100">📄 Resources</h3>
                             </div>
                             <svg 
                                 class="w-5 h-5 text-blue-300 transform transition-transform duration-200"
-                                :class="openCategories.includes('📄 Creating Tag Files & Resources') ? 'rotate-180' : ''"
+                                :class="openCategories.includes('📄 Resources') ? 'rotate-180' : ''"
                                 fill="none" 
                                 stroke="currentColor" 
                                 viewBox="0 0 24 24"
@@ -176,7 +181,7 @@ Issue Name|negative,prompt,values
                     <!-- Accordion Content -->
                     <div 
                         class="overflow-hidden transition-all duration-300 ease-in-out bg-blue-800"
-                        :style="openCategories.includes('📄 Creating Tag Files & Resources') ? 'max-height: 500px;' : 'max-height: 0px;'"
+                        :style="openCategories.includes('📄 Resources') ? 'max-height: 500px;' : 'max-height: 0px;'"
                     >
                         <div class="p-4">
                             <div class="flex flex-wrap gap-2">
@@ -184,7 +189,7 @@ Issue Name|negative,prompt,values
                                     @click="showTutorialInfo()"
                                     class="px-3 py-1 text-sm rounded-full border bg-green-700 text-green-100 border-green-500 hover:bg-green-600 cursor-pointer transition-all duration-200 hover:shadow-md"
                                 >
-                                    📝 Complete Guide: Creating & Using Tag Files
+                                    📝 Creating & Using Tag Files
                                 </button>
                             </div>
                         </div>
@@ -273,64 +278,96 @@ Issue Name|negative,prompt,values
                 
                 <div class="space-y-4 text-sm text-gray-100">
                     <div>
-                        <h3 class="font-semibold text-blue-300 mb-2">📝 Complete Guide: Creating & Using Tag Files</h3>
+                        <h3 class="font-semibold text-blue-300 mb-2">📝 Creating & Using Tag Files</h3>
                         <div class="bg-gray-700 rounded-lg p-4">
-                            <div class="text-gray-200 space-y-4">
+                            <div class="text-gray-200 space-y-6">
+                                                                
+                                                            
+                                <!-- How to Create & Load -->
                                 <div>
-                                    <p class="font-semibold text-blue-200">🎯 Tag File Format:</p>
-                                    <pre class="text-sm mt-2 whitespace-pre-wrap bg-gray-800 p-3 rounded border text-green-300">
-# Basic Category (standard blue tags - file order preserved)
-blonde hair
-brown hair
-tag_example|multiple, values, here
-
-# Style Prefix [a-z] (purple tags - sorted alphabetically)
-Art Style|oil painting, detailed, masterpiece
-Photo Style|photorealistic, professional photography
-simple_style
-
-# Negative Issues (orange tags - file order preserved)
-Quality Problems|blurry, out of focus, low quality
-anatomical_issue
-Bad Anatomy|deformed, distorted, malformed</pre>
-                                    <p class="text-sm text-yellow-300 mt-2">💡 Visual Guide: <span class="border border-gray-400 px-2 py-1 rounded">Simple tags have solid borders</span> while <span class="border-2 border-dashed border-gray-400 px-2 py-1 rounded">multi-value tags have dashed borders</span></p>
-                                    <p class="text-sm text-cyan-300 mt-2">🎨 Category Colors: Standard = Blue, Prefix = Purple, Negative = Orange</p>
-                                    <p class="text-sm text-green-300 mt-2">📝 Sorting: Add [a-z] to category name for alphabetical sorting, otherwise tags keep file order</p>
+                                    <p class="font-semibold text-green-200">� Get Started:</p>
+                                    <div class="mt-2 space-y-2">
+                                        <div class="flex items-center space-x-2">
+                                            <a href="https://github.com/Quick-Vendz/promptr/blob/main/tags/template.txt" target="_blank" 
+                                               class="inline-block bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition-colors text-sm">
+                                                📄 Download Template File
+                                            </a>
+                                            <span class="text-gray-400 text-xs">- Copy this template and customize it</span>
+                                        </div>
+                                        <p class="text-gray-300 text-sm">The template includes examples and comments (lines starting with //) that explain everything!</p>
+                                    </div>
                                 </div>
                                 
+                                <!-- Quick Instructions -->
                                 <div>
-                                    <p class="font-semibold text-blue-200">💾 How to Create & Load:</p>
-                                    <ol class="mt-2 space-y-1 text-gray-300 list-decimal list-inside">
-                                        <li>Create a .txt file using the format above</li>
-                                        <li>Save your file with any name (e.g., 'my_tags.txt')</li>
-                                        <li>Click the Browse button and select your file</li>
-                                        <li>Simple tags (solid border) add one value to your prompt</li>
-                                        <li>Multi-value tags (dashed border) add multiple comma-separated values</li>
-                                        <li>Categories with 'prefix' in the name become purple tags</li>
-                                        <li>Categories with 'negative' in the name become orange tags</li>
-                                        <li>Add [a-z] to category name for alphabetical sorting</li>
-                                        <li>Categories without [a-z] keep the order from your file</li>
+                                    <p class="font-semibold text-blue-200">⚡ Quick Instructions:</p>
+                                    <ol class="mt-2 space-y-1 text-gray-300 list-decimal list-inside ml-4">
+                                        <li>Download the template file above</li>
+                                        <li>Edit it with your own tags and categories</li>
+                                        <li>Use the Browse button to load your file</li>
+                                        <li>Click tags to build your prompt!</li>
                                     </ol>
                                 </div>
-                                
+
+                                <!-- Download Links -->
                                 <div>
-                                    <p class="font-semibold text-blue-200">📚 Available Collections:</p>
-                                    <ul class="mt-2 space-y-1 text-gray-300 list-disc list-inside">
-                                        <li>Tag Types Example - demonstrates all features</li>
-                                    </ul>
+                                    <p class="font-semibold text-green-200">� Ready-Made Collections:</p>
+                                    <div class="mt-2 space-y-2">
+                                        <div class="flex items-center space-x-2">
+                                            <a href="https://github.com/Quick-Vendz/promptr/blob/main/tags/tag_types_example.txt" target="_blank" 
+                                               class="inline-block bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition-colors text-sm">
+                                                �️ Download template
+                                            </a>
+                                            <span class="text-gray-400 text-xs">- More collections coming soon!</span>
+                                        </div>
+                                    </div>
                                 </div>
                                 
-                                <div class="mt-4">
-                                    <a href="https://github.com/Quick-Vendz/promptr/tree/main/tags" target="_blank" 
-                                       class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
-                                        📥 Download Ready-Made Collections →
-                                    </a>
+                                <!-- FAQ Section -->
+                                <div>
+                                    <p class="font-semibold text-yellow-200">❓ Frequently Asked Questions:</p>
+                                    <div class="mt-2 space-y-3">
+                                        <div class="bg-gray-800 p-3 rounded">
+                                            <p class="font-medium text-yellow-300">Q: Why do my tags appear in a different order than I clicked them?</p>
+                                            <p class="text-gray-300 text-sm mt-1">A: Tags maintain their original file order for consistency. This ensures your prompt always has the same structure regardless of click order.</p>
+                                        </div>
+                                        
+                                        <div class="bg-gray-800 p-3 rounded">
+                                            <p class="font-medium text-yellow-300">Q: What's the difference between prefix, normal, and negative tags?</p>
+                                            <p class="text-gray-300 text-sm mt-1">A: <span class="text-purple-400">Prefix tags</span> appear first in your prompt (like art styles), <span class="text-blue-400">normal tags</span> are the main content, and <span class="text-orange-400">negative tags</span> go to a separate negative prompt to exclude unwanted elements.</p>
+                                        </div>
+                                        
+                                        <div class="bg-gray-800 p-3 rounded">
+                                            <p class="font-medium text-yellow-300">Q: How do I emphasize important tags?</p>
+                                            <p class="text-gray-300 text-sm mt-1">A: Click the tag text (not the X) in the Selected Tags section to toggle emphasis. Emphasized tags get parentheses: (important tag)</p>
+                                        </div>
+                                        
+                                        <div class="bg-gray-800 p-3 rounded">
+                                            <p class="font-medium text-yellow-300">Q: Can I have the same tag in both positive and negative categories?</p>
+                                            <p class="text-gray-300 text-sm mt-1">A: Yes! You might want "realistic" as a positive tag and "realistic" as a negative tag for different use cases. The app correctly handles this.</p>
+                                        </div>
+                                        
+                                        <div class="bg-gray-800 p-3 rounded">
+                                            <p class="font-medium text-yellow-300">Q: My selections disappeared when I refreshed the page!</p>
+                                            <p class="text-gray-300 text-sm mt-1">A: Your selections auto-save! If they're missing, check if you're using private/incognito mode, or if localStorage is disabled. You can also manually clear saved data using the settings.</p>
+                                        </div>
+                                        
+                                        <div class="bg-gray-800 p-3 rounded">
+                                            <p class="font-medium text-yellow-300">Q: What does [a-z] in category names do?</p>
+                                            <p class="text-gray-300 text-sm mt-1">A: Adding [a-z] to a category name (like "Hair Colors [a-z]") sorts that category's tags alphabetically. Without it, tags stay in file order.</p>
+                                        </div>
+                                        
+                                        <div class="bg-gray-800 p-3 rounded">
+                                            <p class="font-medium text-yellow-300">Q: How do I reset everything?</p>
+                                            <p class="text-gray-300 text-sm mt-1">A: Use "Clear All" buttons for current selections, or open browser developer tools (F12) → Console → type: <code class="bg-gray-700 px-1 rounded">localStorage.clear()</code> → press Enter → refresh page.</p>
+                                        </div>
+                                    </div>
                                 </div>
-                                
-                                <p class="text-blue-200 text-sm">Select any collection from the dropdown above to start immediately!</p>
                             </div>
                         </div>
                     </div>
+                    
+                    <p class="text-blue-200 text-sm">Select any collection from the dropdown above to start immediately!</p>
                 </div>
             </div>
 
@@ -575,6 +612,7 @@ Bad Anatomy|deformed, distorted, malformed</pre>
             return {
                 categories: [],
                 allTags: [], // Track all tags in original order
+                allTagsInFileOrder: [], // Track ALL tags (normal, prefix, negative) in file order
                 selectedTags: [],
                 selectedPrefixes: [],
                 selectedNegatives: [], // Track negative tags
@@ -608,16 +646,17 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                         repo: 'promptr',                  // Your repository name
                         branch: 'main',                   // Your branch name
                         files: [
-                            { file: 'tags/tag_types_example.txt', name: '- tag type examples' }
+                            { file: 'tags/tag_types_example.txt', name: '🎓 tag type examples' },
+                            { file: 'tags/template.txt', name: '📝 template file' }
                         ]
                     };
 
                     // Preserve any local files that were restored from persistence, but reset built-in files
                     const preservedLocalFiles = this.availableFiles.filter(f => f.isLocal && !f.isBuiltIn);
                     
+                    // Initialize with built-in files first
                     this.availableFiles = [
-                        { file: 'tutorial', name: 'Help & Guide', isLocal: false, isBuiltIn: true, content: null },
-                        ...preservedLocalFiles
+                        { file: 'tutorial', name: '📚 Help & Guide', isLocal: false, isBuiltIn: true, content: null },
                     ];
 
                     console.log('Trying to load files:', githubConfig.files);
@@ -664,15 +703,17 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                                     continue;
                                 }
 
+                                // Add as built-in file (these are from GitHub config)
                                 this.availableFiles.push({
                                     file: fileInfo.file,
                                     name: fileInfo.name,
                                     url: fileUrl,
                                     isGithub: isGithub,
-                                    isLocal: !isGithub && !fileInfo.file.startsWith('http'),
+                                    isLocal: false,
+                                    isBuiltIn: true,
                                     isCatbox: fileInfo.file.includes('catbox.moe')
                                 });
-                                console.log(`Added file to dropdown: ${fileInfo.name}`);
+                                console.log(`Added built-in file to dropdown: ${fileInfo.name}`);
                             } else {
                                 console.log(`Failed to load ${fileInfo.file}: HTTP ${response.status}`);
                             }
@@ -680,6 +721,14 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                             console.log(`Could not load ${fileInfo.file}:`, error);
                         }
                     }
+                    
+                    // Add separator if there are local files
+                    if (preservedLocalFiles.length > 0) {
+                        this.availableFiles.push({ file: 'separator', name: '──────────────', isLocal: false, isBuiltIn: true, disabled: true });
+                    }
+                    
+                    // Add preserved local files at the end
+                    this.availableFiles.push(...preservedLocalFiles);
 
                     console.log('File discovery complete. Available files:', this.availableFiles.map(f => f.name));
                     
@@ -695,6 +744,12 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                 },
 
                 async loadSelectedFile() {
+                    // Check if separator was selected (shouldn't happen but safety check)
+                    if (this.selectedFile === 'separator') {
+                        this.selectedFile = 'tutorial';
+                        return;
+                    }
+                    
                     // Note: We now preserve selections across file switches
                     // Users can manually clear if they want to start fresh
                     
@@ -767,6 +822,15 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                         
                         const existingIndex = this.availableFiles.findIndex(f => f.file === targetFileName);
                         if (existingIndex === -1) {
+                            // Check if we need to add separator
+                            const hasLocalFiles = this.availableFiles.some(f => f.isLocal && !f.isBuiltIn);
+                            const hasSeparator = this.availableFiles.some(f => f.file === 'separator');
+                            
+                            if (!hasLocalFiles && !hasSeparator) {
+                                // Add separator before first local file
+                                this.availableFiles.push({ file: 'separator', name: '──────────────', isLocal: false, isBuiltIn: true, disabled: true });
+                            }
+                            
                             this.availableFiles.push({ 
                                 file: targetFileName, 
                                 name: targetDisplayName,
@@ -868,9 +932,13 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                 },
 
                 parseCategories(text) {
-                    const lines = text.split('\n').filter(line => line.trim());
+                    const lines = text.split('\n')
+                        .map(line => line.trim())
+                        .filter(line => line && !line.startsWith('//')) // Filter out empty lines and comments
+                        .filter(line => line.trim());
                     const categories = [];
                     const allTags = [];
+                    const allTagsInFileOrder = []; // Track ALL tags in file order for proper sorting
                     let currentCategory = null;
                     
                     // Skip duplicate checking for example tags file (tutorial purposes)
@@ -955,6 +1023,7 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                             }
                             
                             currentCategory.tags.push(tag);
+                            allTagsInFileOrder.push(tag); // Track all tags in file order
                             if (currentCategory.type === 'normal') {
                                 allTags.push(tag);
                             }
@@ -981,6 +1050,7 @@ Bad Anatomy|deformed, distorted, malformed</pre>
 
                     this.categories = categories;
                     this.allTags = allTags;
+                    this.allTagsInFileOrder = allTagsInFileOrder; // Store all tags in file order
                 },
 
                 loadTutorial() {
@@ -1017,9 +1087,12 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                             this.selectedTags = this.selectedTags.filter(t => (t.value || t) !== tagKey);
                             delete this.tagStrengths[tagKey];
                         } else {
-                            // Add tag normally
+                            // Add tag normally - maintain file order
                             const newSelectedTags = [...this.selectedTags, tag];
-                            this.selectedTags = this.allTags.filter(t => newSelectedTags.find(st => (st.value || st) === (t.value || t)));
+                            // Sort selected tags according to their order in the file
+                            this.selectedTags = this.allTags.filter(t => 
+                                newSelectedTags.find(st => (st.value || st) === (t.value || t))
+                            );
                             this.tagStrengths[tagKey] = 0;
                         }
                     }
@@ -1059,6 +1132,11 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                     } else {
                         this.selectedPrefixes.push(tag);
                     }
+                    // Maintain file order - only for prefix tags
+                    this.selectedPrefixes = this.allTagsInFileOrder.filter(fileTag => 
+                        fileTag.type === 'prefix' && 
+                        this.selectedPrefixes.find(selectedTag => (selectedTag.value || selectedTag) === (fileTag.value || fileTag))
+                    );
                 },
 
                 toggleNegativeTag(tag) {
@@ -1068,6 +1146,11 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                     } else {
                         this.selectedNegatives.push(tag);
                     }
+                    // Maintain file order - only for negative tags
+                    this.selectedNegatives = this.allTagsInFileOrder.filter(fileTag => 
+                        fileTag.type === 'negative' && 
+                        this.selectedNegatives.find(selectedTag => (selectedTag.value || selectedTag) === (fileTag.value || fileTag))
+                    );
                 },
 
                 clearAllTags() {
@@ -1372,6 +1455,9 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                         // Also remove local files from availableFiles
                         this.availableFiles = this.availableFiles.filter(f => !f.isLocal);
                         
+                        // Remove separator since no local files remain
+                        this.availableFiles = this.availableFiles.filter(f => f.file !== 'separator');
+                        
                         // Reset to tutorial if current selection was a local file
                         const currentFile = this.availableFiles.find(f => f.file === this.selectedFile);
                         if (!currentFile) {
@@ -1388,6 +1474,12 @@ Bad Anatomy|deformed, distorted, malformed</pre>
                 removeLocalFile(fileName) {
                     // Remove from availableFiles
                     this.availableFiles = this.availableFiles.filter(f => f.file !== fileName);
+                    
+                    // Remove separator if no local files remain
+                    const hasLocalFiles = this.availableFiles.some(f => f.isLocal && !f.isBuiltIn);
+                    if (!hasLocalFiles) {
+                        this.availableFiles = this.availableFiles.filter(f => f.file !== 'separator');
+                    }
                     
                     // Switch to tutorial if the removed file was selected
                     if (this.selectedFile === fileName) {
