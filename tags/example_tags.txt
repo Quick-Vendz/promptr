@@ -1,0 +1,53 @@
+# Prefix (Model) [a-z]
+these | these_1, these_2, these_3
+are | are_1, are_2, are_3
+multi | multi_1, multi_2, multi_3
+tags | tag_1, tag_2, tag_3
+with | with_1, with_2, with_3,
+'prefix' | prefix_1, prefix_2, prefix_3
+in | in_1, in_2, in_3
+the | the_1, the_2, the_3
+category | category_1, category_2, category_3
+name | name_1, name_2, name_3
+
+# Prefix (Basic)
+these
+are
+basic
+tags
+with
+'prefix'
+in
+the
+category
+name
+
+# Basic
+these
+are 
+basic
+tags
+with 
+any name
+
+# Mixed
+basic | basic_1, basic_2, basic_3
+and
+multi | multi_1, multi_2, multi_3
+tags
+can | can_1, can_2, can_3
+be
+mixed | mixed_1, mixed_2, mixed_3
+
+# Negative tags
+negative
+in 
+the 
+category
+name
+will
+make
+it
+a
+negative
+prompt

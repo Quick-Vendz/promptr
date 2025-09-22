@@ -134,6 +134,48 @@ Issue Name|negative,prompt,values
             </div>
             
             <div class="p-6 space-y-4">
+                <!-- Tutorial Content (Static HTML) -->
+                <div x-show="selectedFile === 'tutorial'" class="border border-blue-600 rounded-lg overflow-hidden bg-blue-900">
+                    <!-- Accordion Header -->
+                    <button 
+                        @click="toggleCategory('📄 Creating Tag Files & Resources')"
+                        class="w-full px-4 py-3 text-left bg-blue-700 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+                    >
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-2">
+                                <h3 class="font-semibold text-blue-100">📄 Creating Tag Files & Resources</h3>
+                            </div>
+                            <svg 
+                                class="w-5 h-5 text-blue-300 transform transition-transform duration-200"
+                                :class="openCategories.includes('📄 Creating Tag Files & Resources') ? 'rotate-180' : ''"
+                                fill="none" 
+                                stroke="currentColor" 
+                                viewBox="0 0 24 24"
+                            >
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                    </button>
+                    
+                    <!-- Accordion Content -->
+                    <div 
+                        class="overflow-hidden transition-all duration-300 ease-in-out bg-blue-800"
+                        :style="openCategories.includes('📄 Creating Tag Files & Resources') ? 'max-height: 500px;' : 'max-height: 0px;'"
+                    >
+                        <div class="p-4">
+                            <div class="flex flex-wrap gap-2">
+                                <button
+                                    @click="showTutorialInfo()"
+                                    class="px-3 py-1 text-sm rounded-full border bg-green-700 text-green-100 border-green-500 hover:bg-green-600 cursor-pointer transition-all duration-200 hover:shadow-md"
+                                >
+                                    📝 Complete Guide: Creating & Using Tag Files
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Regular Categories (Dynamic) -->
                 <template x-for="category in categories" :key="category.name">
                     <div class="border border-gray-600 rounded-lg overflow-hidden bg-gray-750">
                         <!-- Accordion Header -->
@@ -148,8 +190,7 @@ Issue Name|negative,prompt,values
                                         x-show="getCategoryCount(category) > 0"
                                         class="px-2 py-1 text-xs rounded-full font-semibold"
                                         :class="category.type === 'prefix' ? 'bg-purple-500 text-white' : 
-                                               category.type === 'negative-prefix' ? 'bg-orange-500 text-white' :
-                                               category.type === 'negative' ? 'bg-red-500 text-white' : 
+                                               category.type === 'negative' ? 'bg-orange-500 text-white' : 
                                                'bg-blue-500 text-white'"
                                         x-text="getCategoryCount(category)"
                                     ></span>
@@ -191,30 +232,81 @@ Issue Name|negative,prompt,values
 
         <!-- Right Panel - Selected Tags and Prompt -->
         <div class="w-1/2 bg-gray-900 flex flex-col h-screen overflow-y-auto">
-            <!-- Tutorial Info Panel -->
-            <div class="bg-gray-800 border-b border-gray-700 p-6" x-show="showInfoPanel && currentInfoTag">
+            <!-- Tutorial Info Panel (Static HTML) -->
+            <div class="bg-gray-800 border-b border-gray-700 p-6" x-show="showInfoPanel">
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="text-lg font-semibold text-blue-300">📖 Tutorial Info</h2>
                     <button 
-                        @click="showInfoPanel = false; currentInfoTag = null"
-                        class="text-sm text-gray-400 hover:text-gray-300 transition-colors"
+                        @click="showInfoPanel = false"
+                        class="px-3 py-1 bg-gray-600 text-white rounded hover:bg-gray-700 transition-colors text-sm"
                     >
                         Close
                     </button>
                 </div>
                 
-                <div x-show="currentInfoTag" class="space-y-4 text-sm text-gray-100">
-                    <!-- Default info for tutorial tags -->
+                <div class="space-y-4 text-sm text-gray-100">
                     <div>
-                        <h3 class="font-semibold text-blue-300 mb-2" x-text="currentInfoTag.display"></h3>
+                        <h3 class="font-semibold text-blue-300 mb-2">📝 Complete Guide: Creating & Using Tag Files</h3>
                         <div class="bg-gray-700 rounded-lg p-4">
-                            <p x-text="currentInfoTag.value" class="text-gray-200"></p>
-                            <template x-if="currentInfoTag.type === 'link' && currentInfoTag.value.startsWith('https://')">
-                                <a :href="currentInfoTag.value" target="_blank" 
-                                   class="inline-block mt-3 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
-                                    Visit Link →
-                                </a>
-                            </template>
+                            <div class="text-gray-200 space-y-4">
+                                <div>
+                                    <p class="font-semibold text-blue-200">🎯 Tag File Format:</p>
+                                    <pre class="text-sm mt-2 whitespace-pre-wrap bg-gray-800 p-3 rounded border text-green-300">
+# Basic Category (standard blue tags - file order preserved)
+blonde hair
+brown hair
+tag_example|multiple, values, here
+
+# Style Prefix [a-z] (purple tags - sorted alphabetically)
+Art Style|oil painting, detailed, masterpiece
+Photo Style|photorealistic, professional photography
+simple_style
+
+# Negative Issues (orange tags - file order preserved)
+Quality Problems|blurry, out of focus, low quality
+anatomical_issue
+Bad Anatomy|deformed, distorted, malformed</pre>
+                                    <p class="text-sm text-yellow-300 mt-2">💡 Visual Guide: <span class="border border-gray-400 px-2 py-1 rounded">Simple tags have solid borders</span> while <span class="border-2 border-dashed border-gray-400 px-2 py-1 rounded">multi-value tags have dashed borders</span></p>
+                                    <p class="text-sm text-cyan-300 mt-2">🎨 Category Colors: Standard = Blue, Prefix = Purple, Negative = Orange</p>
+                                    <p class="text-sm text-green-300 mt-2">📝 Sorting: Add [a-z] to category name for alphabetical sorting, otherwise tags keep file order</p>
+                                </div>
+                                
+                                <div>
+                                    <p class="font-semibold text-blue-200">💾 How to Create & Load:</p>
+                                    <ol class="mt-2 space-y-1 text-gray-300 list-decimal list-inside">
+                                        <li>Create a .txt file using the format above</li>
+                                        <li>Save your file with any name (e.g., 'my_tags.txt')</li>
+                                        <li>Click the Browse button and select your file</li>
+                                        <li>Simple tags (solid border) add one value to your prompt</li>
+                                        <li>Multi-value tags (dashed border) add multiple comma-separated values</li>
+                                        <li>Categories with 'prefix' in the name become purple tags</li>
+                                        <li>Categories with 'negative' in the name become orange tags</li>
+                                        <li>Add [a-z] to category name for alphabetical sorting</li>
+                                        <li>Categories without [a-z] keep the order from your file</li>
+                                    </ol>
+                                </div>
+                                
+                                <div>
+                                    <p class="font-semibold text-blue-200">📚 Available Collections:</p>
+                                    <ul class="mt-2 space-y-1 text-gray-300 list-disc list-inside">
+                                        <li>Female Character Tags</li>
+                                        <li>Male Character Tags</li>
+                                        <li>Couple (Heterosexual) Tags</li>
+                                        <li>Lesbian Couple Tags</li>
+                                        <li>Gay Couple Tags</li>
+                                        <li>Group/Multiple Character Tags</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="mt-4">
+                                    <a href="https://github.com/Quick-Vendz/promptr/tree/main/tags" target="_blank" 
+                                       class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
+                                        📥 Download Ready-Made Collections →
+                                    </a>
+                                </div>
+                                
+                                <p class="text-blue-200 text-sm">Select any collection from the dropdown above to start immediately!</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -228,7 +320,7 @@ Issue Name|negative,prompt,values
                         <button 
                             @click="clearAllSelections()"
                             class="flex items-center px-3 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 text-sm"
-                            x-show="selectedTags.length > 0 || selectedPrefixes.length > 0 || selectedNegatives.length > 0 || selectedNegativePrefixes.length > 0"
+                            x-show="selectedTags.length > 0 || selectedPrefixes.length > 0 || selectedNegatives.length > 0"
                         >
                             <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
@@ -237,7 +329,7 @@ Issue Name|negative,prompt,values
                         </button>
                         <button 
                             @click="copyPrompt()"
-                            class="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            class="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                             x-show="generatePrompt().length > 0"
                         >
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -267,12 +359,12 @@ Issue Name|negative,prompt,values
                 </div>
 
                 <!-- Negative Prompt Section -->
-                <div x-show="generateNegativePrompt().length > 0 || selectedNegativePrefixes.length > 0" class="mb-6 mt-6">
+                <div x-show="generateNegativePrompt().length > 0" class="mb-6 mt-6">
                     <div class="flex items-center justify-between mb-4">
                         <h2 class="text-xl font-semibold text-red-300">Negative Prompt</h2>
                         <button 
                             @click="copyNegativePrompt()"
-                            class="flex items-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500"
+                            class="flex items-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 text-sm"
                         >
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
@@ -336,7 +428,8 @@ Issue Name|negative,prompt,values
                 <div class="flex flex-wrap gap-2">
                     <template x-for="tag in selectedPrefixes" :key="tag.display || tag">
                         <span 
-                            class="inline-flex items-center text-sm bg-purple-600 text-white border border-purple-600 rounded-full transition-colors"
+                            class="inline-flex items-center text-sm text-white rounded transition-colors"
+                            :class="getSelectedTagClass(tag)"
                         >
                             <span 
                                 class="px-3 py-1"
@@ -344,7 +437,8 @@ Issue Name|negative,prompt,values
                             ></span>
                             <button 
                                 @click="removeTag(tag)"
-                                class="pr-3 py-1 text-purple-200 hover:text-white"
+                                class="pr-3 py-1"
+                                :class="getButtonTextColor(tag)"
                             >
                                 <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
@@ -371,8 +465,8 @@ Issue Name|negative,prompt,values
                 <div class="flex flex-wrap gap-2">
                     <template x-for="tag in selectedTags" :key="tag.display || tag">
                         <span 
-                            class="inline-flex items-center text-sm text-white border rounded-full transition-colors"
-                            :class="tagStrengths[tag.value || tag] === 1 ? 'bg-green-600 border-green-600' : 'bg-blue-600 border-blue-600'"
+                            class="inline-flex items-center text-sm text-white rounded transition-colors"
+                            :class="getSelectedTagClass(tag)"
                         >
                             <span 
                                 @click="toggleTagStrength(tag)"
@@ -381,8 +475,8 @@ Issue Name|negative,prompt,values
                             ></span>
                             <button 
                                 @click="removeTag(tag)"
-                                class="pr-3 py-1 hover:text-white"
-                                :class="tagStrengths[tag.value || tag] === 1 ? 'text-green-200' : 'text-blue-200'"
+                                class="pr-3 py-1"
+                                :class="getButtonTextColor(tag)"
                             >
                                 <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
@@ -412,47 +506,13 @@ Issue Name|negative,prompt,values
                 </div>
             </div>
 
-            <!-- Negative Prefix Tags Section -->
-            <div class="bg-gray-800 border-b border-gray-700 p-6" x-show="selectedNegativePrefixes.length > 0 && selectedFile !== 'tutorial'">
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-lg font-semibold text-orange-300">Negative Prefix Tags</h2>
-                    <button 
-                        @click="clearAllNegativePrefixes()"
-                        class="text-sm text-red-400 hover:text-red-300 transition-colors"
-                    >
-                        Clear All
-                    </button>
-                </div>
-                
-                <div class="flex flex-wrap gap-2">
-                    <template x-for="tag in selectedNegativePrefixes" :key="tag.display || tag">
-                        <span 
-                            class="inline-flex items-center text-sm bg-orange-600 text-white border border-orange-600 rounded-full transition-colors"
-                        >
-                            <span 
-                                class="px-3 py-1"
-                                x-text="tag.display || tag"
-                            ></span>
-                            <button 
-                                @click="removeTag(tag)"
-                                class="pr-3 py-1 text-orange-200 hover:text-white"
-                            >
-                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                                </svg>
-                            </button>
-                        </span>
-                    </template>
-                </div>
-            </div>
-
             <!-- Negative Tags Section -->
             <div class="bg-gray-800 border-b border-gray-700 p-6" x-show="selectedNegatives.length > 0 && selectedFile !== 'tutorial'">
                 <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-lg font-semibold text-red-300">Negative Tags</h2>
+                    <h2 class="text-lg font-semibold text-orange-300">Negative Tags</h2>
                     <button 
                         @click="clearAllNegatives()"
-                        class="text-sm text-red-400 hover:text-red-300 transition-colors"
+                        class="text-sm text-orange-400 hover:text-orange-300 transition-colors"
                     >
                         Clear All
                     </button>
@@ -461,7 +521,8 @@ Issue Name|negative,prompt,values
                 <div class="flex flex-wrap gap-2">
                     <template x-for="tag in selectedNegatives" :key="tag.display || tag">
                         <span 
-                            class="inline-flex items-center text-sm bg-red-600 text-white border border-red-600 rounded-full transition-colors"
+                            class="inline-flex items-center text-sm text-white rounded transition-colors"
+                            :class="getSelectedTagClass(tag)"
                         >
                             <span 
                                 class="px-3 py-1"
@@ -469,7 +530,8 @@ Issue Name|negative,prompt,values
                             ></span>
                             <button 
                                 @click="removeTag(tag)"
-                                class="pr-3 py-1 text-red-200 hover:text-white"
+                                class="pr-3 py-1"
+                                :class="getButtonTextColor(tag)"
                             >
                                 <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
@@ -491,7 +553,7 @@ Issue Name|negative,prompt,values
                 selectedTags: [],
                 selectedPrefixes: [],
                 selectedNegatives: [],
-                selectedNegativePrefixes: [], // Track negative prefix-style tags
+                selectedNegatives: [], // Track negative tags
                 tagStrengths: {}, // Track tag strength levels (0=normal, 1=emphasized)
                 openCategories: [],
                 copyFeedback: false,
@@ -499,7 +561,6 @@ Issue Name|negative,prompt,values
                 selectedFile: 'prompt-data.txt', // Default file
                 availableFiles: [], // Will be populated by file discovery
                 showInfoPanel: false,
-                currentInfoTag: null,
 
                 async init() {
                     // Load persisted state before loading files
@@ -659,7 +720,6 @@ Issue Name|negative,prompt,values
                         this.selectedTags = [];
                         this.selectedPrefixes = [];
                         this.selectedNegatives = [];
-                        this.selectedNegativePrefixes = [];
                         this.tagStrengths = {};
                         
                         // Parse the file content
@@ -742,21 +802,25 @@ Issue Name|negative,prompt,values
                     lines.forEach(line => {
                         if (line.startsWith('#')) {
                             // Category header
+                            const categoryText = line.substring(1).trim();
+                            const shouldSort = categoryText.includes('[a-z]');
+                            const cleanName = categoryText.replace(/\[a-z\]/gi, '').trim();
+                            
                             currentCategory = {
-                                name: line.substring(1).trim(),
+                                name: cleanName,
                                 tags: [],
-                                type: 'normal' // default type
+                                type: 'normal', // default type
+                                sortAlphabetically: shouldSort
                             };
                             
                             // Check for special category types
                             const categoryName = currentCategory.name.toLowerCase();
-                            if (categoryName.includes('prefix') || categoryName.includes('style prefix')) {
+                            if (categoryName.includes('prefix')) {
                                 currentCategory.type = 'prefix';
-                            } else if (categoryName.includes('negative prefix') || categoryName.includes('negative common') || categoryName.includes('negative issues')) {
-                                currentCategory.type = 'negative-prefix';
                             } else if (categoryName.includes('negative')) {
                                 currentCategory.type = 'negative';
                             }
+                            // Default remains 'normal' for everything else
                             
                             categories.push(currentCategory);
                         } else if (currentCategory && line.trim()) {
@@ -769,13 +833,15 @@ Issue Name|negative,prompt,values
                                 tag = {
                                     display: displayName.trim(),
                                     value: actualPrompt.trim(),
-                                    type: currentCategory.type
+                                    type: currentCategory.type,
+                                    isMultiTag: true // Flag for visual differentiation
                                 };
                             } else {
                                 tag = {
                                     display: tagLine,
                                     value: tagLine,
-                                    type: currentCategory.type
+                                    type: currentCategory.type,
+                                    isMultiTag: false // Single tag
                                 };
                             }
                             
@@ -786,13 +852,16 @@ Issue Name|negative,prompt,values
                         }
                     });
 
-                    // Sort tags alphabetically within each category
+                    // Sort tags alphabetically only for categories with [a-z] keyword
                     categories.forEach(category => {
-                        category.tags.sort((a, b) => {
-                            const displayA = (a.display || a).toLowerCase();
-                            const displayB = (b.display || b).toLowerCase();
-                            return displayA.localeCompare(displayB);
-                        });
+                        if (category.sortAlphabetically) {
+                            category.tags.sort((a, b) => {
+                                const displayA = (a.display || a).toLowerCase();
+                                const displayB = (b.display || b).toLowerCase();
+                                return displayA.localeCompare(displayB);
+                            });
+                        }
+                        // Categories without [a-z] keep their original order from the file
                     });
 
                     this.categories = categories;
@@ -800,22 +869,14 @@ Issue Name|negative,prompt,values
                 },
 
                 loadTutorial() {
-                    this.categories = [
-                        {
-                            name: "📄 Creating Tag Files & Resources",
-                            type: "tutorial",
-                            tags: [
-                                { 
-                                    display: "📝 Complete Guide: Creating & Using Tag Files", 
-                                    value: "🎯 Tag File Format:\n\n# Basic Tags\nblonde hair\nbrown hair\nslim body\ncurvy figure\n\n# Prefix Styles (becomes purple tags)\nRealistic|photorealistic, detailed, high quality\nAnime|anime style, manga style, cel shaded\nOil Painting|oil painting, brush strokes, canvas\n\n# Negative Issues (becomes red tags)\nBlurry|blurry, out of focus, low quality\nDeformed|deformed, distorted, malformed\nBad Anatomy|bad anatomy, extra limbs, missing limbs\n\n💾 How to Create & Load:\n1. Create a .txt file using the format above\n2. Save your file with any name (e.g., 'my_tags.txt')\n3. Click the Browse button and select your file\n4. Categories with 'prefix' become purple style tags\n5. Categories with 'negative' become red negative tags\n\n📥 Download Ready-Made Collections:\nhttps://github.com/Quick-Vendz/promptr/tree/main/tags\n\n📚 Available Collections:\n• Female Character Tags\n• Male Character Tags\n• Couple (Heterosexual) Tags\n• Lesbian Couple Tags\n• Gay Couple Tags\n• Group/Multiple Character Tags\n\nSelect any collection from the dropdown above to start immediately!", 
-                                    type: "link"
-                                }
-                            ]
-                        }
-                    ];
-                    
-                    // Set allTags as empty for tutorial mode
+                    // Clear categories for tutorial mode
+                    this.categories = [];
                     this.allTags = [];
+                },
+
+                showTutorialInfo() {
+                    // Show the tutorial info panel
+                    this.showInfoPanel = true;
                 },
 
                 toggleCategory(categoryName) {
@@ -830,23 +891,8 @@ Issue Name|negative,prompt,values
                 addRemoveTag(tag) {
                     const tagKey = tag.value || tag;
                     
-                    // Handle tutorial mode differently
-                    if (tag.type === 'link') {
-                        // Show info panel for link tags, but don't auto-open
-                        this.currentInfoTag = tag;
-                        this.showInfoPanel = true;
-                        return;
-                    } else if (tag.type === 'info' || tag.type === 'tip' || tag.type === 'tech') {
-                        // Show info panel for tutorial info tags
-                        this.currentInfoTag = tag;
-                        this.showInfoPanel = true;
-                        return;
-                    }
-                    
                     if (tag.type === 'prefix') {
                         this.togglePrefixTag(tag);
-                    } else if (tag.type === 'negative-prefix') {
-                        this.toggleNegativePrefixTag(tag);
                     } else if (tag.type === 'negative') {
                         this.toggleNegativeTag(tag);
                     } else {
@@ -883,8 +929,6 @@ Issue Name|negative,prompt,values
                     
                     if (tag.type === 'prefix') {
                         this.selectedPrefixes = this.selectedPrefixes.filter(t => (t.value || t) !== tagKey);
-                    } else if (tag.type === 'negative-prefix') {
-                        this.selectedNegativePrefixes = this.selectedNegativePrefixes.filter(t => (t.value || t) !== tagKey);
                     } else if (tag.type === 'negative') {
                         this.selectedNegatives = this.selectedNegatives.filter(t => (t.value || t) !== tagKey);
                     } else {
@@ -899,15 +943,6 @@ Issue Name|negative,prompt,values
                         this.selectedPrefixes = this.selectedPrefixes.filter(t => (t.value || t) !== tagKey);
                     } else {
                         this.selectedPrefixes.push(tag);
-                    }
-                },
-
-                toggleNegativePrefixTag(tag) {
-                    const tagKey = tag.value || tag;
-                    if (this.selectedNegativePrefixes.find(t => (t.value || t) === tagKey)) {
-                        this.selectedNegativePrefixes = this.selectedNegativePrefixes.filter(t => (t.value || t) !== tagKey);
-                    } else {
-                        this.selectedNegativePrefixes.push(tag);
                     }
                 },
 
@@ -933,15 +968,10 @@ Issue Name|negative,prompt,values
                     this.selectedNegatives = [];
                 },
 
-                clearAllNegativePrefixes() {
-                    this.selectedNegativePrefixes = [];
-                },
-
                 clearAllSelections() {
                     this.selectedTags = [];
                     this.selectedPrefixes = [];
                     this.selectedNegatives = [];
-                    this.selectedNegativePrefixes = [];
                     this.tagStrengths = {};
                     // Note: We don't clear persisted state here, just current selections
                     // The state will be auto-saved due to the watchers
@@ -949,38 +979,46 @@ Issue Name|negative,prompt,values
 
                 getTagClass(tag) {
                     const tagKey = tag.value || tag;
+                    const isMultiTag = tag.isMultiTag;
+                    const borderStyle = isMultiTag ? 'border-2 border-dashed' : 'border';
                     
                     // Tutorial mode - different styles for different types
                     if (tag.type === 'info') {
-                        return 'bg-blue-700 text-blue-100 border-blue-500 cursor-default';
+                        return `bg-blue-700 text-blue-100 border-blue-500 cursor-default ${borderStyle}`;
                     } else if (tag.type === 'link') {
-                        return 'bg-green-700 text-green-100 border-green-500 hover:bg-green-600 cursor-pointer';
+                        return `bg-green-700 text-green-100 border-green-500 hover:bg-green-600 cursor-pointer ${borderStyle}`;
                     } else if (tag.type === 'tip') {
-                        return 'bg-yellow-700 text-yellow-100 border-yellow-500 cursor-default';
+                        return `bg-yellow-700 text-yellow-100 border-yellow-500 cursor-default ${borderStyle}`;
                     } else if (tag.type === 'tech') {
-                        return 'bg-gray-600 text-gray-100 border-gray-400 cursor-default';
+                        return `bg-gray-600 text-gray-100 border-gray-400 cursor-default ${borderStyle}`;
                     } else if (tag.type === 'prefix') {
-                        return this.selectedPrefixes.find(t => (t.value || t) === tagKey) 
-                            ? 'bg-purple-600 text-white border-purple-600' 
-                            : 'bg-gray-700 text-purple-300 border-purple-500 hover:border-purple-400 hover:bg-gray-600';
-                    } else if (tag.type === 'negative-prefix') {
-                        return this.selectedNegativePrefixes.find(t => (t.value || t) === tagKey)
-                            ? 'bg-orange-600 text-white border-orange-600'
-                            : 'bg-gray-700 text-orange-300 border-orange-500 hover:border-orange-400 hover:bg-gray-600';
+                        const isSelected = this.selectedPrefixes.find(t => (t.value || t) === tagKey);
+                        if (isSelected) {
+                            const borderColor = isMultiTag ? 'border-purple-300' : 'border-purple-600';
+                            return `bg-purple-600 text-white ${borderColor} ${borderStyle}`;
+                        } else {
+                            return `bg-gray-700 text-purple-300 border-purple-500 hover:border-purple-400 hover:bg-gray-600 ${borderStyle}`;
+                        }
                     } else if (tag.type === 'negative') {
-                        return this.selectedNegatives.find(t => (t.value || t) === tagKey)
-                            ? 'bg-red-600 text-white border-red-600'
-                            : 'bg-gray-700 text-red-300 border-red-500 hover:border-red-400 hover:bg-gray-600';
+                        const isSelected = this.selectedNegatives.find(t => (t.value || t) === tagKey);
+                        if (isSelected) {
+                            const borderColor = isMultiTag ? 'border-orange-300' : 'border-orange-600';
+                            return `bg-orange-600 text-white ${borderColor} ${borderStyle}`;
+                        } else {
+                            return `bg-gray-700 text-orange-300 border-orange-500 hover:border-orange-400 hover:bg-gray-600 ${borderStyle}`;
+                        }
                     } else {
                         const isSelected = this.selectedTags.find(t => (t.value || t) === tagKey);
                         const strength = this.tagStrengths[tagKey] || 0;
                         
                         if (!isSelected) {
-                            return 'bg-gray-700 text-gray-300 border-gray-500 hover:border-blue-400 hover:bg-gray-600';
+                            return `bg-gray-700 text-gray-300 border-gray-500 hover:border-blue-400 hover:bg-gray-600 ${borderStyle}`;
                         } else if (strength === 1) {
-                            return 'bg-green-600 text-white border-green-600'; // Emphasized
+                            const borderColor = isMultiTag ? 'border-green-300' : 'border-green-600';
+                            return `bg-green-600 text-white ${borderColor} ${borderStyle}`; // Emphasized
                         } else {
-                            return 'bg-blue-600 text-white border-blue-600'; // Normal selected
+                            const borderColor = isMultiTag ? 'border-blue-300' : 'border-blue-600';
+                            return `bg-blue-600 text-white ${borderColor} ${borderStyle}`; // Normal selected
                         }
                     }
                 },
@@ -988,17 +1026,36 @@ Issue Name|negative,prompt,values
                 getSelectedTagClass(tag) {
                     const tagKey = tag.value || tag;
                     const strength = this.tagStrengths[tagKey] || 0;
+                    const isMultiTag = tag.isMultiTag;
+                    const borderStyle = isMultiTag ? 'border-2 border-dashed' : 'border';
                     
                     if (tag.type === 'prefix') {
-                        return 'bg-purple-600 text-white border-purple-600';
-                    } else if (tag.type === 'negative-prefix') {
-                        return 'bg-orange-600 text-white border-orange-600';
+                        const borderColor = isMultiTag ? 'border-purple-300' : 'border-purple-600';
+                        return `bg-purple-600 text-white ${borderColor} ${borderStyle}`;
                     } else if (tag.type === 'negative') {
-                        return 'bg-red-600 text-white border-red-600';
+                        const borderColor = isMultiTag ? 'border-orange-300' : 'border-orange-600';
+                        return `bg-orange-600 text-white ${borderColor} ${borderStyle}`;
                     } else if (strength === 1) {
-                        return 'bg-green-600 text-white border-green-600'; // Emphasized
+                        const borderColor = isMultiTag ? 'border-green-300' : 'border-green-600';
+                        return `bg-green-600 text-white ${borderColor} ${borderStyle}`; // Emphasized
                     } else {
-                        return 'bg-blue-600 text-white border-blue-600'; // Normal
+                        const borderColor = isMultiTag ? 'border-blue-300' : 'border-blue-600';
+                        return `bg-blue-600 text-white ${borderColor} ${borderStyle}`; // Normal
+                    }
+                },
+
+                getButtonTextColor(tag) {
+                    const tagKey = tag.value || tag;
+                    const strength = this.tagStrengths[tagKey] || 0;
+                    
+                    if (tag.type === 'prefix') {
+                        return 'text-purple-200 hover:text-white';
+                    } else if (tag.type === 'negative') {
+                        return 'text-orange-200 hover:text-white';
+                    } else if (strength === 1) {
+                        return 'text-green-200 hover:text-white'; // Emphasized
+                    } else {
+                        return 'text-blue-200 hover:text-white'; // Normal
                     }
                 },
 
@@ -1043,12 +1100,7 @@ Issue Name|negative,prompt,values
                 generateNegativePrompt() {
                     const negatives = [];
                     
-                    // Add negative prefix tags (these contain multiple comma-separated values)
-                    this.selectedNegativePrefixes.forEach(tag => {
-                        negatives.push(tag.value || tag);
-                    });
-                    
-                    // Add individual negative tags
+                    // Add negative tags
                     this.selectedNegatives.forEach(tag => {
                         negatives.push(tag.value || tag);
                     });
@@ -1104,7 +1156,6 @@ Issue Name|negative,prompt,values
                             this.selectedTags = state.selectedTags || [];
                             this.selectedPrefixes = state.selectedPrefixes || [];
                             this.selectedNegatives = state.selectedNegatives || [];
-                            this.selectedNegativePrefixes = state.selectedNegativePrefixes || [];
                             this.tagStrengths = state.tagStrengths || {};
                             this.selectedFile = state.selectedFile || 'tutorial';
                             console.log('Loaded persisted state:', state);
@@ -1120,7 +1171,6 @@ Issue Name|negative,prompt,values
                             selectedTags: this.selectedTags,
                             selectedPrefixes: this.selectedPrefixes,
                             selectedNegatives: this.selectedNegatives,
-                            selectedNegativePrefixes: this.selectedNegativePrefixes,
                             tagStrengths: this.tagStrengths,
                             selectedFile: this.selectedFile,
                             timestamp: Date.now()
@@ -1137,9 +1187,14 @@ Issue Name|negative,prompt,values
                     this.$watch('selectedTags', () => this.saveState());
                     this.$watch('selectedPrefixes', () => this.saveState());
                     this.$watch('selectedNegatives', () => this.saveState());
-                    this.$watch('selectedNegativePrefixes', () => this.saveState());
                     this.$watch('tagStrengths', () => this.saveState());
-                    this.$watch('selectedFile', () => this.saveState());
+                    this.$watch('selectedFile', () => {
+                        this.saveState();
+                        // Close info panel when switching away from tutorial
+                        if (this.selectedFile !== 'tutorial') {
+                            this.showInfoPanel = false;
+                        }
+                    });
                 },
 
                 clearPersistedState() {
