@@ -771,16 +771,20 @@ Issue Name|negative,prompt,values
 
                     console.log('File discovery complete. Available files:', this.availableFiles.map(f => f.name));
                     
-                    // Set default file selection priority: main.txt > first selectable file > tutorial
-                    const mainFile = this.availableFiles.find(f => f.file === 'tags/main.txt');
-                    const firstSelectableFile = this.availableFiles.find(f => !f.disabled);
-                    
-                    if (mainFile) {
-                        this.selectedFile = mainFile.file;
-                    } else if (firstSelectableFile) {
-                        this.selectedFile = firstSelectableFile.file;
-                    } else {
-                        this.selectedFile = 'tutorial'; // fallback
+                    // Only set default file if no file was previously selected (persisted state)
+                    // This preserves user's last selected file on refresh
+                    if (!this.selectedFile || !this.availableFiles.find(f => f.file === this.selectedFile)) {
+                        // Set default file selection priority: main.txt > first selectable file > tutorial
+                        const mainFile = this.availableFiles.find(f => f.file === 'tags/main.txt');
+                        const firstSelectableFile = this.availableFiles.find(f => !f.disabled);
+                        
+                        if (mainFile) {
+                            this.selectedFile = mainFile.file;
+                        } else if (firstSelectableFile) {
+                            this.selectedFile = firstSelectableFile.file;
+                        } else {
+                            this.selectedFile = 'tutorial'; // fallback
+                        }
                     }
                     
                     // Load initial data
