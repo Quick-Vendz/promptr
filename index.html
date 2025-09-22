@@ -59,6 +59,12 @@ Issue Name|negative,prompt,values
             scrollbar-width: thin;
             scrollbar-color: #374151 #1f2937;
         }
+        
+        /* Disabled dropdown options */
+        option:disabled {
+            color: #6b7280 !important;
+            background-color: #374151 !important;
+        }
     </style>
 </head>
 <body class="bg-gray-900 min-h-screen text-gray-100">
@@ -91,7 +97,6 @@ Issue Name|negative,prompt,values
                                     <option 
                                         :value="fileInfo.file" 
                                         :disabled="fileInfo.disabled"
-                                        :style="fileInfo.disabled ? 'color: #6b7280; background-color: #374151;' : ''"
                                         x-text="fileInfo.isLocal && !fileInfo.isBuiltIn ? '📁 ' + fileInfo.name : fileInfo.name"
                                     ></option>
                                 </template>
@@ -147,7 +152,7 @@ Issue Name|negative,prompt,values
                         <div class="flex items-start space-x-2">
                             <span class="bg-blue-700 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold mt-0.5">4</span>
                             <div>
-                                <strong>Get help:</strong> Click any tutorial tag below for detailed information on the right
+                                <strong>Get help:</strong> Tutorials and info are provided below
                             </div>
                         </div>
                     </div>
@@ -190,6 +195,12 @@ Issue Name|negative,prompt,values
                                     class="px-3 py-1 text-sm rounded-full border bg-green-700 text-green-100 border-green-500 hover:bg-green-600 cursor-pointer transition-all duration-200 hover:shadow-md"
                                 >
                                     📝 Creating & Using Tag Files
+                                </button>
+                                <button
+                                    @click="showFAQInfo()"
+                                    class="px-3 py-1 text-sm rounded-full border bg-yellow-700 text-yellow-100 border-yellow-500 hover:bg-yellow-600 cursor-pointer transition-all duration-200 hover:shadow-md"
+                                >
+                                    ❓ FAQ
                                 </button>
                             </div>
                         </div>
@@ -267,7 +278,10 @@ Issue Name|negative,prompt,values
             <!-- Tutorial Info Panel (Static HTML) -->
             <div class="bg-gray-800 border-b border-gray-700 p-6" x-show="showInfoPanel">
                 <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-lg font-semibold text-blue-300">📖 Tutorial Info</h2>
+                    <h2 class="text-lg font-semibold" 
+                        :class="infoPanelType === 'faq' ? 'text-yellow-300' : 'text-blue-300'"
+                        x-text="infoPanelType === 'faq' ? '❓ Frequently Asked Questions' : '📖 Tutorial Info'">
+                    </h2>
                     <button 
                         @click="showInfoPanel = false"
                         class="px-3 py-1 bg-gray-600 text-white rounded hover:bg-gray-700 transition-colors text-sm"
@@ -276,7 +290,8 @@ Issue Name|negative,prompt,values
                     </button>
                 </div>
                 
-                <div class="space-y-4 text-sm text-gray-100">
+                <!-- Tutorial Content -->
+                <div class="space-y-4 text-sm text-gray-100" x-show="infoPanelType === 'tutorial'">
                     <div>
                         <h3 class="font-semibold text-blue-300 mb-2">📝 Creating & Using Tag Files</h3>
                         <div class="bg-gray-700 rounded-lg p-4">
@@ -294,7 +309,7 @@ Issue Name|negative,prompt,values
                                             </a>
                                             <span class="text-gray-400 text-xs">- Copy this template and customize it</span>
                                         </div>
-                                        <p class="text-gray-300 text-sm">The template includes examples and comments (lines starting with //) that explain everything!</p>
+                                        <p class="text-gray-300 text-sm"><i>The template includes examples and comments that explain everything!</i></p>
                                     </div>
                                 </div>
                                 
@@ -314,60 +329,61 @@ Issue Name|negative,prompt,values
                                     <p class="font-semibold text-green-200">� Ready-Made Collections:</p>
                                     <div class="mt-2 space-y-2">
                                         <div class="flex items-center space-x-2">
-                                            <a href="https://github.com/Quick-Vendz/promptr/blob/main/tags/tag_types_example.txt" target="_blank" 
+                                            <!-- <a href="https://github.com/Quick-Vendz/promptr/blob/main/tags/tag_types_example.txt" target="_blank" 
                                                class="inline-block bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition-colors text-sm">
                                                 �️ Download template
+                                            </a> -->
+                                            <a 
+                                               class="inline-block bg-neutral-600 text-white px-3 py-1 rounded text-sm cursor-not-allowed">
+                                                �️ Templates
                                             </a>
-                                            <span class="text-gray-400 text-xs">- More collections coming soon!</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- FAQ Section -->
-                                <div>
-                                    <p class="font-semibold text-yellow-200">❓ Frequently Asked Questions:</p>
-                                    <div class="mt-2 space-y-3">
-                                        <div class="bg-gray-800 p-3 rounded">
-                                            <p class="font-medium text-yellow-300">Q: Why do my tags appear in a different order than I clicked them?</p>
-                                            <p class="text-gray-300 text-sm mt-1">A: Tags maintain their original file order for consistency. This ensures your prompt always has the same structure regardless of click order.</p>
-                                        </div>
-                                        
-                                        <div class="bg-gray-800 p-3 rounded">
-                                            <p class="font-medium text-yellow-300">Q: What's the difference between prefix, normal, and negative tags?</p>
-                                            <p class="text-gray-300 text-sm mt-1">A: <span class="text-purple-400">Prefix tags</span> appear first in your prompt (like art styles), <span class="text-blue-400">normal tags</span> are the main content, and <span class="text-orange-400">negative tags</span> go to a separate negative prompt to exclude unwanted elements.</p>
-                                        </div>
-                                        
-                                        <div class="bg-gray-800 p-3 rounded">
-                                            <p class="font-medium text-yellow-300">Q: How do I emphasize important tags?</p>
-                                            <p class="text-gray-300 text-sm mt-1">A: Click the tag text (not the X) in the Selected Tags section to toggle emphasis. Emphasized tags get parentheses: (important tag)</p>
-                                        </div>
-                                        
-                                        <div class="bg-gray-800 p-3 rounded">
-                                            <p class="font-medium text-yellow-300">Q: Can I have the same tag in both positive and negative categories?</p>
-                                            <p class="text-gray-300 text-sm mt-1">A: Yes! You might want "realistic" as a positive tag and "realistic" as a negative tag for different use cases. The app correctly handles this.</p>
-                                        </div>
-                                        
-                                        <div class="bg-gray-800 p-3 rounded">
-                                            <p class="font-medium text-yellow-300">Q: My selections disappeared when I refreshed the page!</p>
-                                            <p class="text-gray-300 text-sm mt-1">A: Your selections auto-save! If they're missing, check if you're using private/incognito mode, or if localStorage is disabled. You can also manually clear saved data using the settings.</p>
-                                        </div>
-                                        
-                                        <div class="bg-gray-800 p-3 rounded">
-                                            <p class="font-medium text-yellow-300">Q: What does [a-z] in category names do?</p>
-                                            <p class="text-gray-300 text-sm mt-1">A: Adding [a-z] to a category name (like "Hair Colors [a-z]") sorts that category's tags alphabetically. Without it, tags stay in file order.</p>
-                                        </div>
-                                        
-                                        <div class="bg-gray-800 p-3 rounded">
-                                            <p class="font-medium text-yellow-300">Q: How do I reset everything?</p>
-                                            <p class="text-gray-300 text-sm mt-1">A: Use "Clear All" buttons for current selections, or open browser developer tools (F12) → Console → type: <code class="bg-gray-700 px-1 rounded">localStorage.clear()</code> → press Enter → refresh page.</p>
+                                            <span class="text-gray-400 text-xs">- coming soon!</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
-                    <p class="text-blue-200 text-sm">Select any collection from the dropdown above to start immediately!</p>
+                </div>
+
+                <!-- FAQ Content -->
+                <div class="space-y-4 text-sm text-gray-100" x-show="infoPanelType === 'faq'">
+                    <div class="space-y-3">
+                        <div class="bg-gray-700 p-3 rounded">
+                            <p class="font-medium text-yellow-300">Q: Why do my tags appear in a different order than I clicked them?</p>
+                            <p class="text-gray-300 text-sm mt-1">A: Tags maintain their original file order for consistency. This ensures your prompt always has the same structure regardless of click order.</p>
+                        </div>
+                        
+                        <div class="bg-gray-700 p-3 rounded">
+                            <p class="font-medium text-yellow-300">Q: What's the difference between prefix, normal, and negative tags?</p>
+                            <p class="text-gray-300 text-sm mt-1">A: <span class="text-purple-400">Prefix tags</span> appear first in your prompt (like art styles), <span class="text-blue-400">normal tags</span> are the main content, and <span class="text-orange-400">negative tags</span> go to a separate negative prompt to exclude unwanted elements.</p>
+                        </div>
+                        
+                        <div class="bg-gray-700 p-3 rounded">
+                            <p class="font-medium text-yellow-300">Q: How do I emphasize important tags?</p>
+                            <p class="text-gray-300 text-sm mt-1">A: Click the tag text (not the X) in the Selected Tags section to toggle emphasis. Emphasized tags get parentheses: (important tag)</p>
+                        </div>
+                        
+                        <div class="bg-gray-700 p-3 rounded">
+                            <p class="font-medium text-yellow-300">Q: Can I have the same tag in both positive and negative categories?</p>
+                            <p class="text-gray-300 text-sm mt-1">A: Yes! You might want "realistic" as a positive tag and "realistic" as a negative tag for different use cases. The app correctly handles this.</p>
+                        </div>
+                        
+                        <div class="bg-gray-700 p-3 rounded">
+                            <p class="font-medium text-yellow-300">Q: My selections disappeared when I refreshed the page!</p>
+                            <p class="text-gray-300 text-sm mt-1">A: Your selections auto-save! If they're missing, check if you're using private/incognito mode, or if localStorage is disabled. You can also manually clear saved data using the settings.</p>
+                        </div>
+                        
+                        <div class="bg-gray-700 p-3 rounded">
+                            <p class="font-medium text-yellow-300">Q: What does [a-z] in category names do?</p>
+                            <p class="text-gray-300 text-sm mt-1">A: Adding [a-z] to a category name (like "Hair Colors [a-z]") sorts that category's tags alphabetically. Without it, tags stay in file order.</p>
+                        </div>
+                        
+                        <div class="bg-gray-700 p-3 rounded">
+                            <p class="font-medium text-yellow-300">Q: How do I reset everything?</p>
+                            <p class="text-gray-300 text-sm mt-1">A: Use "Clear All" buttons for current selections, or open browser developer tools (F12) → Console → type: <code class="bg-gray-700 px-1 rounded">localStorage.clear()</code> → press Enter → refresh page.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -406,7 +422,7 @@ Issue Name|negative,prompt,values
                     ></div>
                 </div>
                 
-                <!-- Copy Feedback -->
+                <!-- Copy Feedback - Fixed Position Toast -->
                 <div 
                     x-show="copyFeedback"
                     x-transition:enter="transition ease-out duration-300"
@@ -415,7 +431,7 @@ Issue Name|negative,prompt,values
                     x-transition:leave="transition ease-in duration-200"
                     x-transition:leave-start="opacity-100 transform translate-y-0"
                     x-transition:leave-end="opacity-0 transform translate-y-2"
-                    class="mb-4 p-3 bg-green-900 text-green-200 rounded-lg text-sm"
+                    class="fixed top-4 right-4 z-50 p-3 bg-green-900 text-green-200 rounded-lg text-sm shadow-lg"
                 >
                     ✓ Prompt copied to clipboard!
                 </div>
@@ -439,7 +455,7 @@ Issue Name|negative,prompt,values
                         <pre class="whitespace-pre-wrap text-orange-200 leading-relaxed" x-text="generateNegativePrompt()"></pre>
                     </div>
                     
-                    <!-- Negative Copy Feedback -->
+                    <!-- Negative Copy Feedback - Fixed Position Toast -->
                     <div 
                         x-show="negativeCopyFeedback"
                         x-transition:enter="transition ease-out duration-300"
@@ -448,7 +464,7 @@ Issue Name|negative,prompt,values
                         x-transition:leave="transition ease-in duration-200"
                         x-transition:leave-start="opacity-100 transform translate-y-0"
                         x-transition:leave-end="opacity-0 transform translate-y-2"
-                        class="mt-4 p-3 bg-green-900 text-green-200 rounded-lg text-sm"
+                        class="fixed top-16 right-4 z-50 p-3 bg-green-900 text-green-200 rounded-lg text-sm shadow-lg"
                     >
                         ✓ Negative prompt copied to clipboard!
                     </div>
@@ -623,6 +639,7 @@ Issue Name|negative,prompt,values
                 selectedFile: 'prompt-data.txt', // Default file
                 availableFiles: [], // Will be populated by file discovery
                 showInfoPanel: false,
+                infoPanelType: 'tutorial', // Track which info panel to show: 'tutorial' or 'faq'
                 fileToReplace: null, // Track which file to replace when refreshing
 
                 async init() {
@@ -656,7 +673,7 @@ Issue Name|negative,prompt,values
                     
                     // Initialize with built-in files first
                     this.availableFiles = [
-                        { file: 'tutorial', name: '📚 Help & Guide', isLocal: false, isBuiltIn: true, content: null },
+                        { file: 'tutorial', name: '📚 Help & Guide', isLocal: false, isBuiltIn: true, content: null, disabled: false },
                     ];
 
                     console.log('Trying to load files:', githubConfig.files);
@@ -711,7 +728,8 @@ Issue Name|negative,prompt,values
                                     isGithub: isGithub,
                                     isLocal: false,
                                     isBuiltIn: true,
-                                    isCatbox: fileInfo.file.includes('catbox.moe')
+                                    isCatbox: fileInfo.file.includes('catbox.moe'),
+                                    disabled: false
                                 });
                                 console.log(`Added built-in file to dropdown: ${fileInfo.name}`);
                             } else {
@@ -732,8 +750,13 @@ Issue Name|negative,prompt,values
 
                     console.log('File discovery complete. Available files:', this.availableFiles.map(f => f.name));
                     
-                    // Set the first available file as selected
-                    this.selectedFile = this.availableFiles[0].file;
+                    // Set the first selectable file as selected (avoid separator)
+                    const firstSelectableFile = this.availableFiles.find(f => !f.disabled);
+                    if (firstSelectableFile) {
+                        this.selectedFile = firstSelectableFile.file;
+                    } else {
+                        this.selectedFile = 'tutorial'; // fallback
+                    }
                     
                     // Load initial data
                     if (this.selectedFile === 'tutorial') {
@@ -744,8 +767,11 @@ Issue Name|negative,prompt,values
                 },
 
                 async loadSelectedFile() {
+                    console.log('loadSelectedFile called with:', this.selectedFile);
+                    
                     // Check if separator was selected (shouldn't happen but safety check)
                     if (this.selectedFile === 'separator') {
+                        console.log('Separator selected, switching to tutorial');
                         this.selectedFile = 'tutorial';
                         return;
                     }
@@ -835,7 +861,8 @@ Issue Name|negative,prompt,values
                                 file: targetFileName, 
                                 name: targetDisplayName,
                                 content: text,
-                                isLocal: true 
+                                isLocal: true,
+                                disabled: false
                             });
                         } else {
                             // Update existing entry with new content
@@ -1061,6 +1088,13 @@ Issue Name|negative,prompt,values
 
                 showTutorialInfo() {
                     // Show the tutorial info panel
+                    this.infoPanelType = 'tutorial';
+                    this.showInfoPanel = true;
+                },
+
+                showFAQInfo() {
+                    // Show the FAQ info panel
+                    this.infoPanelType = 'faq';
                     this.showInfoPanel = true;
                 },
 
@@ -1399,7 +1433,9 @@ Issue Name|negative,prompt,values
                                 state.localFiles.forEach(localFile => {
                                     const existingIndex = this.availableFiles.findIndex(f => f.file === localFile.file);
                                     if (existingIndex === -1) {
-                                        this.availableFiles.push(localFile);
+                                        // Ensure disabled property is set correctly for restored files
+                                        const restoredFile = { ...localFile, disabled: false };
+                                        this.availableFiles.push(restoredFile);
                                     }
                                 });
                             }
